@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus / Mimir
+    type: prometheus
+    uid: b3c42aba-76e8-41e0-aa89-0b8edcfa929a
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+    jsonData:
+      httpMethod: POST
+      timeInterval: "15s"

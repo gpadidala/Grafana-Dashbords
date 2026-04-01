@@ -1,0 +1,39 @@
+services:
+  grafana:
+    image: grafana/grafana:11.6.4
+    container_name: grafana-executive-dashboards
+    ports:
+      - "3200:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/01-platform-ui-qos-executive.json
+      - GF_LOG_LEVEL=info
+      - GF_FEATURE_TOGGLES_ENABLE=
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./:/var/lib/grafana/dashboards:ro
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    restart: unless-stopped
+
+  # Prometheus with empty config — provides a valid datasource target
+  # so Grafana doesn't show datasource connection errors
+  prometheus:
+    image: prom/prometheus:v2.53.4
+    container_name: prometheus-stub
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./provisioning/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    restart: unless-stopped
+
+volumes:
+  grafana-storage:
