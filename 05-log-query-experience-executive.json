@@ -117,7 +117,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Percentage of log queries completing within the 2.0s SLO target over the last 30 minutes.",
       "fieldConfig": {
@@ -177,7 +177,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"2.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[30m])) * 100",
@@ -192,7 +192,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Service Level Objective: 95% of log queries must complete within 2.0 seconds.",
       "fieldConfig": {
@@ -244,7 +244,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "95",
@@ -259,7 +259,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Current rate of log query requests per second through the Grafana proxy layer.",
       "fieldConfig": {
@@ -310,7 +310,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[5m]))",
@@ -325,7 +325,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Remaining error budget as a percentage. When this reaches 0%, the SLO has been fully consumed for the 30-day window.",
       "fieldConfig": {
@@ -385,7 +385,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "((sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"2.0\"}[30d])) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[30d]))) - 0.95) / 0.05 * 100",
@@ -400,7 +400,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "95th percentile query latency. The SLO target is 2.0 seconds.",
       "fieldConfig": {
@@ -460,7 +460,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\"}[5m])) by (le))",
@@ -488,7 +488,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "30-day trend of the percentage of log queries completing within the 2.0s SLO target. The red threshold line marks the 95% SLO.",
       "fieldConfig": {
@@ -578,7 +578,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"2.0\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[1h])) * 100",
@@ -588,13 +588,13 @@
         }
       ],
       "timeFrom": "30d",
-      "title": "Log Query QoS \u2013 30 Day Trend",
+      "title": "Log Query QoS – 30 Day Trend",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "30-day trend of the 95th percentile query latency. The red threshold line marks the 2.0s SLO target.",
       "fieldConfig": {
@@ -682,7 +682,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\"}[1h])) by (le))",
@@ -692,7 +692,7 @@
         }
       ],
       "timeFrom": "30d",
-      "title": "P95 Query Latency \u2013 30 Day Trend",
+      "title": "P95 Query Latency – 30 Day Trend",
       "type": "timeseries"
     },
     {
@@ -711,7 +711,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Query latency distribution at P50, P90, P95, and P99 percentiles. The red threshold line marks the 2.0s SLO target.",
       "fieldConfig": {
@@ -860,7 +860,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.50, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\"}[5m])) by (le))",
@@ -871,7 +871,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.90, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\"}[5m])) by (le))",
@@ -882,7 +882,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\"}[5m])) by (le))",
@@ -893,7 +893,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.99, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\"}[5m])) by (le))",
@@ -908,7 +908,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Total log query request rate over time through the Grafana proxy layer.",
       "fieldConfig": {
@@ -991,7 +991,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[5m]))",
@@ -1019,7 +1019,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Rate at which the error budget is being consumed. Values above the 5% threshold line indicate the SLO is being violated at this moment.",
       "fieldConfig": {
@@ -1107,7 +1107,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "1 - (sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"2.0\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[1h])))",
@@ -1122,7 +1122,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Distribution of queries across latency tiers. Shows cumulative percentages: Fast (<=1s), Acceptable (<=2s SLO), and Slow (<=5s).",
       "fieldConfig": {
@@ -1231,7 +1231,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"1.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[30m])) * 100",
@@ -1242,7 +1242,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"2.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[30m])) * 100",
@@ -1253,7 +1253,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"5.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[30m])) * 100",
@@ -1281,7 +1281,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "QoS score broken down by individual proxy handler. Identifies which datasource proxy endpoints have the worst query performance.",
       "fieldConfig": {
@@ -1371,7 +1371,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"2.0\"}[1h])) by (handler) / sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[1h])) by (handler) * 100",
@@ -1395,7 +1395,26 @@
     "slo"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus / Mimir",
+          "value": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-24h",
@@ -1414,7 +1433,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Log Query Experience \u2013 Executive Overview",
+  "title": "Log Query Experience – Executive Overview",
   "uid": "log-query-exp-exec",
   "version": 1,
   "weekStart": ""

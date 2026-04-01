@@ -58,7 +58,12 @@
   "panels": [
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "id": 100,
       "panels": [],
       "title": "Executive Summary",
@@ -67,7 +72,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Percentage of write requests completing within the 0.5s SLO threshold over the last 30 minutes. Green >= 99%, Yellow >= 95%, Red < 95%.",
       "fieldConfig": {
@@ -80,16 +85,30 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 95 },
-              { "color": "green", "value": 99 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
       "id": 1,
       "options": {
         "colorMode": "background",
@@ -98,7 +117,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -111,7 +132,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[30m])) / sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) * 100",
@@ -127,7 +148,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Defined SLO target: 95% of all Loki write requests must complete within 0.5 seconds.",
       "fieldConfig": {
@@ -141,14 +162,22 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "blue", "value": null }
+              {
+                "color": "blue",
+                "value": null
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 3, "x": 6, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
       "id": 2,
       "options": {
         "colorMode": "background",
@@ -157,7 +186,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -170,7 +201,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "95",
@@ -186,7 +217,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Current total Loki write request rate across all clusters, measured over a 5-minute window.",
       "fieldConfig": {
@@ -200,14 +231,22 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "purple", "value": null }
+              {
+                "color": "purple",
+                "value": null
+              }
             ]
           },
           "unit": "reqps"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 5, "x": 9, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 9,
+        "y": 1
+      },
       "id": 3,
       "options": {
         "colorMode": "background",
@@ -216,7 +255,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -229,7 +270,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[5m]))",
@@ -245,7 +286,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Percentage of error budget remaining for the 30-day window. Error budget is the gap between actual performance and the 95% SLO target. Green >= 50%, Yellow >= 0%, Red < 0% (SLO breached).",
       "fieldConfig": {
@@ -258,16 +299,30 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 0 },
-              { "color": "green", "value": 50 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 5, "x": 14, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 14,
+        "y": 1
+      },
       "id": 4,
       "options": {
         "colorMode": "background",
@@ -276,7 +331,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -289,7 +346,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "((sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[30d])) / sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[30d]))) - 0.95) / 0.05 * 100",
@@ -305,7 +362,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "95th percentile write latency over the last 5 minutes. Lower is better. Green <= 0.3s, Yellow <= 0.5s, Red > 0.5s.",
       "fieldConfig": {
@@ -318,16 +375,30 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 0.3 },
-              { "color": "red", "value": 0.5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.3
+              },
+              {
+                "color": "red",
+                "value": 0.5
+              }
             ]
           },
           "unit": "s"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 5, "x": 19, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
       "id": 5,
       "options": {
         "colorMode": "background",
@@ -336,7 +407,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -349,7 +422,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(loki_write_request_duration_seconds_bucket[5m])) by (le))",
@@ -364,7 +437,12 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
       "id": 101,
       "panels": [],
       "title": "30-Day Trends",
@@ -373,7 +451,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Write QoS score (percentage of requests within 0.5s SLO) trended over the last 30 days using a 1-hour rate window. The red threshold line marks the 95% SLO target.",
       "fieldConfig": {
@@ -401,10 +479,15 @@
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line"
             }
@@ -416,20 +499,37 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 95 },
-              { "color": "green", "value": 99 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
       "id": 6,
       "options": {
         "legend": {
-          "calcs": ["mean", "min"],
+          "calcs": [
+            "mean",
+            "min"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -444,7 +544,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[1h])) / sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[1h])) * 100",
@@ -455,13 +555,13 @@
         }
       ],
       "timeFrom": "30d",
-      "title": "Loki Write QoS \u2013 30 Day Trend",
+      "title": "Loki Write QoS – 30 Day Trend",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "95th percentile write latency trended over the last 30 days using a 1-hour rate window. The red threshold line marks the 0.5s SLO boundary.",
       "fieldConfig": {
@@ -489,10 +589,15 @@
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line"
             }
@@ -503,20 +608,37 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 0.3 },
-              { "color": "red", "value": 0.5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.3
+              },
+              {
+                "color": "red",
+                "value": 0.5
+              }
             ]
           },
           "unit": "s"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
       "id": 7,
       "options": {
         "legend": {
-          "calcs": ["mean", "max"],
+          "calcs": [
+            "mean",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -531,7 +653,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(loki_write_request_duration_seconds_bucket[1h])) by (le))",
@@ -542,12 +664,17 @@
         }
       ],
       "timeFrom": "30d",
-      "title": "P95 Write Latency \u2013 30 Day Trend",
+      "title": "P95 Write Latency – 30 Day Trend",
       "type": "timeseries"
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
       "id": 102,
       "panels": [],
       "title": "Cluster Breakdown",
@@ -556,7 +683,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Write QoS score per cluster. Shows the percentage of write requests completing within 0.5s for each cluster. Green >= 99%, Yellow >= 95%, Red < 95%.",
       "fieldConfig": {
@@ -571,16 +698,30 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 95 },
-              { "color": "green", "value": 99 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 15 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
       "id": 8,
       "options": {
         "displayMode": "gradient",
@@ -590,7 +731,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -603,7 +746,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[30m])) by (cluster) / sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) by (cluster) * 100",
@@ -619,7 +762,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Write request rate broken down by cluster over time. Useful for identifying load distribution and traffic patterns across clusters.",
       "fieldConfig": {
@@ -647,10 +790,15 @@
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "off"
             }
@@ -661,18 +809,29 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "unit": "reqps"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 15 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
       "id": 9,
       "options": {
         "legend": {
-          "calcs": ["mean", "max"],
+          "calcs": [
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -687,7 +846,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[5m])) by (cluster)",
@@ -702,7 +861,12 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
       "id": 103,
       "panels": [],
       "title": "Reliability",
@@ -711,7 +875,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Rate at which error budget is being consumed. Values above the 0.05 threshold line indicate the SLO is being violated at that point in time. Sustained burn above threshold will exhaust the error budget.",
       "fieldConfig": {
@@ -739,10 +903,15 @@
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line"
             }
@@ -753,19 +922,33 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "red", "value": 0.05 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.05
+              }
             ]
           },
           "unit": "percentunit"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
       "id": 10,
       "options": {
         "legend": {
-          "calcs": ["mean", "max"],
+          "calcs": [
+            "mean",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -780,7 +963,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "1 - (sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[1h])) / sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[1h])))",
@@ -796,7 +979,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Write latency distribution showing P50, P90, P95, and P99 quantiles. Provides a full picture of the latency spectrum to identify tail-latency issues.",
       "fieldConfig": {
@@ -824,10 +1007,15 @@
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line"
             }
@@ -838,19 +1026,33 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "red", "value": 0.5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.5
+              }
             ]
           },
           "unit": "s"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 24 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
       "id": 11,
       "options": {
         "legend": {
-          "calcs": ["mean", "max"],
+          "calcs": [
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -865,7 +1067,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.50, sum(rate(loki_write_request_duration_seconds_bucket[5m])) by (le))",
@@ -877,7 +1079,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.90, sum(rate(loki_write_request_duration_seconds_bucket[5m])) by (le))",
@@ -889,7 +1091,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(loki_write_request_duration_seconds_bucket[5m])) by (le))",
@@ -901,7 +1103,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.99, sum(rate(loki_write_request_duration_seconds_bucket[5m])) by (le))",
@@ -926,7 +1128,26 @@
     "slo"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus / Mimir",
+          "value": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-24h",
@@ -934,7 +1155,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Platform Write QoS \u2013 Loki (Executive)",
+  "title": "Platform Write QoS – Loki (Executive)",
   "uid": "loki-write-qos-exec",
   "version": 1
 }

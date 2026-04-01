@@ -16,7 +16,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+          "uid": "${datasource}"
         },
         "enable": true,
         "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) * 100 < 95",
@@ -53,7 +53,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Current SLO compliance: percentage of UI requests completing within 1.0 second over the last 30 minutes. Target: 95%.",
       "fieldConfig": {
@@ -112,7 +112,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) * 100",
@@ -129,7 +129,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "The SLO target for UI request latency. 95% of all requests must complete within 1.0 second.",
       "fieldConfig": {
@@ -181,7 +181,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "95",
@@ -198,7 +198,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Total incoming UI request rate across all handlers, measured over a 5-minute window.",
       "fieldConfig": {
@@ -250,7 +250,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[5m]))",
@@ -267,7 +267,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Remaining error budget for the current 30-day window. Calculated as: (actual_slo - target_slo) / (1 - target_slo) * 100. Values above 0% mean the SLO is being met; negative values indicate budget exhaustion.",
       "fieldConfig": {
@@ -326,7 +326,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "((sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30d])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30d]))) - 0.95) / 0.05 * 100",
@@ -343,7 +343,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "95th percentile request latency across all UI handlers. Requests at or below this value represent 95% of all traffic. SLO threshold: 1.0s.",
       "fieldConfig": {
@@ -402,7 +402,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket[5m])) by (le))",
@@ -432,7 +432,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Percentage of UI requests completing within 1.0 second over the past 30 days. The red dashed line indicates the 95% SLO target. Sustained dips below this line indicate SLO breaches.",
       "fieldConfig": {
@@ -521,7 +521,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[1h])) * 100",
@@ -531,14 +531,14 @@
         }
       ],
       "timeFrom": "30d",
-      "title": "UI QoS \u2013 30 Day Trend",
+      "title": "UI QoS – 30 Day Trend",
       "transparent": true,
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "95th percentile request latency over the past 30 days. The red dashed line at 1.0s represents the SLO latency budget. Spikes above this line indicate periods where the slowest 5% of requests exceeded the latency target.",
       "fieldConfig": {
@@ -626,7 +626,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket[1h])) by (le))",
@@ -636,7 +636,7 @@
         }
       ],
       "timeFrom": "30d",
-      "title": "P95 Latency \u2013 30 Day Trend",
+      "title": "P95 Latency – 30 Day Trend",
       "transparent": true,
       "type": "timeseries"
     },
@@ -656,7 +656,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "SLO compliance broken down by API handler. Shows which handlers are meeting the 95% target and which are lagging. Useful for identifying specific endpoints that degrade overall QoS.",
       "fieldConfig": {
@@ -719,7 +719,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30m])) by (handler) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) by (handler) * 100",
@@ -736,7 +736,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Request throughput per API handler over time. Identifies which endpoints carry the most traffic and helps correlate volume spikes with latency degradation.",
       "fieldConfig": {
@@ -819,7 +819,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[5m])) by (handler)",
@@ -848,7 +848,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Rate at which error budget is being consumed over time. Values above the 0.05 (5%) threshold line indicate the error budget is being burned faster than sustainable. Prolonged periods above threshold will exhaust the monthly error budget.",
       "fieldConfig": {
@@ -935,7 +935,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "1 - (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[1h])))",
@@ -951,7 +951,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        "uid": "${datasource}"
       },
       "description": "Latency distribution across key percentiles (P50, P90, P95, P99) over time. P50 represents the median user experience. P95 is the SLO-tracked percentile. P99 reveals tail latency affecting the worst-case user experience.",
       "fieldConfig": {
@@ -1095,7 +1095,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.50, sum(rate(grafana_http_request_duration_seconds_bucket[5m])) by (le))",
@@ -1106,7 +1106,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.90, sum(rate(grafana_http_request_duration_seconds_bucket[5m])) by (le))",
@@ -1117,7 +1117,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket[5m])) by (le))",
@@ -1128,7 +1128,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.99, sum(rate(grafana_http_request_duration_seconds_bucket[5m])) by (le))",
@@ -1151,7 +1151,26 @@
     "slo"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus / Mimir",
+          "value": "b3c42aba-76e8-41e0-aa89-0b8edcfa929a"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-24h",
@@ -1170,7 +1189,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Platform UI QoS \u2013 Executive Overview",
+  "title": "Platform UI QoS – Executive Overview",
   "uid": "platform-ui-qos-exec",
   "version": 1,
   "weekStart": ""
