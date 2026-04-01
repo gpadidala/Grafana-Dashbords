@@ -378,48 +378,75 @@ Multi-window burn rates (5m, 30m, 1h, 6h) detect both fast incidents and slow de
 
 ```
 Grafana-Dashbords/
-├── 01-platform-ui-qos-executive.json          # QoS Executive
-├── 02-loki-write-qos-executive.json
-├── 03-mimir-write-qos-executive.json
-├── 04-mimir-read-qos-executive.json
-├── 05-log-query-experience-executive.json
-├── 06-lgtm-stack-health-overview.json         # Deep Dive Operations
-├── 07-mimir-deep-dive.json
-├── 08-loki-deep-dive.json
-├── 09-tempo-deep-dive.json
-├── 10-pyroscope-deep-dive.json
-├── 11-cross-stack-capacity-planning.json
-├── 12-multi-tenant-analytics.json
-├── 13-slo-error-budget-burn.json
-├── 14-grafana-admin-command-center.json        # Grafana Admin
-├── 15-grafana-access-security-analytics.json
-├── 16-grafana-db-performance-deep-dive.json
-├── 17-ceo-platform-executive-summary.json      # C-Suite Premium
-├── 18-sla-business-impact-report.json
-├── 19-risk-incident-intelligence.json
-├── 20-loki-ingestion-analytics.json            # Ingestion Analytics
-├── 21-mimir-ingestion-analytics.json
-├── 22-tempo-ingestion-analytics.json
-├── 23-pyroscope-ingestion-analytics.json
-├── 24-cross-signal-volume-analytics.json       # Advanced Analytics
-├── 25-service-dependency-health-matrix.json
-├── 26-predictive-capacity-forecasting.json
-├── 27-grafana-user-activity-analytics.json
-├── 28-anomaly-detection-outliers.json
-├── 29-loki-admin-errors-operations.json        # Admin Error & Operations
-├── 30-mimir-admin-errors-operations.json
-├── 31-tempo-admin-errors-operations.json
-├── 32-pyroscope-admin-errors-operations.json
-├── 33-grafana-admin-errors-operations.json
-├── docker-compose.yml                          # Infrastructure
-├── provisioning/
+│
+├── grafana/                                    # Grafana UI & Admin (6 dashboards)
+│   ├── 01-platform-ui-qos-executive.json         Platform UI QoS
+│   ├── 14-grafana-admin-command-center.json       Admin Command Center
+│   ├── 15-grafana-access-security-analytics.json  Access & Security
+│   ├── 16-grafana-db-performance-deep-dive.json   DB & Performance
+│   ├── 27-grafana-user-activity-analytics.json    User Activity & Audit
+│   └── 33-grafana-admin-errors-operations.json    Errors & API Health
+│
+├── loki/                                       # Loki Log Platform (5 dashboards)
+│   ├── 02-loki-write-qos-executive.json          Write QoS
+│   ├── 05-log-query-experience-executive.json     Log Query Experience
+│   ├── 08-loki-deep-dive.json                     Deep Dive Operations
+│   ├── 20-loki-ingestion-analytics.json           Ingestion & Volume
+│   └── 29-loki-admin-errors-operations.json       Errors & Rejections
+│
+├── mimir/                                      # Mimir Metrics Platform (5 dashboards)
+│   ├── 03-mimir-write-qos-executive.json          Write QoS
+│   ├── 04-mimir-read-qos-executive.json           Read QoS
+│   ├── 07-mimir-deep-dive.json                    Deep Dive Operations
+│   ├── 21-mimir-ingestion-analytics.json          Ingestion & Cardinality
+│   └── 30-mimir-admin-errors-operations.json      Errors & Rejections
+│
+├── tempo/                                      # Tempo Tracing Platform (3 dashboards)
+│   ├── 09-tempo-deep-dive.json                    Deep Dive Operations
+│   ├── 22-tempo-ingestion-analytics.json          Trace Ingestion
+│   └── 31-tempo-admin-errors-operations.json      Errors & Rejections
+│
+├── pyroscope/                                  # Pyroscope Profiling (3 dashboards)
+│   ├── 10-pyroscope-deep-dive.json                Deep Dive Operations
+│   ├── 23-pyroscope-ingestion-analytics.json      Profile Ingestion
+│   └── 32-pyroscope-admin-errors-operations.json  Errors & Rejections
+│
+├── platform/                                   # Cross-Stack & Executive (11 dashboards)
+│   ├── 06-lgtm-stack-health-overview.json         LGTM Stack Health
+│   ├── 11-cross-stack-capacity-planning.json      Capacity Planning
+│   ├── 12-multi-tenant-analytics.json             Multi-Tenant Analytics
+│   ├── 13-slo-error-budget-burn.json              SLO Error Budget Burn
+│   ├── 17-ceo-platform-executive-summary.json     CEO Executive Summary
+│   ├── 18-sla-business-impact-report.json         SLA Business Impact
+│   ├── 19-risk-incident-intelligence.json         Risk Intelligence
+│   ├── 24-cross-signal-volume-analytics.json      Cross-Signal Volume
+│   ├── 25-service-dependency-health-matrix.json   Service Health Matrix
+│   ├── 26-predictive-capacity-forecasting.json    Predictive Forecasting
+│   └── 28-anomaly-detection-outliers.json         Anomaly Detection
+│
+├── provisioning/                               # Grafana auto-provisioning
 │   ├── datasources/datasources.yml
 │   ├── dashboards/dashboards.yml
 │   └── prometheus.yml
-├── validate-dashboards.sh                      # Validation
-├── validate.py
+│
+├── docker-compose.yml                          # Grafana 11.6.4 + Prometheus + Renderer
+├── validate-dashboards.sh                      # Validation entrypoint
+├── validate.py                                 # 6-phase validation suite
 └── README.md
 ```
+
+### Folder → Grafana Folder Mapping
+
+When deployed via Docker Compose, dashboards auto-provision into **Grafana folders** matching the directory structure:
+
+| Directory | Grafana Folder | Dashboards |
+|-----------|---------------|------------|
+| `grafana/` | Grafana | 6 |
+| `loki/` | Loki | 5 |
+| `mimir/` | Mimir | 5 |
+| `tempo/` | Tempo | 3 |
+| `pyroscope/` | Pyroscope | 3 |
+| `platform/` | Platform & Executive | 11 |
 
 ---
 

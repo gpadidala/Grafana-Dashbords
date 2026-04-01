@@ -81,7 +81,7 @@ def main():
     args = parser.parse_args()
 
     dash_dir = Path(args.dashboard_dir)
-    json_files = sorted(dash_dir.glob("*.json"))
+    json_files = sorted(dash_dir.glob("*.json")) + sorted(dash_dir.glob("**/*.json"))
 
     print()
     print(f"{BLUE}{'═' * 62}{NC}")
