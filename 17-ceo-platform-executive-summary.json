@@ -775,9 +775,9 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "transparent", "value": null },
-              { "color": "rgba(255,176,32,0.1)", "value": 1.0 },
-              { "color": "rgba(255,71,87,0.15)", "value": 2.0 }
+              { "color": "#73BF69", "value": null },
+              { "color": "#FFB020", "value": 1.0 },
+              { "color": "#FF4757", "value": 2.0 }
             ]
           },
           "mappings": []

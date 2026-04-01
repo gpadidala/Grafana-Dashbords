@@ -66,7 +66,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "$datasource" },
-          "expr": "100 * (\n  sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\"/api/v1/push|api/prom/push\", le=\"0.5\"}[$__rate_interval]))\n  /\n  sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\"/api/v1/push|api/prom/push\"}[$__rate_interval]))\n)",
+          "expr": "100 * (\n  sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\"/api/v1/push|api/prom/push\", le=\"0.5\"}[$__rate_interval]))\n  /\n  sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\"/api/v1/push|api/prom/push\", le=\"+Inf\"}[$__rate_interval]))\n)",
           "legendFormat": "Write QoS",
           "refId": "A"
         }
@@ -113,7 +113,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "$datasource" },
-          "expr": "100 * (\n  sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\".*query.*\", le=\"1.0\"}[$__rate_interval]))\n  /\n  sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\".*query.*\"}[$__rate_interval]))\n)",
+          "expr": "100 * (\n  sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\".*query.*\", le=\"1.0\"}[$__rate_interval]))\n  /\n  sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", stack=~\"$stack\", namespace=~\"$namespace\", route=~\".*query.*\", le=\"+Inf\"}[$__rate_interval]))\n)",
           "legendFormat": "Read QoS",
           "refId": "A"
         }
