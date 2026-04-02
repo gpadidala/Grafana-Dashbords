@@ -66,3 +66,14 @@ providers:
       path: /var/lib/grafana/dashboards/platform
       foldersFromFilesStructure: false
     folder: "Platform & Executive"
+
+  - name: "Observability KPI"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/observability-kpi
+      foldersFromFilesStructure: false
+    folder: "Observability KPI"
