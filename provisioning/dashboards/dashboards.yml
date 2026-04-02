@@ -77,3 +77,14 @@ providers:
       path: /var/lib/grafana/dashboards/observability-kpi
       foldersFromFilesStructure: false
     folder: "Observability KPI"
+
+  - name: "Volume Analytics"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/volume
+      foldersFromFilesStructure: false
+    folder: "Volume Analytics"
