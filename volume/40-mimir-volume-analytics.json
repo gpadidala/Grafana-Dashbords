@@ -27,7 +27,10 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Single Pane of Glass"
+      "tooltip": "Single Pane of Glass",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "⬆ L0 Command Center",
@@ -35,42 +38,60 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Executive Command Center"
+      "tooltip": "Executive Command Center",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Volume Summary",
       "url": "/d/cross-stack-volume-summary",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Grafana Volume",
       "url": "/d/grafana-volume-analytics",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Loki Volume",
       "url": "/d/loki-volume-analytics",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Tempo Volume",
       "url": "/d/tempo-volume-analytics",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Pyroscope Volume",
       "url": "/d/pyroscope-volume-analytics",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     }
   ],
   "liveNow": false,

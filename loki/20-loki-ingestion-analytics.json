@@ -61,7 +61,10 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Single Pane of Glass"
+      "tooltip": "Single Pane of Glass",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "⬆ L0 Command Center",
@@ -69,77 +72,110 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Executive Command Center"
+      "tooltip": "Executive Command Center",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Loki Write QoS",
       "url": "/d/loki-write-qos-exec",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Log Query Experience",
       "url": "/d/log-query-exp-exec",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Loki Deep Dive",
       "url": "/d/loki-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Loki Errors",
       "url": "/d/loki-admin-errors-ops",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Loki Volume",
       "url": "/d/loki-volume-analytics",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Grafana",
       "url": "/d/grafana-admin-command-center",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Loki",
       "url": "/d/loki-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Mimir",
       "url": "/d/mimir-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Tempo",
       "url": "/d/tempo-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Pyroscope",
       "url": "/d/pyroscope-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     }
   ],
   "panels": [

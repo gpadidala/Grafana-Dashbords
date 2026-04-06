@@ -66,7 +66,10 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Single Pane of Glass"
+      "tooltip": "Single Pane of Glass",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "⬆ L0 Command Center",
@@ -74,77 +77,110 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Executive Command Center"
+      "tooltip": "Executive Command Center",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Admin Command Center",
       "url": "/d/grafana-admin-command-center",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Access & Security",
       "url": "/d/grafana-access-security",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "DB Performance",
       "url": "/d/grafana-db-perf-deep-dive",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Errors & API",
       "url": "/d/grafana-admin-errors-ops",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Volume",
       "url": "/d/grafana-volume-analytics",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Grafana",
       "url": "/d/grafana-admin-command-center",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Loki",
       "url": "/d/loki-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Mimir",
       "url": "/d/mimir-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Tempo",
       "url": "/d/tempo-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Pyroscope",
       "url": "/d/pyroscope-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     }
   ],
   "liveNow": false,

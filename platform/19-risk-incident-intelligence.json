@@ -72,7 +72,10 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Single Pane of Glass"
+      "tooltip": "Single Pane of Glass",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "⬆ L0 Command Center",
@@ -80,77 +83,110 @@
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Executive Command Center"
+      "tooltip": "Executive Command Center",
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "CEO Summary",
       "url": "/d/ceo-platform-exec-summary",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "SLA Report",
       "url": "/d/sla-business-impact-report",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Health Matrix",
       "url": "/d/service-health-matrix",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "SLO Burn Rate",
       "url": "/d/slo-error-budget-burn",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "Anomaly Detection",
       "url": "/d/anomaly-detection-outliers",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Grafana",
       "url": "/d/grafana-admin-command-center",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Loki",
       "url": "/d/loki-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Mimir",
       "url": "/d/mimir-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Tempo",
       "url": "/d/tempo-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     },
     {
       "title": "→ Pyroscope",
       "url": "/d/pyroscope-deep-dive-multi-stack",
       "type": "link",
       "icon": "dashboard",
-      "targetBlank": false
+      "targetBlank": false,
+      "asDropdown": false,
+      "includeVars": true,
+      "keepTime": true
     }
   ],
   "liveNow": false,
