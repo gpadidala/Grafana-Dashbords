@@ -53,12 +53,111 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "CEO Summary",
+      "url": "/d/ceo-platform-exec-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Risk Intelligence",
+      "url": "/d/risk-incident-intelligence",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Health Matrix",
+      "url": "/d/service-health-matrix",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Anomaly Detection",
+      "url": "/d/anomaly-detection-outliers",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "id": 1,
       "title": "Tenant Overview",
       "type": "row",
@@ -69,8 +168,16 @@
       "title": "Active Tenants",
       "description": "Total number of distinct tenants with at least one active series in the Mimir ingesters. A tenant is counted if it has any active time series currently held in memory.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
@@ -84,12 +191,23 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 50 },
-              { "color": "red", "value": 100 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": []
         },
         "overrides": []
@@ -97,7 +215,9 @@
       "options": {
         "reduceOptions": {
           "values": false,
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": ""
         },
         "orientation": "auto",
@@ -113,8 +233,16 @@
       "title": "Total Active Series",
       "description": "Aggregate count of all active time series across all tenants held in Mimir ingesters. This reflects the total cardinality pressure on the cluster.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
@@ -128,12 +256,23 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 10000000 },
-              { "color": "red", "value": 50000000 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10000000
+              },
+              {
+                "color": "red",
+                "value": 50000000
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "unit": "short",
           "mappings": []
         },
@@ -142,7 +281,9 @@
       "options": {
         "reduceOptions": {
           "values": false,
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": ""
         },
         "orientation": "auto",
@@ -158,8 +299,16 @@
       "title": "Total Log Ingestion",
       "description": "Total bytes per second being ingested across all tenants via the Loki distributor. Indicates the overall log ingestion throughput for the platform.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
@@ -173,12 +322,23 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 104857600 },
-              { "color": "red", "value": 524288000 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 104857600
+              },
+              {
+                "color": "red",
+                "value": 524288000
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "unit": "Bps",
           "mappings": []
         },
@@ -187,7 +347,9 @@
       "options": {
         "reduceOptions": {
           "values": false,
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": ""
         },
         "orientation": "auto",
@@ -203,8 +365,16 @@
       "title": "Total Span Ingestion",
       "description": "Total spans per second being ingested across all tenants via the Tempo distributor. Reflects the overall tracing ingestion throughput.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 1 },
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
@@ -218,12 +388,23 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 50000 },
-              { "color": "red", "value": 200000 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50000
+              },
+              {
+                "color": "red",
+                "value": 200000
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "unit": "ops",
           "mappings": []
         },
@@ -232,7 +413,9 @@
       "options": {
         "reduceOptions": {
           "values": false,
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": ""
         },
         "orientation": "auto",
@@ -245,7 +428,12 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
       "id": 6,
       "title": "Mimir Tenant Usage",
       "type": "row",
@@ -255,8 +443,16 @@
           "title": "Active Series by Tenant",
           "description": "Number of active time series per tenant held in Mimir ingesters over time. Use this to identify tenants with high cardinality and track growth trends.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 6
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -277,19 +473,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "none", "group": "A" },
+                "stacking": {
+                  "mode": "none",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "short",
@@ -298,12 +510,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -312,8 +531,16 @@
           "title": "Samples Ingested/s by Tenant",
           "description": "Rate of metric samples ingested per second broken down by tenant. Stacked view shows relative contribution of each tenant to total ingestion load.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 6
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -334,19 +561,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops",
@@ -355,12 +598,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -369,8 +619,16 @@
           "title": "Top 20 Tenants by Active Series",
           "description": "Instant snapshot showing the top 20 tenants ranked by their current active series count. Useful for identifying the heaviest cardinality contributors.",
           "type": "table",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 14 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 14
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -384,41 +642,84 @@
             "defaults": {
               "custom": {
                 "align": "auto",
-                "cellOptions": { "type": "auto" },
+                "cellOptions": {
+                  "type": "auto"
+                },
                 "inspect": false,
                 "filterable": true
               },
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "yellow", "value": 500000 },
-                  { "color": "red", "value": 2000000 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 500000
+                  },
+                  {
+                    "color": "red",
+                    "value": 2000000
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "user" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "user"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Tenant" },
-                  { "id": "custom.width", "value": 300 }
+                  {
+                    "id": "displayName",
+                    "value": "Tenant"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 300
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Value" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Active Series" },
-                  { "id": "unit", "value": "short" },
-                  { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "gradient" } }
+                  {
+                    "id": "displayName",
+                    "value": "Active Series"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "short"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background",
+                      "mode": "gradient"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Time" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
                 "properties": [
-                  { "id": "custom.hidden", "value": true }
+                  {
+                    "id": "custom.hidden",
+                    "value": true
+                  }
                 ]
               }
             ]
@@ -428,19 +729,28 @@
             "cellHeight": "sm",
             "footer": {
               "show": true,
-              "reducer": ["sum"],
+              "reducer": [
+                "sum"
+              ],
               "countRows": false,
-              "fields": ["Value"]
+              "fields": [
+                "Value"
+              ]
             },
             "sortBy": [
-              { "displayName": "Active Series", "desc": true }
+              {
+                "displayName": "Active Series",
+                "desc": true
+              }
             ]
           },
           "transformations": [
             {
               "id": "organize",
               "options": {
-                "excludeByName": { "__name__": true },
+                "excludeByName": {
+                  "__name__": true
+                },
                 "indexByName": {},
                 "renameByName": {}
               }
@@ -452,8 +762,16 @@
           "title": "Tenant Query Rate",
           "description": "Rate of query requests per second per tenant to the Mimir query path. Stacked view shows which tenants are generating the most query load.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 14 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 14
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -474,19 +792,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "reqps",
@@ -495,12 +829,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         }
@@ -508,7 +849,12 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
       "id": 11,
       "title": "Loki Tenant Usage",
       "type": "row",
@@ -518,8 +864,16 @@
           "title": "Log Bytes Ingested/s by Tenant",
           "description": "Rate of log bytes ingested per second via the Loki distributor, broken down by tenant. Stacked view reveals which tenants contribute the most log volume.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 7 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 7
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -540,19 +894,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "Bps",
@@ -561,12 +931,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -575,8 +952,16 @@
           "title": "Log Lines Ingested/s by Tenant",
           "description": "Rate of log lines ingested per second via the Loki distributor, broken down by tenant. Stacked view shows per-tenant line throughput contribution.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 7 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 7
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -597,19 +982,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops",
@@ -618,12 +1019,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -632,8 +1040,16 @@
           "title": "Top 20 Tenants by Log Volume",
           "description": "Instant snapshot of the top 20 tenants ranked by their log bytes ingested per second (5m rate). Identifies the largest log producers in the platform.",
           "type": "table",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 15 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 15
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -647,41 +1063,84 @@
             "defaults": {
               "custom": {
                 "align": "auto",
-                "cellOptions": { "type": "auto" },
+                "cellOptions": {
+                  "type": "auto"
+                },
                 "inspect": false,
                 "filterable": true
               },
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "yellow", "value": 1048576 },
-                  { "color": "red", "value": 10485760 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1048576
+                  },
+                  {
+                    "color": "red",
+                    "value": 10485760
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "tenant" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "tenant"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Tenant" },
-                  { "id": "custom.width", "value": 300 }
+                  {
+                    "id": "displayName",
+                    "value": "Tenant"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 300
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Value" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Log Bytes/s" },
-                  { "id": "unit", "value": "Bps" },
-                  { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "gradient" } }
+                  {
+                    "id": "displayName",
+                    "value": "Log Bytes/s"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "Bps"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background",
+                      "mode": "gradient"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Time" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
                 "properties": [
-                  { "id": "custom.hidden", "value": true }
+                  {
+                    "id": "custom.hidden",
+                    "value": true
+                  }
                 ]
               }
             ]
@@ -691,19 +1150,28 @@
             "cellHeight": "sm",
             "footer": {
               "show": true,
-              "reducer": ["sum"],
+              "reducer": [
+                "sum"
+              ],
               "countRows": false,
-              "fields": ["Value"]
+              "fields": [
+                "Value"
+              ]
             },
             "sortBy": [
-              { "displayName": "Log Bytes/s", "desc": true }
+              {
+                "displayName": "Log Bytes/s",
+                "desc": true
+              }
             ]
           },
           "transformations": [
             {
               "id": "organize",
               "options": {
-                "excludeByName": { "__name__": true },
+                "excludeByName": {
+                  "__name__": true
+                },
                 "indexByName": {},
                 "renameByName": {}
               }
@@ -715,8 +1183,16 @@
           "title": "Tenant Log Query Rate",
           "description": "Rate of log query requests per second per tenant to Loki query endpoints. Stacked view shows which tenants generate the most log query load.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 15 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 15
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -737,19 +1213,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "reqps",
@@ -758,12 +1250,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         }
@@ -771,7 +1270,12 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 7 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
       "id": 16,
       "title": "Tempo Tenant Usage",
       "type": "row",
@@ -781,8 +1285,16 @@
           "title": "Spans Received/s by Tenant",
           "description": "Rate of spans received per second by the Tempo distributor, broken down by tenant. Stacked view shows per-tenant trace ingestion contribution.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 8
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -803,19 +1315,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops",
@@ -824,12 +1352,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -838,8 +1373,16 @@
           "title": "Trace Bytes by Tenant",
           "description": "Rate of trace bytes received per second by the Tempo distributor, broken down by tenant. Stacked view shows per-tenant trace data volume contribution.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 8
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -860,19 +1403,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "Bps",
@@ -881,12 +1440,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -895,8 +1461,16 @@
           "title": "Top 20 Tenants by Span Volume",
           "description": "Instant snapshot of the top 20 tenants ranked by their span ingestion rate. Full-width view for identifying the largest trace producers across the platform.",
           "type": "table",
-          "gridPos": { "h": 8, "w": 24, "x": 0, "y": 16 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 16
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -910,41 +1484,84 @@
             "defaults": {
               "custom": {
                 "align": "auto",
-                "cellOptions": { "type": "auto" },
+                "cellOptions": {
+                  "type": "auto"
+                },
                 "inspect": false,
                 "filterable": true
               },
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "yellow", "value": 5000 },
-                  { "color": "red", "value": 50000 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 5000
+                  },
+                  {
+                    "color": "red",
+                    "value": 50000
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "tenant" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "tenant"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Tenant" },
-                  { "id": "custom.width", "value": 300 }
+                  {
+                    "id": "displayName",
+                    "value": "Tenant"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 300
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Value" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Spans/s" },
-                  { "id": "unit", "value": "ops" },
-                  { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "gradient" } }
+                  {
+                    "id": "displayName",
+                    "value": "Spans/s"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "ops"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background",
+                      "mode": "gradient"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Time" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
                 "properties": [
-                  { "id": "custom.hidden", "value": true }
+                  {
+                    "id": "custom.hidden",
+                    "value": true
+                  }
                 ]
               }
             ]
@@ -954,19 +1571,28 @@
             "cellHeight": "sm",
             "footer": {
               "show": true,
-              "reducer": ["sum"],
+              "reducer": [
+                "sum"
+              ],
               "countRows": false,
-              "fields": ["Value"]
+              "fields": [
+                "Value"
+              ]
             },
             "sortBy": [
-              { "displayName": "Spans/s", "desc": true }
+              {
+                "displayName": "Spans/s",
+                "desc": true
+              }
             ]
           },
           "transformations": [
             {
               "id": "organize",
               "options": {
-                "excludeByName": { "__name__": true },
+                "excludeByName": {
+                  "__name__": true
+                },
                 "indexByName": {},
                 "renameByName": {}
               }
@@ -977,7 +1603,12 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 8 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
       "id": 20,
       "title": "Tenant Limits & Rate Limiting",
       "type": "row",
@@ -987,8 +1618,16 @@
           "title": "Rate Limited Requests by Tenant",
           "description": "Rate of samples discarded due to rate limiting per tenant. A rising trend indicates tenants hitting their configured ingestion rate limits and losing data.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 9 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 9
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -1009,19 +1648,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops",
@@ -1030,12 +1685,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -1044,8 +1706,16 @@
           "title": "Tenant Active Series vs Limits",
           "description": "Comparison of each tenant's actual active series count against their configured maximum global series limit. When series approach or exceed the limit, ingestion will be throttled.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 9 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 9
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -1071,19 +1741,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "none", "group": "A" },
+                "stacking": {
+                  "mode": "none",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "short",
@@ -1091,22 +1777,47 @@
             },
             "overrides": [
               {
-                "matcher": { "id": "byRegexp", "options": ".*- limit$" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*- limit$"
+                },
                 "properties": [
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } },
-                  { "id": "custom.fillOpacity", "value": 0 },
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -1115,8 +1826,16 @@
           "title": "Loki Discarded Lines by Tenant",
           "description": "Rate of log lines discarded by Loki per tenant and reason. Common reasons include rate limiting, line too long, and stream limit. A rising trend indicates tenants hitting their configured limits.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 17 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 17
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -1137,19 +1856,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "normal", "group": "A" },
+                "stacking": {
+                  "mode": "normal",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops",
@@ -1158,12 +1893,19 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -1172,8 +1914,16 @@
           "title": "Ingestion Rate vs Limit",
           "description": "Comparison of each tenant's actual sample ingestion rate against their configured ingestion rate limit. When the actual rate approaches or exceeds the limit, samples will be dropped.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 17 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 17
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
@@ -1199,19 +1949,35 @@
                 "insertNulls": false,
                 "showPoints": "never",
                 "pointSize": 5,
-                "stacking": { "mode": "none", "group": "A" },
+                "stacking": {
+                  "mode": "none",
+                  "group": "A"
+                },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "hideFrom": { "tooltip": false, "viz": false, "legend": false },
-                "thresholdsStyle": { "mode": "off" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                },
                 "axisBorderShow": false
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops",
@@ -1219,22 +1985,47 @@
             },
             "overrides": [
               {
-                "matcher": { "id": "byRegexp", "options": ".*- limit$" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*- limit$"
+                },
                 "properties": [
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } },
-                  { "id": "custom.fillOpacity", "value": 0 },
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showLegend": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         }
@@ -1242,7 +2033,12 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 9 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
       "id": 25,
       "title": "Cross-Signal Tenant Correlation",
       "type": "row",
@@ -1252,8 +2048,16 @@
           "title": "Tenant Resource Heatmap",
           "description": "Consolidated multi-signal table showing each tenant's resource consumption across all LGTM signals: active metric series, log bytes per second, spans per second, and queries per second. Merge-by-tenant transformation correlates data from Mimir, Loki, and Tempo into a single view for cost attribution and capacity planning.",
           "type": "table",
-          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 10 },
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 10
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "active_series",
@@ -1288,65 +2092,153 @@
             "defaults": {
               "custom": {
                 "align": "auto",
-                "cellOptions": { "type": "auto" },
+                "cellOptions": {
+                  "type": "auto"
+                },
                 "inspect": false,
                 "filterable": true
               },
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "yellow", "value": 1000 },
-                  { "color": "red", "value": 10000 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1000
+                  },
+                  {
+                    "color": "red",
+                    "value": 10000
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "tenant" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "tenant"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Tenant" },
-                  { "id": "custom.width", "value": 250 }
+                  {
+                    "id": "displayName",
+                    "value": "Tenant"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 250
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Value #active_series" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value #active_series"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Active Series" },
-                  { "id": "unit", "value": "short" },
-                  { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "gradient" } }
+                  {
+                    "id": "displayName",
+                    "value": "Active Series"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "short"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background",
+                      "mode": "gradient"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Value #log_bytes_per_s" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value #log_bytes_per_s"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Log Bytes/s" },
-                  { "id": "unit", "value": "Bps" },
-                  { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "gradient" } }
+                  {
+                    "id": "displayName",
+                    "value": "Log Bytes/s"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "Bps"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background",
+                      "mode": "gradient"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Value #spans_per_s" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value #spans_per_s"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Spans/s" },
-                  { "id": "unit", "value": "ops" },
-                  { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "gradient" } }
+                  {
+                    "id": "displayName",
+                    "value": "Spans/s"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "ops"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background",
+                      "mode": "gradient"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Value #queries_per_s" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value #queries_per_s"
+                },
                 "properties": [
-                  { "id": "displayName", "value": "Queries/s" },
-                  { "id": "unit", "value": "reqps" },
-                  { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "gradient" } }
+                  {
+                    "id": "displayName",
+                    "value": "Queries/s"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "reqps"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "color-background",
+                      "mode": "gradient"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Time" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
                 "properties": [
-                  { "id": "custom.hidden", "value": true }
+                  {
+                    "id": "custom.hidden",
+                    "value": true
+                  }
                 ]
               }
             ]
@@ -1356,12 +2248,17 @@
             "cellHeight": "sm",
             "footer": {
               "show": true,
-              "reducer": ["sum"],
+              "reducer": [
+                "sum"
+              ],
               "countRows": false,
               "fields": ""
             },
             "sortBy": [
-              { "displayName": "Active Series", "desc": true }
+              {
+                "displayName": "Active Series",
+                "desc": true
+              }
             ]
           },
           "transformations": [
@@ -1422,7 +2319,10 @@
       },
       {
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "$datasource" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
         "definition": "label_values(up, cluster)",
         "hide": 0,
         "includeAll": true,
@@ -1444,7 +2344,10 @@
       },
       {
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "$datasource" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
         "definition": "label_values(up{cluster=~\"$cluster\"}, stack)",
         "hide": 0,
         "includeAll": true,
@@ -1466,7 +2369,10 @@
       },
       {
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "$datasource" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
         "definition": "label_values(up{cluster=~\"$cluster\", stack=~\"$stack\"}, namespace)",
         "hide": 0,
         "includeAll": true,
@@ -1488,7 +2394,10 @@
       },
       {
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "$datasource" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
         "definition": "label_values(cortex_ingester_active_series{cluster=~\"$cluster\", stack=~\"$stack\"}, user)",
         "hide": 0,
         "includeAll": true,
@@ -1516,7 +2425,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Multi-Tenant Analytics \u2014 LGTM Stack",
+  "title": "Multi-Tenant Analytics — LGTM Stack",
   "uid": "multi-tenant-analytics",
   "version": 1,
   "weekStart": ""

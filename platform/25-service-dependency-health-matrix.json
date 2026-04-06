@@ -55,9 +55,16 @@
     ]
   },
   "uid": "service-health-matrix",
-  "title": "LGTM Stack \u2014 Service Health Matrix",
+  "title": "LGTM Stack — Service Health Matrix",
   "description": "Real-time health matrix for every component in the LGTM observability stack. Instantly identify degraded services, capacity issues, and performance bottlenecks across Grafana, Mimir, Loki, Tempo, and Pyroscope.",
-  "tags": ["lgtm", "health", "matrix", "advanced", "service-map", "premium"],
+  "tags": [
+    "lgtm",
+    "health",
+    "matrix",
+    "advanced",
+    "service-map",
+    "premium"
+  ],
   "editable": true,
   "graphTooltip": 2,
   "schemaVersion": 39,
@@ -71,10 +78,105 @@
   "timezone": "utc",
   "weekStart": "",
   "timepicker": {
-    "refresh_intervals": ["10s", "30s", "1m", "5m", "15m", "30m", "1h"]
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ]
   },
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "CEO Summary",
+      "url": "/d/ceo-platform-exec-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Risk Intelligence",
+      "url": "/d/risk-incident-intelligence",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Anomaly Detection",
+      "url": "/d/anomaly-detection-outliers",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "templating": {
     "list": [
       {
@@ -138,29 +240,46 @@
       "id": 0,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "options": {
         "mode": "html",
-        "content": "<div style=\"text-align:center;padding:8px 0 2px 0;\">\n  <h1 style=\"margin:0;font-size:1.6em;letter-spacing:0.03em;\">LGTM Stack \u2014 Service Health Matrix</h1>\n  <p style=\"margin:4px 0 0 0;font-size:0.95em;opacity:0.8;\">Real-Time Component Status \u2022 All Clusters</p>\n  <p style=\"margin:6px 0 0 0;font-size:0.85em;\">\ud83d\udfe2 Healthy (&gt;99%)&ensp;&ensp;\ud83d\udfe1 Degraded (95\u201399%)&ensp;&ensp;\ud83d\udd34 Critical (&lt;95%)</p>\n</div>"
+        "content": "<div style=\"text-align:center;padding:8px 0 2px 0;\">\n  <h1 style=\"margin:0;font-size:1.6em;letter-spacing:0.03em;\">LGTM Stack — Service Health Matrix</h1>\n  <p style=\"margin:4px 0 0 0;font-size:0.95em;opacity:0.8;\">Real-Time Component Status • All Clusters</p>\n  <p style=\"margin:6px 0 0 0;font-size:0.85em;\">🟢 Healthy (&gt;99%)&ensp;&ensp;🟡 Degraded (95–99%)&ensp;&ensp;🔴 Critical (&lt;95%)</p>\n</div>"
       },
       "transparent": true
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 2 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
       "id": 100,
       "panels": [],
-      "title": "\ud83d\udfe3 Grafana",
+      "title": "🟣 Grafana",
       "type": "row"
     },
     {
       "id": 1,
-      "title": "Grafana \u2014 Availability",
+      "title": "Grafana — Availability",
       "description": "Success rate of Grafana HTTP requests (excluding 5xx). Values above 99% indicate healthy operation; below 95% signals critical degradation.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -178,18 +297,38 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "red", "value": 0 },
-              { "color": "yellow", "value": 95 },
-              { "color": "green", "value": 99 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -199,11 +338,19 @@
     },
     {
       "id": 2,
-      "title": "Grafana \u2014 P95 Latency",
+      "title": "Grafana — P95 Latency",
       "description": "95th percentile HTTP request latency for Grafana. Values above 1s indicate significant slowness impacting user experience.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -219,18 +366,38 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 0.5 },
-              { "color": "red", "value": 1.0 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "red",
+                "value": 1.0
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -240,11 +407,19 @@
     },
     {
       "id": 3,
-      "title": "Grafana \u2014 Request Rate",
+      "title": "Grafana — Request Rate",
       "description": "Total HTTP request rate hitting Grafana across all handlers. A sudden drop may indicate connectivity issues or load balancer problems.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -260,15 +435,26 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6C63FF", "value": null }
+              {
+                "color": "#6C63FF",
+                "value": null
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -278,11 +464,19 @@
     },
     {
       "id": 4,
-      "title": "Grafana \u2014 Error Rate",
+      "title": "Grafana — Error Rate",
       "description": "Percentage of Grafana HTTP requests returning 5xx status codes. Above 1% warrants investigation; above 5% is critical.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -298,18 +492,38 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 1 },
-              { "color": "red", "value": 5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -319,11 +533,19 @@
     },
     {
       "id": 5,
-      "title": "Grafana \u2014 DB Saturation",
+      "title": "Grafana — DB Saturation",
       "description": "Ratio of in-use database connections to maximum allowed. Above 80% risks connection exhaustion and query timeouts.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -341,18 +563,38 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 60 },
-              { "color": "red", "value": 80 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -362,11 +604,19 @@
     },
     {
       "id": 6,
-      "title": "Grafana \u2014 Active Users",
+      "title": "Grafana — Active Users",
       "description": "Number of users who have been active in Grafana. Tracks platform adoption and concurrent usage patterns.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -382,15 +632,26 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6C63FF", "value": null }
+              {
+                "color": "#6C63FF",
+                "value": null
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -398,19 +659,31 @@
         "justifyMode": "auto"
       }
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 7 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
       "id": 101,
       "panels": [
         {
           "id": 7,
-          "title": "Mimir Write \u2014 Availability",
+          "title": "Mimir Write — Availability",
           "description": "Success rate of Mimir write (push) path requests. Measures the percentage of ingestion requests that complete without 5xx errors.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 0, "y": 8 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 8
+          },
           "targets": [
             {
               "refId": "A",
@@ -428,18 +701,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "red", "value": null },
-                  { "color": "red", "value": 0 },
-                  { "color": "yellow", "value": 95 },
-                  { "color": "green", "value": 99 }
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 95
+                  },
+                  {
+                    "color": "green",
+                    "value": 99
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -449,11 +742,19 @@
         },
         {
           "id": 8,
-          "title": "Mimir Write \u2014 P95 Latency",
+          "title": "Mimir Write — P95 Latency",
           "description": "95th percentile latency for Mimir write (push) path. High latency indicates distributor or ingester pressure.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 4, "y": 8 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 8
+          },
           "targets": [
             {
               "refId": "A",
@@ -469,18 +770,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 0.5 },
-                  { "color": "red", "value": 1.0 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.5
+                  },
+                  {
+                    "color": "red",
+                    "value": 1.0
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -490,11 +811,19 @@
         },
         {
           "id": 9,
-          "title": "Mimir \u2014 Active Series",
+          "title": "Mimir — Active Series",
           "description": "Total active time series held in Mimir ingesters. A key capacity metric; growth beyond limits triggers rate-limiting.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 8, "y": 8 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 8
+          },
           "targets": [
             {
               "refId": "A",
@@ -510,15 +839,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#00C48C", "value": null }
+                  {
+                    "color": "#00C48C",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -528,11 +868,19 @@
         },
         {
           "id": 10,
-          "title": "Mimir Read \u2014 Queue Latency P95",
+          "title": "Mimir Read — Queue Latency P95",
           "description": "95th percentile time queries spend waiting in the query-frontend queue before being picked up by a querier.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 12, "y": 8 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 8
+          },
           "targets": [
             {
               "refId": "A",
@@ -548,18 +896,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 0.5 },
-                  { "color": "red", "value": 1.0 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.5
+                  },
+                  {
+                    "color": "red",
+                    "value": 1.0
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -569,11 +937,19 @@
         },
         {
           "id": 11,
-          "title": "Mimir \u2014 Samples/sec",
+          "title": "Mimir — Samples/sec",
           "description": "Rate of metric samples received by Mimir distributors. Tracks ingestion throughput and helps forecast capacity needs.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 16, "y": 8 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 8
+          },
           "targets": [
             {
               "refId": "A",
@@ -589,15 +965,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#00C48C", "value": null }
+                  {
+                    "color": "#00C48C",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -607,11 +994,19 @@
         },
         {
           "id": 12,
-          "title": "Mimir \u2014 Error Rate",
+          "title": "Mimir — Error Rate",
           "description": "Percentage of all Mimir requests returning 5xx status codes across write and read paths combined.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 20, "y": 8 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 8
+          },
           "targets": [
             {
               "refId": "A",
@@ -627,18 +1022,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 1 },
-                  { "color": "red", "value": 5 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1
+                  },
+                  {
+                    "color": "red",
+                    "value": 5
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -647,22 +1062,34 @@
           }
         }
       ],
-      "title": "\ud83d\udfe2 Mimir (Metrics)",
+      "title": "🟢 Mimir (Metrics)",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 12 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
       "id": 102,
       "panels": [
         {
           "id": 13,
-          "title": "Loki Write \u2014 Availability",
+          "title": "Loki Write — Availability",
           "description": "Success rate of Loki write path requests. Measures the percentage of log push requests completing without 5xx errors.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 0, "y": 13 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 13
+          },
           "targets": [
             {
               "refId": "A",
@@ -680,18 +1107,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "red", "value": null },
-                  { "color": "red", "value": 0 },
-                  { "color": "yellow", "value": 95 },
-                  { "color": "green", "value": 99 }
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 95
+                  },
+                  {
+                    "color": "green",
+                    "value": 99
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -701,11 +1148,19 @@
         },
         {
           "id": 14,
-          "title": "Loki Write \u2014 P95 Latency",
+          "title": "Loki Write — P95 Latency",
           "description": "95th percentile latency for Loki log push requests. High values indicate distributor or ingester backpressure.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 4, "y": 13 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 13
+          },
           "targets": [
             {
               "refId": "A",
@@ -721,18 +1176,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 0.5 },
-                  { "color": "red", "value": 1.0 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.5
+                  },
+                  {
+                    "color": "red",
+                    "value": 1.0
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -742,11 +1217,19 @@
         },
         {
           "id": 15,
-          "title": "Loki \u2014 Active Streams",
+          "title": "Loki — Active Streams",
           "description": "Total number of active log streams held in Loki ingesters. Tracks cardinality and capacity usage.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 8, "y": 13 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 13
+          },
           "targets": [
             {
               "refId": "A",
@@ -762,15 +1245,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#4FC3F7", "value": null }
+                  {
+                    "color": "#4FC3F7",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -780,11 +1274,19 @@
         },
         {
           "id": 16,
-          "title": "Loki \u2014 Lines/sec",
+          "title": "Loki — Lines/sec",
           "description": "Rate of log lines received by Loki distributors. Indicates overall log ingestion throughput.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 12, "y": 13 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 13
+          },
           "targets": [
             {
               "refId": "A",
@@ -800,15 +1302,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#4FC3F7", "value": null }
+                  {
+                    "color": "#4FC3F7",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -818,11 +1331,19 @@
         },
         {
           "id": 17,
-          "title": "Loki \u2014 Bytes/sec",
+          "title": "Loki — Bytes/sec",
           "description": "Rate of log bytes received by Loki distributors. Tracks bandwidth consumption and helps size storage capacity.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 16, "y": 13 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 13
+          },
           "targets": [
             {
               "refId": "A",
@@ -838,15 +1359,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#4FC3F7", "value": null }
+                  {
+                    "color": "#4FC3F7",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -856,11 +1388,19 @@
         },
         {
           "id": 18,
-          "title": "Loki \u2014 Error Rate",
+          "title": "Loki — Error Rate",
           "description": "Percentage of all Loki requests returning 5xx status codes across write and read paths.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 20, "y": 13 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 13
+          },
           "targets": [
             {
               "refId": "A",
@@ -876,18 +1416,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 1 },
-                  { "color": "red", "value": 5 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1
+                  },
+                  {
+                    "color": "red",
+                    "value": 5
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -896,22 +1456,34 @@
           }
         }
       ],
-      "title": "\ud83d\udd35 Loki (Logs)",
+      "title": "🔵 Loki (Logs)",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 17 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
       "id": 103,
       "panels": [
         {
           "id": 19,
-          "title": "Tempo Write \u2014 Availability",
+          "title": "Tempo Write — Availability",
           "description": "Success rate of Tempo trace ingestion requests. Measures the percentage of span push requests completing without 5xx errors.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 0, "y": 18 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 18
+          },
           "targets": [
             {
               "refId": "A",
@@ -929,18 +1501,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "red", "value": null },
-                  { "color": "red", "value": 0 },
-                  { "color": "yellow", "value": 95 },
-                  { "color": "green", "value": 99 }
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 95
+                  },
+                  {
+                    "color": "green",
+                    "value": 99
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -950,11 +1542,19 @@
         },
         {
           "id": 20,
-          "title": "Tempo Write \u2014 P95 Latency",
+          "title": "Tempo Write — P95 Latency",
           "description": "95th percentile latency for Tempo trace push requests. High latency signals distributor or ingester pressure.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 4, "y": 18 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 18
+          },
           "targets": [
             {
               "refId": "A",
@@ -970,18 +1570,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 0.5 },
-                  { "color": "red", "value": 1.0 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.5
+                  },
+                  {
+                    "color": "red",
+                    "value": 1.0
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -991,11 +1611,19 @@
         },
         {
           "id": 21,
-          "title": "Tempo \u2014 Live Traces",
+          "title": "Tempo — Live Traces",
           "description": "Total number of live traces currently held in Tempo ingesters before being flushed to backend storage.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 8, "y": 18 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 18
+          },
           "targets": [
             {
               "refId": "A",
@@ -1011,15 +1639,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#FFB020", "value": null }
+                  {
+                    "color": "#FFB020",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1029,11 +1668,19 @@
         },
         {
           "id": 22,
-          "title": "Tempo \u2014 Spans/sec",
+          "title": "Tempo — Spans/sec",
           "description": "Rate of spans received by Tempo distributors. Tracks overall trace ingestion throughput.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 12, "y": 18 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 18
+          },
           "targets": [
             {
               "refId": "A",
@@ -1049,15 +1696,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#FFB020", "value": null }
+                  {
+                    "color": "#FFB020",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1067,11 +1725,19 @@
         },
         {
           "id": 23,
-          "title": "Tempo \u2014 Bytes/sec",
+          "title": "Tempo — Bytes/sec",
           "description": "Rate of trace bytes received by Tempo distributors. Measures bandwidth consumption of the tracing pipeline.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 16, "y": 18 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 18
+          },
           "targets": [
             {
               "refId": "A",
@@ -1087,15 +1753,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#FFB020", "value": null }
+                  {
+                    "color": "#FFB020",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1105,11 +1782,19 @@
         },
         {
           "id": 24,
-          "title": "Tempo \u2014 Error Rate",
+          "title": "Tempo — Error Rate",
           "description": "Percentage of all Tempo requests returning 5xx status codes across write and read paths.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 20, "y": 18 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 18
+          },
           "targets": [
             {
               "refId": "A",
@@ -1125,18 +1810,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 1 },
-                  { "color": "red", "value": 5 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1
+                  },
+                  {
+                    "color": "red",
+                    "value": 5
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1145,22 +1850,34 @@
           }
         }
       ],
-      "title": "\ud83d\udfe0 Tempo (Traces)",
+      "title": "🟠 Tempo (Traces)",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 22 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
       "id": 104,
       "panels": [
         {
           "id": 25,
-          "title": "Pyroscope Write \u2014 Availability",
+          "title": "Pyroscope Write — Availability",
           "description": "Success rate of Pyroscope profile ingestion requests. Measures the percentage of profile push requests completing without 5xx errors.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 0, "y": 23 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 23
+          },
           "targets": [
             {
               "refId": "A",
@@ -1178,18 +1895,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "red", "value": null },
-                  { "color": "red", "value": 0 },
-                  { "color": "yellow", "value": 95 },
-                  { "color": "green", "value": 99 }
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 95
+                  },
+                  {
+                    "color": "green",
+                    "value": 99
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1199,11 +1936,19 @@
         },
         {
           "id": 26,
-          "title": "Pyroscope Write \u2014 P95 Latency",
+          "title": "Pyroscope Write — P95 Latency",
           "description": "95th percentile latency for Pyroscope profile push requests. High latency indicates ingestion pipeline pressure.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 4, "y": 23 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 23
+          },
           "targets": [
             {
               "refId": "A",
@@ -1219,18 +1964,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 0.5 },
-                  { "color": "red", "value": 1.0 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.5
+                  },
+                  {
+                    "color": "red",
+                    "value": 1.0
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1240,11 +2005,19 @@
         },
         {
           "id": 27,
-          "title": "Pyroscope \u2014 Active Series",
+          "title": "Pyroscope — Active Series",
           "description": "Total number of active profile series in Pyroscope ingesters. Tracks profiling cardinality and capacity.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 8, "y": 23 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 23
+          },
           "targets": [
             {
               "refId": "A",
@@ -1260,15 +2033,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#FF6B6B", "value": null }
+                  {
+                    "color": "#FF6B6B",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1278,11 +2062,19 @@
         },
         {
           "id": 28,
-          "title": "Pyroscope \u2014 Profiles/sec",
+          "title": "Pyroscope — Profiles/sec",
           "description": "Rate of profiles received by Pyroscope distributors. Tracks overall profiling data ingestion throughput.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 12, "y": 23 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 23
+          },
           "targets": [
             {
               "refId": "A",
@@ -1298,15 +2090,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#FF6B6B", "value": null }
+                  {
+                    "color": "#FF6B6B",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1316,11 +2119,19 @@
         },
         {
           "id": 29,
-          "title": "Pyroscope \u2014 Bytes/sec",
+          "title": "Pyroscope — Bytes/sec",
           "description": "Rate of profile bytes received by Pyroscope distributors. Measures bandwidth consumption of the profiling pipeline.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 16, "y": 23 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 23
+          },
           "targets": [
             {
               "refId": "A",
@@ -1336,15 +2147,26 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#FF6B6B", "value": null }
+                  {
+                    "color": "#FF6B6B",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1354,11 +2176,19 @@
         },
         {
           "id": 30,
-          "title": "Pyroscope \u2014 Error Rate",
+          "title": "Pyroscope — Error Rate",
           "description": "Percentage of all Pyroscope requests returning 5xx status codes across write and read paths.",
           "type": "stat",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 4, "w": 4, "x": 20, "y": 23 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 23
+          },
           "targets": [
             {
               "refId": "A",
@@ -1374,18 +2204,38 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 1 },
-                  { "color": "red", "value": 5 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1
+                  },
+                  {
+                    "color": "red",
+                    "value": 5
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" }
+              "color": {
+                "mode": "thresholds"
+              }
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "auto",
             "textMode": "auto",
             "colorMode": "background",
@@ -1394,16 +2244,20 @@
           }
         }
       ],
-      "title": "\ud83d\udd34 Pyroscope (Profiles)",
+      "title": "🔴 Pyroscope (Profiles)",
       "type": "row"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 27 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
       "id": 105,
       "panels": [],
-      "title": "Infrastructure Overview \u2014 Cross-Component Comparison",
+      "title": "Infrastructure Overview — Cross-Component Comparison",
       "type": "row"
     },
     {
@@ -1411,8 +2265,16 @@
       "title": "Component Availability Comparison",
       "description": "Side-by-side availability comparison across all LGTM stack components. Instantly spot which component is degraded relative to others.",
       "type": "bargauge",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 28 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 28
+      },
       "targets": [
         {
           "refId": "A",
@@ -1454,39 +2316,109 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "red", "value": 0 },
-              { "color": "yellow", "value": 95 },
-              { "color": "green", "value": 99 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Grafana" },
-            "properties": [{ "id": "color", "value": { "mode": "thresholds" } }]
+            "matcher": {
+              "id": "byName",
+              "options": "Grafana"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
           },
           {
-            "matcher": { "id": "byName", "options": "Mimir" },
-            "properties": [{ "id": "color", "value": { "mode": "thresholds" } }]
+            "matcher": {
+              "id": "byName",
+              "options": "Mimir"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
           },
           {
-            "matcher": { "id": "byName", "options": "Loki" },
-            "properties": [{ "id": "color", "value": { "mode": "thresholds" } }]
+            "matcher": {
+              "id": "byName",
+              "options": "Loki"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
           },
           {
-            "matcher": { "id": "byName", "options": "Tempo" },
-            "properties": [{ "id": "color", "value": { "mode": "thresholds" } }]
+            "matcher": {
+              "id": "byName",
+              "options": "Tempo"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
           },
           {
-            "matcher": { "id": "byName", "options": "Pyroscope" },
-            "properties": [{ "id": "color", "value": { "mode": "thresholds" } }]
+            "matcher": {
+              "id": "byName",
+              "options": "Pyroscope"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
           }
         ]
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "horizontal",
         "displayMode": "gradient",
         "showUnfilled": true,
@@ -1500,8 +2432,16 @@
       "title": "Component P95 Latency Comparison",
       "description": "Side-by-side P95 write latency comparison across all LGTM stack components. Quickly identify the slowest component in the pipeline.",
       "type": "bargauge",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 28 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 28
+      },
       "targets": [
         {
           "refId": "A",
@@ -1542,18 +2482,38 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 0.3 },
-              { "color": "red", "value": 0.5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 0.3
+              },
+              {
+                "color": "red",
+                "value": 0.5
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "horizontal",
         "displayMode": "gradient",
         "showUnfilled": true,
@@ -1562,12 +2522,16 @@
         "text": {}
       }
     },
-
     {
       "id": 33,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 36 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
       "options": {
         "mode": "html",
         "content": "<div style=\"text-align:center;padding:8px 0;font-size:0.9em;opacity:0.85;\">\n  <strong>Quick Navigation</strong>&ensp;|&ensp;\n  <a href=\"/d/platform-ui-qos-exec/\" style=\"color:#6C63FF;\">Platform UI QoS</a>&ensp;|&ensp;\n  <a href=\"/d/loki-write-qos-exec/\" style=\"color:#4FC3F7;\">Loki Write QoS</a>&ensp;|&ensp;\n  <a href=\"/d/mimir-write-qos-exec/\" style=\"color:#00C48C;\">Mimir Write QoS</a>&ensp;|&ensp;\n  <a href=\"/d/mimir-read-qos-exec/\" style=\"color:#00C48C;\">Mimir Read QoS</a>&ensp;|&ensp;\n  <a href=\"/d/log-query-experience-exec/\" style=\"color:#4FC3F7;\">Log Query Experience</a>&ensp;|&ensp;\n  <a href=\"/d/lgtm-stack-health-multi/\" style=\"color:#FFB020;\">LGTM Stack Health</a>&ensp;|&ensp;\n  <a href=\"/d/mimir-deep-dive-multi-stack/\" style=\"color:#00C48C;\">Mimir Deep Dive</a>&ensp;|&ensp;\n  <a href=\"/d/loki-deep-dive-multi-stack/\" style=\"color:#4FC3F7;\">Loki Deep Dive</a>&ensp;|&ensp;\n  <a href=\"/d/tempo-deep-dive-multi-stack/\" style=\"color:#FFB020;\">Tempo Deep Dive</a>&ensp;|&ensp;\n  <a href=\"/d/pyroscope-deep-dive-multi-stack/\" style=\"color:#FF6B6B;\">Pyroscope Deep Dive</a>&ensp;|&ensp;\n  <a href=\"/d/cross-stack-capacity/\" style=\"color:#E0E0E0;\">Capacity Planning</a>&ensp;|&ensp;\n  <a href=\"/d/grafana-admin-command/\" style=\"color:#6C63FF;\">Grafana Admin</a>&ensp;|&ensp;\n  <a href=\"/d/slo-error-budget-burn/\" style=\"color:#FF6B6B;\">SLO Error Budget</a>\n</div>"

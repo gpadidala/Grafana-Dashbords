@@ -5,7 +5,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -19,21 +22,90 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "User Journey",
+      "url": "/d/user-journey-dashboard",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "panels": [
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "id": 100,
       "title": "SLO Summary",
       "type": "row"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Current availability SLI: percentage of non-5xx requests over the dashboard time range. Compare against the configured SLO target.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 3,
           "mappings": [],
           "max": 100,
@@ -41,16 +113,30 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 99 },
-              { "color": "green", "value": 99.9 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 99
+              },
+              {
+                "color": "green",
+                "value": 99.9
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 5, "w": 5, "x": 0, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 0,
+        "y": 1
+      },
       "id": 1,
       "options": {
         "colorMode": "background",
@@ -58,7 +144,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -68,7 +156,10 @@
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "(1 - (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[$__rate_interval])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) + 0.001))) * 100",
           "legendFormat": "Availability",
@@ -80,11 +171,16 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Percentage of requests served under the latency threshold. A latency SLI measures the proportion of sufficiently fast requests.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 2,
           "mappings": [],
           "max": 100,
@@ -92,16 +188,30 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 99 },
-              { "color": "green", "value": 99.9 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 99
+              },
+              {
+                "color": "green",
+                "value": 99.9
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 5, "w": 5, "x": 5, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 5,
+        "y": 1
+      },
       "id": 2,
       "options": {
         "colorMode": "background",
@@ -109,7 +219,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -119,7 +231,10 @@
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "sum(rate(http_request_duration_seconds_bucket{job=\"$app\", namespace=~\"$namespace\", le=\"$latency_threshold\"}[$__rate_interval])) / (sum(rate(http_request_duration_seconds_count{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Latency SLI",
@@ -131,26 +246,45 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Remaining error budget as a percentage. When this reaches 0%, the SLO is breached. Calculated as: (SLO - actual_error_rate) / allowed_error_rate * 100.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 20 },
-              { "color": "green", "value": 50 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 5, "w": 5, "x": 10, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 10,
+        "y": 1
+      },
       "id": 3,
       "options": {
         "colorMode": "background",
@@ -158,7 +292,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -168,7 +304,10 @@
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "clamp_min((($slo_target / 100 - (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[$__rate_interval])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) + 0.001))) / (1 - $slo_target / 100)) * 100, 0)",
           "legendFormat": "Budget Remaining",
@@ -180,26 +319,45 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "How fast the error budget is being consumed relative to a sustainable rate. 1x = budget consumed evenly over the window. >2x = accelerated consumption, investigate. >10x = critical, page.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 2 },
-              { "color": "red", "value": 10 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 2
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
             ]
           },
           "unit": "x"
         },
         "overrides": []
       },
-      "gridPos": { "h": 5, "w": 5, "x": 15, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 15,
+        "y": 1
+      },
       "id": 4,
       "options": {
         "colorMode": "background",
@@ -207,7 +365,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -217,7 +377,10 @@
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "(sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[1h])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[1h])) + 0.001)) / (1 - $slo_target / 100)",
           "legendFormat": "Burn Rate (1h)",
@@ -229,31 +392,55 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Estimated hours until the error budget is fully exhausted at the current 1h burn rate. Lower values require faster response.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 1,
           "mappings": [
             {
-              "options": { "match": "null", "result": { "text": "N/A" } },
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
               "type": "special"
             }
           ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 24 },
-              { "color": "green", "value": 168 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 24
+              },
+              {
+                "color": "green",
+                "value": 168
+              }
             ]
           },
           "unit": "h"
         },
         "overrides": []
       },
-      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
       "id": 5,
       "options": {
         "colorMode": "background",
@@ -261,7 +448,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -271,7 +460,10 @@
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "clamp_min(($slo_target / 100 - (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[1h])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[1h])) + 0.001))) / ((sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[1h])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[1h])) + 0.001)) + 0.0001) * 720, 0)",
           "legendFormat": "Hours Left",
@@ -284,17 +476,27 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
       "id": 101,
       "title": "SLO Compliance Trend",
       "type": "row"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Availability SLI plotted over time with the SLO target as a threshold line. Dips below the line represent SLO violations for that window.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -307,15 +509,24 @@
             "drawStyle": "line",
             "fillOpacity": 20,
             "gradientMode": "scheme",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line+area",
               "value": 99.9
@@ -326,31 +537,66 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "transparent", "value": 99.9 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "transparent",
+                "value": 99.9
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Availability SLI" },
+            "matcher": {
+              "id": "byName",
+              "options": "Availability SLI"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "super-light-green", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-green",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
       },
-      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 7 },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
       "id": 6,
       "options": {
-        "legend": { "calcs": ["mean", "min", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "legend": {
+          "calcs": [
+            "mean",
+            "min",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "(1 - (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[5m])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[5m])) + 0.001))) * 100",
           "legendFormat": "Availability SLI",
@@ -363,17 +609,27 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 16 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
       "id": 102,
       "title": "Multi-Window Burn Rate (Google SRE)",
       "type": "row"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Multi-window burn rate analysis per Google SRE methodology. Short windows (5m, 1h) catch fast-burning incidents; long windows (6h, 24h) catch slow-burning degradation. Threshold lines: 1x = sustainable, 2x = concerning, 10x = page-worthy.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -384,15 +640,24 @@
             "drawStyle": "line",
             "fillOpacity": 8,
             "gradientMode": "opacity",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line",
               "value": 1
@@ -402,50 +667,115 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 2 },
-              { "color": "red", "value": 10 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 2
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
             ]
           },
           "unit": "x"
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "5m burn rate" },
+            "matcher": {
+              "id": "byName",
+              "options": "5m burn rate"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FF4757", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF4757",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "1h burn rate" },
+            "matcher": {
+              "id": "byName",
+              "options": "1h burn rate"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FFB020", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FFB020",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "6h burn rate" },
+            "matcher": {
+              "id": "byName",
+              "options": "6h burn rate"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#6C63FF", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#6C63FF",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "24h burn rate" },
+            "matcher": {
+              "id": "byName",
+              "options": "24h burn rate"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#00C48C", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#00C48C",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
       },
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 17 },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
       "id": 7,
       "options": {
-        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "(sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[5m])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[5m])) + 0.001)) / (1 - $slo_target / 100)",
           "legendFormat": "5m burn rate",
@@ -453,7 +783,10 @@
           "refId": "A"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "(sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[1h])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[1h])) + 0.001)) / (1 - $slo_target / 100)",
           "legendFormat": "1h burn rate",
@@ -462,7 +795,10 @@
           "hide": false
         },
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "(sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[6h])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[6h])) + 0.001)) / (1 - $slo_target / 100)",
           "legendFormat": "6h burn rate",
@@ -471,7 +807,10 @@
           "hide": false
         },
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "(sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[24h])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[24h])) + 0.001)) / (1 - $slo_target / 100)",
           "legendFormat": "24h burn rate",
@@ -485,17 +824,27 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 25 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
       "id": 103,
       "title": "Latency SLI",
       "type": "row"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Percentage of requests completing under the latency threshold over time. The SLO target line shows the minimum acceptable ratio.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -508,15 +857,24 @@
             "drawStyle": "line",
             "fillOpacity": 15,
             "gradientMode": "scheme",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line+area",
               "value": 99.9
@@ -527,24 +885,50 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "transparent", "value": 99.9 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "transparent",
+                "value": 99.9
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 26 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
       "id": 8,
       "options": {
-        "legend": { "calcs": ["mean", "min", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "legend": {
+          "calcs": [
+            "mean",
+            "min",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "sum(rate(http_request_duration_seconds_bucket{job=\"$app\", namespace=~\"$namespace\", le=\"$latency_threshold\"}[$__rate_interval])) / (sum(rate(http_request_duration_seconds_count{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "% Under {{latency_threshold}}s",
@@ -552,15 +936,20 @@
           "refId": "A"
         }
       ],
-      "title": "Latency SLI \u2014 % Under Threshold",
+      "title": "Latency SLI — % Under Threshold",
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Request latency percentiles (P50, P90, P95, P99). The threshold line marks the configured latency SLO. Percentiles above the line indicate SLO risk.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -571,15 +960,24 @@
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "opacity",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line",
               "value": 0.3
@@ -589,49 +987,111 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "red", "value": 0.3 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.3
+              }
             ]
           },
           "unit": "s"
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "P50" },
+            "matcher": {
+              "id": "byName",
+              "options": "P50"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "P90" },
+            "matcher": {
+              "id": "byName",
+              "options": "P90"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "yellow", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "P95" },
+            "matcher": {
+              "id": "byName",
+              "options": "P95"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "P99" },
+            "matcher": {
+              "id": "byName",
+              "options": "P99"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 26 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
       "id": 9,
       "options": {
-        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) by (le))",
           "legendFormat": "P50",
@@ -639,7 +1099,10 @@
           "refId": "A"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "histogram_quantile(0.90, sum(rate(http_request_duration_seconds_bucket{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) by (le))",
           "legendFormat": "P90",
@@ -648,7 +1111,10 @@
           "hide": false
         },
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) by (le))",
           "legendFormat": "P95",
@@ -657,7 +1123,10 @@
           "hide": false
         },
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) by (le))",
           "legendFormat": "P99",
@@ -671,17 +1140,27 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 34 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 34
+      },
       "id": 104,
       "title": "Error Budget Consumption",
       "type": "row"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Cumulative error budget consumed over the dashboard window. Steeper slopes indicate accelerating budget consumption. Flatten = recovery.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -692,15 +1171,24 @@
             "drawStyle": "line",
             "fillOpacity": 20,
             "gradientMode": "scheme",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "never",
             "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line+area",
               "value": 100
@@ -711,25 +1199,52 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 50 },
-              { "color": "red", "value": 80 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 35 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 35
+      },
       "id": 10,
       "options": {
-        "legend": { "calcs": ["lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "clamp_max((1 - clamp_min(($slo_target / 100 - (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\", status=~\"5..\"}[$__rate_interval])) / (sum(rate(http_requests_total{job=\"$app\", namespace=~\"$namespace\"}[$__rate_interval])) + 0.001))) / (1 - $slo_target / 100), 0)) * 100, 100)",
           "legendFormat": "Budget Consumed",
@@ -741,11 +1256,16 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource_mimir}"
+      },
       "description": "Remaining error budget per service (by job label). Green = healthy, yellow = caution, red = budget nearly or fully exhausted.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 1,
           "mappings": [],
           "max": 100,
@@ -753,16 +1273,30 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 20 },
-              { "color": "green", "value": 50 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 35 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 35
+      },
       "id": 11,
       "options": {
         "displayMode": "gradient",
@@ -772,7 +1306,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -783,7 +1319,10 @@
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource_mimir}"
+          },
           "editorMode": "code",
           "expr": "clamp_min(clamp_max((($slo_target / 100 - (sum by (job) (rate(http_requests_total{namespace=~\"$namespace\", status=~\"5..\"}[$__rate_interval])) / (sum by (job) (rate(http_requests_total{namespace=~\"$namespace\"}[$__rate_interval])) + 0.001))) / (1 - $slo_target / 100)) * 100, 100), 0)",
           "legendFormat": "{{job}}",
@@ -826,7 +1365,10 @@
       },
       {
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource_mimir}"
+        },
         "definition": "label_values(http_requests_total, job)",
         "hide": 0,
         "includeAll": false,
@@ -848,10 +1390,17 @@
       {
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
-        "datasource": { "type": "prometheus", "uid": "${datasource_mimir}" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource_mimir}"
+        },
         "definition": "label_values(http_requests_total{job=\"$app\"}, namespace)",
         "hide": 0,
         "includeAll": true,
@@ -882,10 +1431,26 @@
         "multi": false,
         "name": "slo_target",
         "options": [
-          { "selected": true, "text": "99.9", "value": "99.9" },
-          { "selected": false, "text": "99.5", "value": "99.5" },
-          { "selected": false, "text": "99.0", "value": "99.0" },
-          { "selected": false, "text": "95.0", "value": "95.0" }
+          {
+            "selected": true,
+            "text": "99.9",
+            "value": "99.9"
+          },
+          {
+            "selected": false,
+            "text": "99.5",
+            "value": "99.5"
+          },
+          {
+            "selected": false,
+            "text": "99.0",
+            "value": "99.0"
+          },
+          {
+            "selected": false,
+            "text": "95.0",
+            "value": "95.0"
+          }
         ],
         "query": "99.9,99.5,99.0,95.0",
         "queryValue": "",
@@ -904,11 +1469,31 @@
         "multi": false,
         "name": "latency_threshold",
         "options": [
-          { "selected": false, "text": "0.1", "value": "0.1" },
-          { "selected": true, "text": "0.3", "value": "0.3" },
-          { "selected": false, "text": "0.5", "value": "0.5" },
-          { "selected": false, "text": "1.0", "value": "1.0" },
-          { "selected": false, "text": "2.0", "value": "2.0" }
+          {
+            "selected": false,
+            "text": "0.1",
+            "value": "0.1"
+          },
+          {
+            "selected": true,
+            "text": "0.3",
+            "value": "0.3"
+          },
+          {
+            "selected": false,
+            "text": "0.5",
+            "value": "0.5"
+          },
+          {
+            "selected": false,
+            "text": "1.0",
+            "value": "1.0"
+          },
+          {
+            "selected": false,
+            "text": "2.0",
+            "value": "2.0"
+          }
         ],
         "query": "0.1,0.3,0.5,1.0,2.0",
         "queryValue": "",
@@ -917,10 +1502,13 @@
       }
     ]
   },
-  "time": { "from": "now-7d", "to": "now" },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
   "timepicker": {},
   "timezone": "browser",
-  "title": "SLO / SLI \u2014 Error Budget & Compliance",
+  "title": "SLO / SLI — Error Budget & Compliance",
   "uid": "slo-dashboard",
   "version": 1,
   "weekStart": ""

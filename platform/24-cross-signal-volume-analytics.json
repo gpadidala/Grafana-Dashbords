@@ -59,44 +59,161 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "CEO Summary",
+      "url": "/d/ceo-platform-exec-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Risk Intelligence",
+      "url": "/d/risk-incident-intelligence",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Health Matrix",
+      "url": "/d/service-health-matrix",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Anomaly Detection",
+      "url": "/d/anomaly-detection-outliers",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
       "id": 1,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "transparent": true,
       "options": {
         "mode": "html",
-        "content": "<div style=\"display:flex; align-items:center; justify-content:space-between; padding: 8px 16px;\">\n  <div>\n    <h1 style=\"margin:0; font-size:24px; font-weight:600; color:#E0E0E0; letter-spacing:0.5px;\">Cross-Signal Volume & Growth Analytics</h1>\n    <p style=\"margin:4px 0 0 0; font-size:13px; color:#999; letter-spacing:0.3px;\">Platform Data Economics \u2022 Unified View</p>\n  </div>\n  <div style=\"text-align:right;\">\n    <span style=\"font-size:11px; color:#666; text-transform:uppercase; letter-spacing:1px;\">Signal Coverage</span><br/>\n    <span style=\"font-size:12px; letter-spacing:0.5px;\">\n      <span style=\"color:#4FC3F7;\">Logs</span> \u2022\n      <span style=\"color:#00C48C;\">Metrics</span> \u2022\n      <span style=\"color:#FFB020;\">Traces</span> \u2022\n      <span style=\"color:#6C63FF;\">Profiles</span>\n    </span>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "content": "<div style=\"display:flex; align-items:center; justify-content:space-between; padding: 8px 16px;\">\n  <div>\n    <h1 style=\"margin:0; font-size:24px; font-weight:600; color:#E0E0E0; letter-spacing:0.5px;\">Cross-Signal Volume & Growth Analytics</h1>\n    <p style=\"margin:4px 0 0 0; font-size:13px; color:#999; letter-spacing:0.3px;\">Platform Data Economics • Unified View</p>\n  </div>\n  <div style=\"text-align:right;\">\n    <span style=\"font-size:11px; color:#666; text-transform:uppercase; letter-spacing:1px;\">Signal Coverage</span><br/>\n    <span style=\"font-size:12px; letter-spacing:0.5px;\">\n      <span style=\"color:#4FC3F7;\">Logs</span> •\n      <span style=\"color:#00C48C;\">Metrics</span> •\n      <span style=\"color:#FFB020;\">Traces</span> •\n      <span style=\"color:#6C63FF;\">Profiles</span>\n    </span>\n  </div>\n</div>",
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 2 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
       "id": 50,
       "title": "Signal Volume at a Glance",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 2,
       "title": "Log Ingestion",
       "description": "Total byte throughput into Loki distributors. Represents raw log volume before compression.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 3 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 3
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Log Ingestion",
           "instant": true
@@ -109,7 +226,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#4FC3F7", "value": null }
+              {
+                "color": "#4FC3F7",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -121,7 +241,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -136,19 +258,29 @@
       ],
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 3,
       "title": "Metrics Ingestion",
       "description": "Total samples per second ingested by Mimir distributors across all tenants.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 3 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 3
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(cortex_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Metrics Ingestion",
           "instant": true
@@ -161,7 +293,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00C48C", "value": null }
+              {
+                "color": "#00C48C",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -173,7 +308,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -188,19 +325,29 @@
       ],
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 4,
       "title": "Trace Ingestion",
       "description": "Total spans per second ingested by Tempo distributors. Each span represents one unit of work in a distributed trace.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 3 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 3
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(tempo_distributor_spans_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Trace Ingestion",
           "instant": true
@@ -213,7 +360,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FFB020", "value": null }
+              {
+                "color": "#FFB020",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -225,7 +375,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -240,19 +392,29 @@
       ],
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 5,
       "title": "Profile Ingestion",
       "description": "Total profiles per second ingested by Pyroscope distributors.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 3 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 3
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Profile Ingestion",
           "instant": true
@@ -265,7 +427,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6C63FF", "value": null }
+              {
+                "color": "#6C63FF",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -277,7 +442,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -292,40 +459,60 @@
       ],
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 8 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
       "id": 51,
       "title": "Unified Throughput Timeline",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 6,
-      "title": "All Signals \u2014 Bytes Ingested Over Time",
+      "title": "All Signals — Bytes Ingested Over Time",
       "description": "Unified byte throughput across all signal types. Shows the relative data volume of each observability signal.",
       "type": "timeseries",
-      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 9 },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Logs (Loki)"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(tempo_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Traces (Tempo)"
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_compressed_bytes_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Profiles (Pyroscope)"
         }
@@ -368,28 +555,58 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Logs (Loki)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Logs (Loki)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#4FC3F7"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Traces (Tempo)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Traces (Tempo)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FFB020" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FFB020"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Profiles (Pyroscope)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Profiles (Pyroscope)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#6C63FF" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#6C63FF"
+                }
+              }
             ]
           }
         ]
@@ -403,39 +620,60 @@
           "displayMode": "table",
           "placement": "bottom",
           "showValues": "auto",
-          "calcs": ["mean", "max", "lastNotNull"]
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ]
         }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 18 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
       "id": 52,
       "title": "Growth Analysis",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 7,
       "title": "Log Volume Growth (7d vs 7d-ago)",
       "description": "Week-over-week log volume comparison. Growth without corresponding infrastructure growth indicates cost creep.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 19 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "Current"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval] offset 7d))",
           "legendFormat": "7 Days Ago"
         }
@@ -478,25 +716,61 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Current" },
+            "matcher": {
+              "id": "byName",
+              "options": "Current"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#4FC3F7"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "7 Days Ago" },
+            "matcher": {
+              "id": "byName",
+              "options": "7 Days Ago"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } },
-              { "id": "custom.fillOpacity", "value": 5 },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } },
-              { "id": "custom.lineWidth", "value": 1 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#4FC3F7"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 5
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
             ]
           }
         ]
@@ -510,30 +784,47 @@
           "displayMode": "table",
           "placement": "bottom",
           "showValues": "auto",
-          "calcs": ["mean", "max", "lastNotNull"]
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ]
         }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 8,
       "title": "Metrics Series Growth (7d vs 7d-ago)",
       "description": "Week-over-week active series comparison. Cardinality growth is the #1 cost driver for metrics.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 19 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 19
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(cortex_ingester_active_series{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "legendFormat": "Current Active Series"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(cortex_ingester_active_series{cluster=~\"$cluster\", namespace=~\"$namespace\"} offset 7d)",
           "legendFormat": "7 Days Ago"
         }
@@ -576,25 +867,61 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Current Active Series" },
+            "matcher": {
+              "id": "byName",
+              "options": "Current Active Series"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#00C48C"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "7 Days Ago" },
+            "matcher": {
+              "id": "byName",
+              "options": "7 Days Ago"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-              { "id": "custom.fillOpacity", "value": 5 },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } },
-              { "id": "custom.lineWidth", "value": 1 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#00C48C"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 5
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
             ]
           }
         ]
@@ -608,33 +935,51 @@
           "displayMode": "table",
           "placement": "bottom",
           "showValues": "auto",
-          "calcs": ["mean", "max", "lastNotNull"]
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ]
         }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 27 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
       "id": 53,
       "title": "Top Consumers by Signal",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 9,
       "title": "Top Log Producers (by namespace)",
       "description": "Namespaces generating the most log volume. Target these for log level tuning and sampling.",
       "type": "bargauge",
-      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 28 },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 28
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "topk(8, sum by (namespace) (rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval])))",
           "legendFormat": "{{namespace}}",
           "instant": true
@@ -646,8 +991,14 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#1A8FC4", "value": null },
-              { "color": "#4FC3F7", "value": 0 }
+              {
+                "color": "#1A8FC4",
+                "value": null
+              },
+              {
+                "color": "#4FC3F7",
+                "value": 0
+              }
             ]
           },
           "mappings": []
@@ -656,7 +1007,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -672,19 +1025,29 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 10,
       "title": "Top Metric Producers (by tenant)",
       "description": "Tenants with the most active series in Mimir. Cardinality is the primary cost driver for metrics storage.",
       "type": "bargauge",
-      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 28 },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 28
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "topk(8, sum by (user) (cortex_ingester_active_series{cluster=~\"$cluster\", namespace=~\"$namespace\"}))",
           "legendFormat": "{{user}}",
           "instant": true
@@ -696,8 +1059,14 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#008A63", "value": null },
-              { "color": "#00C48C", "value": 0 }
+              {
+                "color": "#008A63",
+                "value": null
+              },
+              {
+                "color": "#00C48C",
+                "value": 0
+              }
             ]
           },
           "mappings": []
@@ -706,7 +1075,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -722,19 +1093,29 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 11,
       "title": "Top Trace Producers (by tenant)",
       "description": "Tenants generating the most spans in Tempo. High-volume producers may benefit from tail-based sampling.",
       "type": "bargauge",
-      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 28 },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 28
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "topk(8, sum by (tenant) (rate(tempo_distributor_spans_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval])))",
           "legendFormat": "{{tenant}}",
           "instant": true
@@ -746,8 +1127,14 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#CC8D1A", "value": null },
-              { "color": "#FFB020", "value": 0 }
+              {
+                "color": "#CC8D1A",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 0
+              }
             ]
           },
           "mappings": []
@@ -756,7 +1143,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -772,28 +1161,42 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 36 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
       "id": 54,
       "title": "Cardinality & Efficiency",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 12,
       "title": "Active Series by Cluster",
       "description": "Mimir active series per cluster. The primary capacity and cost driver.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 37 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 37
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (cortex_ingester_active_series{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "legendFormat": "{{cluster}}"
         }
@@ -839,7 +1242,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00C48C", "value": null }
+              {
+                "color": "#00C48C",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -855,24 +1261,38 @@
           "displayMode": "table",
           "placement": "bottom",
           "showValues": "auto",
-          "calcs": ["mean", "max", "lastNotNull"]
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ]
         }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 13,
       "title": "Loki Active Streams by Cluster",
       "description": "Loki active streams per cluster. High stream count drives memory consumption.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 37 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 37
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (loki_ingester_memory_streams{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "legendFormat": "{{cluster}}"
         }
@@ -918,7 +1338,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#4FC3F7", "value": null }
+              {
+                "color": "#4FC3F7",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -934,22 +1357,34 @@
           "displayMode": "table",
           "placement": "bottom",
           "showValues": "auto",
-          "calcs": ["mean", "max", "lastNotNull"]
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ]
         }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 14,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 45 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
       "transparent": true,
       "options": {
         "mode": "html",
-        "content": "<div style=\"display:flex; justify-content:space-between; align-items:center; padding:8px 16px; border-top:1px solid rgba(255,255,255,0.05);\">\n  <span style=\"font-size:11px; color:#666;\">Platform Engineering \u2022 Cross-Signal Data Economics</span>\n  <div style=\"display:flex; gap:24px;\">\n    <a href=\"/d/loki-ingestion-analytics\" style=\"font-size:11px; color:#4FC3F7; text-decoration:none;\">Loki Ingestion \u2192</a>\n    <a href=\"/d/mimir-ingestion-analytics\" style=\"font-size:11px; color:#00C48C; text-decoration:none;\">Mimir Ingestion \u2192</a>\n    <a href=\"/d/tempo-ingestion-analytics\" style=\"font-size:11px; color:#FFB020; text-decoration:none;\">Tempo Ingestion \u2192</a>\n    <a href=\"/d/pyroscope-ingestion-analytics\" style=\"font-size:11px; color:#6C63FF; text-decoration:none;\">Pyroscope Ingestion \u2192</a>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "content": "<div style=\"display:flex; justify-content:space-between; align-items:center; padding:8px 16px; border-top:1px solid rgba(255,255,255,0.05);\">\n  <span style=\"font-size:11px; color:#666;\">Platform Engineering • Cross-Signal Data Economics</span>\n  <div style=\"display:flex; gap:24px;\">\n    <a href=\"/d/loki-ingestion-analytics\" style=\"font-size:11px; color:#4FC3F7; text-decoration:none;\">Loki Ingestion →</a>\n    <a href=\"/d/mimir-ingestion-analytics\" style=\"font-size:11px; color:#00C48C; text-decoration:none;\">Mimir Ingestion →</a>\n    <a href=\"/d/tempo-ingestion-analytics\" style=\"font-size:11px; color:#FFB020; text-decoration:none;\">Tempo Ingestion →</a>\n    <a href=\"/d/pyroscope-ingestion-analytics\" style=\"font-size:11px; color:#6C63FF; text-decoration:none;\">Pyroscope Ingestion →</a>\n  </div>\n</div>",
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     }
@@ -986,8 +1421,12 @@
         "allValue": ".*",
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -1014,8 +1453,12 @@
         "allValue": ".*",
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",

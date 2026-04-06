@@ -65,35 +65,141 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "CEO Summary",
+      "url": "/d/ceo-platform-exec-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Health Matrix",
+      "url": "/d/service-health-matrix",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Anomaly Detection",
+      "url": "/d/anomaly-detection-outliers",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
       "id": 1,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "transparent": true,
       "options": {
         "mode": "html",
         "content": "<div style=\"display:flex; align-items:center; justify-content:space-between; padding:8px 16px;\">\n  <div>\n    <h1 style=\"margin:0; font-size:22px; font-weight:600; color:#E0E0E0; letter-spacing:0.3px;\">Risk &amp; Incident Intelligence</h1>\n    <p style=\"margin:4px 0 0; font-size:12px; color:#999;\">Platform Reliability &bull; Threat Detection &bull; Early Warning System</p>\n  </div>\n  <div style=\"display:flex; gap:16px; align-items:center;\">\n    <div style=\"padding:4px 12px; border-radius:12px; background:rgba(105,240,174,0.1); border:1px solid rgba(105,240,174,0.3);\">\n      <span style=\"font-size:11px; color:#69F0AE;\">&bull; MONITORING ACTIVE</span>\n    </div>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 2,
       "title": "Platform Risk Level",
       "description": "Composite risk score based on current error rate. Scale: 0 (no risk) to 100+ (critical). Calculated from $severity_window error rate.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "(sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$severity_window])) / (sum(rate(grafana_http_request_duration_seconds_count[$severity_window])) + 0.001)) * 10000",
           "legendFormat": "Risk Level",
           "instant": true
@@ -106,9 +212,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#69F0AE", "value": null },
-              { "color": "#FFD740", "value": 10 },
-              { "color": "#FF5252", "value": 50 }
+              {
+                "color": "#69F0AE",
+                "value": null
+              },
+              {
+                "color": "#FFD740",
+                "value": 10
+              },
+              {
+                "color": "#FF5252",
+                "value": 50
+              }
             ]
           },
           "mappings": [
@@ -130,7 +245,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -139,19 +256,29 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 3,
       "title": "Active Error Rate",
       "description": "Current server error rate as percentage of total requests.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Error Rate",
           "instant": true
@@ -164,9 +291,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#69F0AE", "value": null },
-              { "color": "#FFD740", "value": 0.1 },
-              { "color": "#FF5252", "value": 1.0 }
+              {
+                "color": "#69F0AE",
+                "value": null
+              },
+              {
+                "color": "#FFD740",
+                "value": 0.1
+              },
+              {
+                "color": "#FF5252",
+                "value": 1.0
+              }
             ]
           },
           "mappings": []
@@ -178,7 +314,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -187,19 +325,29 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 4,
       "title": "Error Budget Remaining",
       "description": "30-day error budget remaining. When this hits 0%, reliability investment should be prioritized over feature work.",
       "type": "gauge",
-      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "((sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30d])) / (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30d])) + 0.001)) - 0.95) / 0.05 * 100",
           "legendFormat": "Budget Remaining",
           "instant": true
@@ -207,7 +355,9 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "unit": "percent",
           "decimals": 1,
           "min": 0,
@@ -215,9 +365,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF5252", "value": null },
-              { "color": "#FFD740", "value": 20 },
-              { "color": "#69F0AE", "value": 50 }
+              {
+                "color": "#FF5252",
+                "value": null
+              },
+              {
+                "color": "#FFD740",
+                "value": 20
+              },
+              {
+                "color": "#69F0AE",
+                "value": 50
+              }
             ]
           },
           "mappings": []
@@ -229,7 +388,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -238,19 +399,29 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 5,
       "title": "Burn Rate (1h) x",
       "description": "Error budget burn rate. 1x = sustainable. 2x = budget exhausted in half the window. >5x = critical.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "(sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[1h])) / (sum(rate(grafana_http_request_duration_seconds_count[1h])) + 0.001)) / 0.001",
           "legendFormat": "Burn Rate",
           "instant": true
@@ -263,9 +434,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#69F0AE", "value": null },
-              { "color": "#FFD740", "value": 1 },
-              { "color": "#FF5252", "value": 2 }
+              {
+                "color": "#69F0AE",
+                "value": null
+              },
+              {
+                "color": "#FFD740",
+                "value": 1
+              },
+              {
+                "color": "#FF5252",
+                "value": 2
+              }
             ]
           },
           "mappings": []
@@ -277,7 +457,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -286,19 +468,29 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 6,
       "title": "DB Health",
       "description": "Database connection pool headroom. Shows how much capacity remains before connection exhaustion.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "(1 - (grafana_database_conn_in_use / (grafana_database_conn_max_open + 0.001))) * 100",
           "legendFormat": "DB Health",
           "instant": true
@@ -311,9 +503,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF5252", "value": null },
-              { "color": "#FFD740", "value": 20 },
-              { "color": "#69F0AE", "value": 50 }
+              {
+                "color": "#FF5252",
+                "value": null
+              },
+              {
+                "color": "#FFD740",
+                "value": 20
+              },
+              {
+                "color": "#69F0AE",
+                "value": 50
+              }
             ]
           },
           "mappings": []
@@ -325,7 +526,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -334,19 +537,29 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 7,
       "title": "P95 Latency",
       "description": "Platform-wide P95 request latency. Users notice degradation above 1 second.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket[$__rate_interval])) by (le))",
           "legendFormat": "P95 Latency",
           "instant": true
@@ -359,9 +572,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#69F0AE", "value": null },
-              { "color": "#FFD740", "value": 0.5 },
-              { "color": "#FF5252", "value": 1.0 }
+              {
+                "color": "#69F0AE",
+                "value": null
+              },
+              {
+                "color": "#FFD740",
+                "value": 0.5
+              },
+              {
+                "color": "#FF5252",
+                "value": 1.0
+              }
             ]
           },
           "mappings": []
@@ -373,7 +595,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -382,10 +606,14 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 7 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
       "id": 100,
       "panels": [
         {
@@ -393,32 +621,51 @@
           "title": "Error Rate Trend — Multi-Service",
           "description": "Multi-service error rate trend. Spikes above the 1% threshold indicate active incidents.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 16, "x": 0, "y": 8 },
+          "gridPos": {
+            "h": 8,
+            "w": 16,
+            "x": 0,
+            "y": 8
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
               "legendFormat": "Grafana UI"
             },
             {
               "refId": "B",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(cortex_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(cortex_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
               "legendFormat": "Mimir"
             },
             {
               "refId": "C",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(loki_write_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(loki_write_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
               "legendFormat": "Loki"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed" },
+              "color": {
+                "mode": "fixed"
+              },
               "unit": "percent",
               "custom": {
                 "axisCenteredZero": false,
@@ -429,14 +676,23 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" },
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "dashed"
                 }
@@ -444,81 +700,142 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null },
-                  { "color": "#FF5252", "value": 1 }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  },
+                  {
+                    "color": "#FF5252",
+                    "value": 1
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Grafana UI" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Grafana UI"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#651FFF",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Mimir" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Mimir"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#448AFF", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#448AFF",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Loki" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Loki"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#69F0AE", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#69F0AE",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "right",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         },
-
         {
           "id": 9,
           "title": "Error Volume — Absolute Count",
           "description": "Error breakdown by HTTP status code. Identifies the type of failure occurring.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 8 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 8
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"500\"}[$__rate_interval]))",
               "legendFormat": "500 Internal"
             },
             {
               "refId": "B",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"502\"}[$__rate_interval]))",
               "legendFormat": "502 Bad Gateway"
             },
             {
               "refId": "C",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"503\"}[$__rate_interval]))",
               "legendFormat": "503 Unavailable"
             },
             {
               "refId": "D",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"504\"}[$__rate_interval]))",
               "legendFormat": "504 Timeout"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed" },
+              "color": {
+                "mode": "fixed"
+              },
               "unit": "reqps",
               "custom": {
                 "axisCenteredZero": false,
@@ -529,56 +846,111 @@
                 "drawStyle": "line",
                 "fillOpacity": 40,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "normal" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                }
               },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "500 Internal" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "500 Internal"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF5252", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF5252",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "502 Bad Gateway" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "502 Bad Gateway"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF9100", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF9100",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "503 Unavailable" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "503 Unavailable"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FFD740", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FFD740",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "504 Timeout" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "504 Timeout"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#651FFF",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
@@ -587,10 +959,14 @@
       "title": "Error Trend Analysis",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 8 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
       "id": 101,
       "panels": [
         {
@@ -598,38 +974,60 @@
           "title": "Latency Distribution — Platform Wide",
           "description": "Latency percentile band. The width of the colored area shows latency variability — wider = more unpredictable user experience.",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 16
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.50, sum(rate(grafana_http_request_duration_seconds_bucket[$__rate_interval])) by (le))",
               "legendFormat": "P50 (Typical)"
             },
             {
               "refId": "B",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.90, sum(rate(grafana_http_request_duration_seconds_bucket[$__rate_interval])) by (le))",
               "legendFormat": "P90"
             },
             {
               "refId": "C",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket[$__rate_interval])) by (le))",
               "legendFormat": "P95 (SLO Boundary)"
             },
             {
               "refId": "D",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.99, sum(rate(grafana_http_request_duration_seconds_bucket[$__rate_interval])) by (le))",
               "legendFormat": "P99 (Worst Case)"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed" },
+              "color": {
+                "mode": "fixed"
+              },
               "unit": "s",
               "custom": {
                 "axisCenteredZero": false,
@@ -640,14 +1038,23 @@
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" },
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "dashed"
                 }
@@ -655,69 +1062,149 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null },
-                  { "color": "#FFD740", "value": 1.0 },
-                  { "color": "#FF5252", "value": 2.0 }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  },
+                  {
+                    "color": "#FFD740",
+                    "value": 1.0
+                  },
+                  {
+                    "color": "#FF5252",
+                    "value": 2.0
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "P50 (Typical)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P50 (Typical)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#69F0AE", "mode": "fixed" } },
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#69F0AE",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P90" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P90"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FFD740", "mode": "fixed" } },
-                  { "id": "custom.lineWidth", "value": 1 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FFD740",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P95 (SLO Boundary)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P95 (SLO Boundary)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF9100", "mode": "fixed" } },
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF9100",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P99 (Worst Case)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P99 (Worst Case)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF5252", "mode": "fixed" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillBelowTo", "value": "P50 (Typical)" },
-                  { "id": "custom.fillOpacity", "value": 15 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF5252",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillBelowTo",
+                    "value": "P50 (Typical)"
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 15
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         },
-
         {
           "id": 11,
           "title": "Endpoint Risk Ranking",
           "description": "Endpoint risk score = error_rate x P95_latency. Higher score = more user impact. Focus remediation on the top entries.",
           "type": "bargauge",
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 16
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "topk(10, (sum by (handler) (rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum by (handler) (rate(grafana_http_request_duration_seconds_count[$__rate_interval])) + 0.001)) * histogram_quantile(0.95, sum by (le, handler) (rate(grafana_http_request_duration_seconds_bucket[$__rate_interval]))) * 1000)",
               "legendFormat": "{{handler}}",
               "instant": true
@@ -725,14 +1212,25 @@
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "unit": "short",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#69F0AE", "value": null },
-                  { "color": "#FFD740", "value": 1 },
-                  { "color": "#FF5252", "value": 10 }
+                  {
+                    "color": "#69F0AE",
+                    "value": null
+                  },
+                  {
+                    "color": "#FFD740",
+                    "value": 1
+                  },
+                  {
+                    "color": "#FF5252",
+                    "value": 10
+                  }
                 ]
               },
               "mappings": []
@@ -746,7 +1244,9 @@
             "minVizWidth": 8,
             "namePlacement": "auto",
             "reduceOptions": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "fields": "",
               "values": false
             },
@@ -759,10 +1259,14 @@
       "title": "Latency Risk Map",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 9 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
       "id": 102,
       "panels": [
         {
@@ -770,32 +1274,51 @@
           "title": "Infrastructure Saturation",
           "description": "Key resource saturation metrics. Crossing 80% on any signal indicates capacity risk.",
           "type": "timeseries",
-          "gridPos": { "h": 7, "w": 8, "x": 0, "y": 24 },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 24
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "grafana_database_conn_in_use / (grafana_database_conn_max_open + 0.001) * 100",
               "legendFormat": "DB Pool %"
             },
             {
               "refId": "B",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "process_open_fds{job=~\".*grafana.*\"} / (process_max_fds{job=~\".*grafana.*\"} + 0.001) * 100",
               "legendFormat": "File Descriptors %"
             },
             {
               "refId": "C",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(process_cpu_seconds_total{job=~\".*grafana.*\"}[$__rate_interval]) * 100",
               "legendFormat": "CPU %"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed" },
+              "color": {
+                "mode": "fixed"
+              },
               "unit": "percent",
               "custom": {
                 "axisCenteredZero": false,
@@ -806,14 +1329,23 @@
                 "drawStyle": "line",
                 "fillOpacity": 8,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" },
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "dashed"
                 }
@@ -821,69 +1353,124 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null },
-                  { "color": "#FF5252", "value": 80 }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  },
+                  {
+                    "color": "#FF5252",
+                    "value": 80
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "DB Pool %" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "DB Pool %"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#651FFF",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "File Descriptors %" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "File Descriptors %"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#448AFF", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#448AFF",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "CPU %" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU %"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#69F0AE", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#69F0AE",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         },
-
         {
           "id": 13,
           "title": "Memory Pressure",
           "description": "Memory usage trend. Continuous upward trend without plateaus indicates a potential memory leak.",
           "type": "timeseries",
-          "gridPos": { "h": 7, "w": 8, "x": 8, "y": 24 },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 8,
+            "y": 24
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "process_resident_memory_bytes{job=~\".*grafana.*\"}",
               "legendFormat": "RSS Memory"
             },
             {
               "refId": "B",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_heap_alloc_bytes{job=~\".*grafana.*\"}",
               "legendFormat": "Heap Allocated"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed" },
+              "color": {
+                "mode": "fixed"
+              },
               "unit": "bytes",
               "custom": {
                 "axisCenteredZero": false,
@@ -894,74 +1481,126 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                }
               },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "RSS Memory" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "RSS Memory"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#651FFF",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Heap Allocated" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Heap Allocated"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#448AFF", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#448AFF",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         },
-
         {
           "id": 14,
           "title": "GC Impact on Latency",
           "description": "Correlation between garbage collection activity and request latency. If these move together, GC is a performance bottleneck.",
           "type": "timeseries",
-          "gridPos": { "h": 7, "w": 8, "x": 16, "y": 24 },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 16,
+            "y": 24
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(go_gc_duration_seconds_sum{job=~\".*grafana.*\"}[$__rate_interval]) * 1000",
               "legendFormat": "GC Pause (ms/s)"
             },
             {
               "refId": "B",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket[$__rate_interval])) by (le)) * 1000",
               "legendFormat": "P95 Latency (ms)"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed" },
+              "color": {
+                "mode": "fixed"
+              },
               "unit": "ms",
               "custom": {
                 "axisCenteredZero": false,
@@ -972,45 +1611,85 @@
                 "drawStyle": "line",
                 "fillOpacity": 5,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                }
               },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "GC Pause (ms/s)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "GC Pause (ms/s)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FFD740", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FFD740",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P95 Latency (ms)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P95 Latency (ms)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF5252", "mode": "fixed" } },
-                  { "id": "custom.axisPlacement", "value": "right" }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF5252",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
@@ -1019,10 +1698,14 @@
       "title": "Resource Risk Signals",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 10 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
       "id": 103,
       "panels": [
         {
@@ -1030,20 +1713,33 @@
           "title": "Error Rate by Cluster",
           "description": "Per-cluster error rate. Divergence between clusters may indicate infrastructure-specific issues.",
           "type": "timeseries",
-          "gridPos": { "h": 7, "w": 12, "x": 0, "y": 31 },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 31
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum by (cluster) (rate(cortex_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum by (cluster) (rate(cortex_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
               "legendFormat": "{{cluster}}"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "unit": "percent",
               "custom": {
                 "axisCenteredZero": false,
@@ -1054,14 +1750,23 @@
                 "drawStyle": "line",
                 "fillOpacity": 8,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" },
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "dashed"
                 }
@@ -1069,8 +1774,14 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null },
-                  { "color": "#FF5252", "value": 1 }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  },
+                  {
+                    "color": "#FF5252",
+                    "value": 1
+                  }
                 ]
               },
               "mappings": []
@@ -1078,35 +1789,54 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         },
-
         {
           "id": 16,
           "title": "Cluster Latency Comparison",
           "description": "P95 latency by cluster. Large differences suggest uneven load distribution or degraded nodes.",
           "type": "timeseries",
-          "gridPos": { "h": 7, "w": 12, "x": 12, "y": 31 },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 31
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.95, sum by (le, cluster) (rate(cortex_request_duration_seconds_bucket[$__rate_interval])))",
               "legendFormat": "{{cluster}}"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "unit": "s",
               "custom": {
                 "axisCenteredZero": false,
@@ -1117,14 +1847,23 @@
                 "drawStyle": "line",
                 "fillOpacity": 8,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" },
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "dashed"
                 }
@@ -1132,8 +1871,14 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null },
-                  { "color": "#FFD740", "value": 0.5 }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  },
+                  {
+                    "color": "#FFD740",
+                    "value": 0.5
+                  }
                 ]
               },
               "mappings": []
@@ -1141,11 +1886,18 @@
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
@@ -1154,10 +1906,14 @@
       "title": "Cluster Risk Distribution",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 11 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
       "id": 104,
       "panels": [
         {
@@ -1165,32 +1921,51 @@
           "title": "Multi-Window Burn Rate",
           "description": "Multi-window burn rate analysis (Google SRE methodology). Fast windows (5m) detect incidents. Slow windows (6h) show sustained trends. Values above 1x mean budget is being consumed faster than sustainable.",
           "type": "timeseries",
-          "gridPos": { "h": 7, "w": 24, "x": 0, "y": 38 },
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 38
+          },
           "transparent": false,
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "(sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[5m])) / (sum(rate(grafana_http_request_duration_seconds_count[5m])) + 0.001)) / 0.001",
               "legendFormat": "5m Burn Rate (Fast)"
             },
             {
               "refId": "B",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "(sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[1h])) / (sum(rate(grafana_http_request_duration_seconds_count[1h])) + 0.001)) / 0.001",
               "legendFormat": "1h Burn Rate (Medium)"
             },
             {
               "refId": "C",
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "(sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[6h])) / (sum(rate(grafana_http_request_duration_seconds_count[6h])) + 0.001)) / 0.001",
               "legendFormat": "6h Burn Rate (Slow)"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed" },
+              "color": {
+                "mode": "fixed"
+              },
               "unit": "none",
               "custom": {
                 "axisCenteredZero": false,
@@ -1201,14 +1976,23 @@
                 "drawStyle": "line",
                 "fillOpacity": 5,
                 "gradientMode": "opacity",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": true,
-                "stacking": { "group": "A", "mode": "none" },
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "dashed"
                 }
@@ -1216,47 +2000,111 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "transparent", "value": null },
-                  { "color": "#69F0AE", "value": 1.0 },
-                  { "color": "#FFD740", "value": 2.0 },
-                  { "color": "#FF5252", "value": 5.0 }
+                  {
+                    "color": "transparent",
+                    "value": null
+                  },
+                  {
+                    "color": "#69F0AE",
+                    "value": 1.0
+                  },
+                  {
+                    "color": "#FFD740",
+                    "value": 2.0
+                  },
+                  {
+                    "color": "#FF5252",
+                    "value": 5.0
+                  }
                 ]
               },
               "mappings": []
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "5m Burn Rate (Fast)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "5m Burn Rate (Fast)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF5252", "mode": "fixed" } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillOpacity", "value": 5 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF5252",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 5
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "1h Burn Rate (Medium)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "1h Burn Rate (Medium)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FFD740", "mode": "fixed" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 10 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FFD740",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 10
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "6h Burn Rate (Slow)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "6h Burn Rate (Slow)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } },
-                  { "id": "custom.lineWidth", "value": 3 },
-                  { "id": "custom.fillOpacity", "value": 15 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#651FFF",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 3
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 15
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
@@ -1265,17 +2113,25 @@
       "title": "Burn Rate Analysis",
       "type": "row"
     },
-
     {
       "id": 18,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 12 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
       "transparent": true,
       "options": {
         "mode": "html",
         "content": "<div style=\"display:flex; justify-content:space-between; padding:8px 16px; border-top:1px solid rgba(255,255,255,0.05);\">\n  <span style=\"font-size:11px; color:#666;\">Risk Intelligence &bull; Platform Reliability Engineering</span>\n  <div style=\"display:flex; gap:20px;\">\n    <a href=\"/d/ceo-platform-exec-summary\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">Executive Summary &rarr;</a>\n    <a href=\"/d/sla-business-impact-report\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">SLA Report &rarr;</a>\n    <a href=\"/d/grafana-admin-command-center\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">Admin Command Center &rarr;</a>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     }
@@ -1311,7 +2167,10 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "$datasource" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
         "definition": "label_values(up, cluster)",
         "hide": 0,
         "includeAll": true,

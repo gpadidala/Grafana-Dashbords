@@ -49,7 +49,7 @@
     ]
   },
   "uid": "pyroscope-ingestion-analytics",
-  "title": "Pyroscope \u2014 Profile Ingestion & Storage Analytics",
+  "title": "Pyroscope — Profile Ingestion & Storage Analytics",
   "description": "Advanced Pyroscope continuous profiling ingestion analytics. Track profile volume by service, ingestion throughput, storage growth, and identify top CPU/memory consumers.",
   "tags": [
     "pyroscope",
@@ -72,7 +72,80 @@
   "timezone": "utc",
   "weekStart": "",
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "Pyroscope Deep Dive",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Pyroscope Errors",
+      "url": "/d/pyroscope-admin-errors-ops",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Pyroscope Volume",
+      "url": "/d/pyroscope-volume-analytics",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "timepicker": {
     "refresh_intervals": [
       "10s",
@@ -188,7 +261,12 @@
       "type": "row",
       "title": "Profiling Overview",
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "panels": []
     },
     {
@@ -196,8 +274,16 @@
       "type": "stat",
       "title": "Profiles Ingested/sec",
       "description": "Total rate of profile samples ingested across all Pyroscope distributors. Indicates the overall profiling write throughput entering the system.",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -213,16 +299,24 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6C63FF", "value": null }
+              {
+                "color": "#6C63FF",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#6C63FF", "mode": "fixed" }
+          "color": {
+            "fixedColor": "#6C63FF",
+            "mode": "fixed"
+          }
         },
         "overrides": []
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -239,8 +333,16 @@
       "type": "stat",
       "title": "Bytes Received/sec",
       "description": "Rate of compressed profile bytes received by the distributors. Reflects the network bandwidth consumed by profile ingestion.",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -256,16 +358,24 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#4FC3F7", "value": null }
+              {
+                "color": "#4FC3F7",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#4FC3F7", "mode": "fixed" }
+          "color": {
+            "fixedColor": "#4FC3F7",
+            "mode": "fixed"
+          }
         },
         "overrides": []
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -282,8 +392,16 @@
       "type": "stat",
       "title": "Active Series",
       "description": "Total number of active profiling series across all ingesters. High cardinality may indicate excessive label combinations or unconstrained service instrumentation.",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -299,16 +417,24 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00C48C", "value": null }
+              {
+                "color": "#00C48C",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#00C48C", "mode": "fixed" }
+          "color": {
+            "fixedColor": "#00C48C",
+            "mode": "fixed"
+          }
         },
         "overrides": []
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -325,8 +451,16 @@
       "type": "stat",
       "title": "Write Latency P95",
       "description": "95th percentile latency for profile push/ingest requests. Sustained values above 500ms indicate distributor or ingester saturation.",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 1 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -342,18 +476,31 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 0.3 },
-              { "color": "red", "value": 0.5 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.3
+              },
+              {
+                "color": "red",
+                "value": 0.5
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -370,8 +517,16 @@
       "type": "stat",
       "title": "Ingestion Errors",
       "description": "Rate of failed push/ingest requests (HTTP 4xx and 5xx). Non-zero values indicate client-side issues (4xx) or server-side failures (5xx) in the ingestion pipeline.",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 1 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -387,18 +542,31 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 1 },
-              { "color": "red", "value": 10 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
             ]
           },
-          "color": { "mode": "thresholds" }
+          "color": {
+            "mode": "thresholds"
+          }
         },
         "overrides": []
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -415,8 +583,16 @@
       "type": "stat",
       "title": "Pyroscope Instances",
       "description": "Total number of Pyroscope component instances currently reporting build info. A drop from the expected count indicates instance failures or incomplete rollouts.",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 1 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -432,16 +608,24 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00C48C", "value": null }
+              {
+                "color": "#00C48C",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#00C48C", "mode": "fixed" }
+          "color": {
+            "fixedColor": "#00C48C",
+            "mode": "fixed"
+          }
         },
         "overrides": []
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -458,15 +642,28 @@
       "type": "row",
       "title": "Ingestion Throughput",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
       "panels": [
         {
           "id": 7,
           "type": "timeseries",
           "title": "Profiles Ingested Over Time",
           "description": "Rate of profile samples received by the distributor, broken down by tenant. Reveals which tenants are the heaviest producers and helps identify sudden ingestion spikes.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 6
+          },
           "targets": [
             {
               "refId": "A",
@@ -492,27 +689,43 @@
                 },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "palette-classic" }
+              "color": {
+                "mode": "palette-classic"
+              }
             },
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showValues": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -521,8 +734,16 @@
           "type": "timeseries",
           "title": "Bytes Received Over Time",
           "description": "Rate of compressed bytes received by the distributor, broken down by cluster. Tracks the network and storage bandwidth pressure from profiling data.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 6
+          },
           "targets": [
             {
               "refId": "A",
@@ -548,27 +769,43 @@
                 },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "palette-classic" }
+              "color": {
+                "mode": "palette-classic"
+              }
             },
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showValues": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         }
@@ -579,15 +816,28 @@
       "type": "row",
       "title": "Top Profile Producers",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
       "panels": [
         {
           "id": 9,
           "type": "bargauge",
           "title": "Top 10 Services by Profile Volume",
           "description": "The ten services generating the highest rate of profile samples. Use this to identify noisy services that may need sampling adjustment or profile type filtering.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 15 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 15
+          },
           "targets": [
             {
               "refId": "A",
@@ -603,20 +853,39 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "blue", "value": null },
-                  { "color": "green", "value": 100 },
-                  { "color": "yellow", "value": 1000 },
-                  { "color": "orange", "value": 5000 },
-                  { "color": "red", "value": 10000 }
+                  {
+                    "color": "blue",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1000
+                  },
+                  {
+                    "color": "orange",
+                    "value": 5000
+                  },
+                  {
+                    "color": "red",
+                    "value": 10000
+                  }
                 ]
               },
-              "color": { "mode": "continuous-BlYlRd" }
+              "color": {
+                "mode": "continuous-BlYlRd"
+              }
             },
             "overrides": []
           },
           "options": {
             "reduceOptions": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "fields": "",
               "values": false
             },
@@ -634,8 +903,16 @@
           "type": "bargauge",
           "title": "Top 10 Tenants by Active Series",
           "description": "The ten tenants with the highest active series count in Pyroscope ingesters. Helps identify tenants driving cardinality growth and potential resource contention.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 15 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 15
+          },
           "targets": [
             {
               "refId": "A",
@@ -651,20 +928,39 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "blue", "value": null },
-                  { "color": "green", "value": 1000 },
-                  { "color": "yellow", "value": 10000 },
-                  { "color": "orange", "value": 50000 },
-                  { "color": "red", "value": 100000 }
+                  {
+                    "color": "blue",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1000
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 10000
+                  },
+                  {
+                    "color": "orange",
+                    "value": 50000
+                  },
+                  {
+                    "color": "red",
+                    "value": 100000
+                  }
                 ]
               },
-              "color": { "mode": "continuous-BlYlRd" }
+              "color": {
+                "mode": "continuous-BlYlRd"
+              }
             },
             "overrides": []
           },
           "options": {
             "reduceOptions": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "fields": "",
               "values": false
             },
@@ -684,15 +980,28 @@
       "type": "row",
       "title": "Distributor & Ingester",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
       "panels": [
         {
           "id": 11,
           "type": "timeseries",
           "title": "Distributor Request Rate",
           "description": "Rate of distributor push/ingest requests broken down by HTTP status code class. Green (2xx) is healthy, yellow (4xx) indicates client errors, red (5xx) signals server failures.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 8, "x": 0, "y": 24 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 24
+          },
           "targets": [
             {
               "refId": "A",
@@ -728,46 +1037,89 @@
                 },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "palette-classic" }
+              "color": {
+                "mode": "palette-classic"
+              }
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "2xx" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "2xx"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "green",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "4xx" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "4xx"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "yellow", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "5xx" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "5xx"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showValues": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -776,8 +1128,16 @@
           "type": "timeseries",
           "title": "Active Series Over Time",
           "description": "Total active profiling series in the ingesters over time, broken down by cluster. A continuously rising trend may indicate a cardinality leak requiring investigation.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 8, "x": 8, "y": 24 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 24
+          },
           "targets": [
             {
               "refId": "A",
@@ -803,27 +1163,43 @@
                 },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "palette-classic" }
+              "color": {
+                "mode": "palette-classic"
+              }
             },
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showValues": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -832,8 +1208,16 @@
           "type": "timeseries",
           "title": "Write Latency Distribution",
           "description": "Percentile breakdown of push/ingest request durations. Compare P50 to P99 to understand tail latency behavior and detect ingester back-pressure.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 24 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 24
+          },
           "targets": [
             {
               "refId": "A",
@@ -874,52 +1258,104 @@
                 },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "palette-classic" }
+              "color": {
+                "mode": "palette-classic"
+              }
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "P50" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P50"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "green",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P90" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P90"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "yellow", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P95" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P95"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "orange",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P99" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P99"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showValues": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         }
@@ -930,15 +1366,28 @@
       "type": "row",
       "title": "Compactor & Storage",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 32 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
       "panels": [
         {
           "id": 14,
           "type": "timeseries",
           "title": "Compactor Runs",
           "description": "Rate of completed versus failed compaction runs. Compaction failures can lead to unbounded block growth and degraded query performance.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 33 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 33
+          },
           "targets": [
             {
               "refId": "A",
@@ -969,40 +1418,74 @@
                 },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "mode": "palette-classic" }
+              "color": {
+                "mode": "palette-classic"
+              }
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Completed/sec" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Completed/sec"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "green",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Failed/sec" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Failed/sec"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showValues": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         },
@@ -1011,8 +1494,16 @@
           "type": "timeseries",
           "title": "Storage Operations",
           "description": "Rate of storage-level block cleanup by the compactor. Tracks how quickly obsolete blocks are being reclaimed to free storage space.",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 33 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 33
+          },
           "targets": [
             {
               "refId": "A",
@@ -1038,27 +1529,44 @@
                 },
                 "axisPlacement": "auto",
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
-              "color": { "fixedColor": "purple", "mode": "fixed" }
+              "color": {
+                "fixedColor": "purple",
+                "mode": "fixed"
+              }
             },
             "overrides": []
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
               "showValues": true,
-              "calcs": ["mean", "max", "lastNotNull"]
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ]
             }
           }
         }

@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -17,36 +20,147 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "Admin Command Center",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Access & Security",
+      "url": "/d/grafana-access-security",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "User Activity",
+      "url": "/d/grafana-user-activity-analytics",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Errors & API",
+      "url": "/d/grafana-admin-errors-ops",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Volume",
+      "url": "/d/grafana-volume-analytics",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "id": 100,
       "title": "Health Signals",
       "type": "row"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "Database connection pool utilization. >80% = danger zone.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#73BF69", "value": null },
-              { "color": "#FF9830", "value": 50 },
-              { "color": "#F2495C", "value": 80 }
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 50
+              },
+              {
+                "color": "#F2495C",
+                "value": 80
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
       "id": 1,
       "options": {
         "colorMode": "background",
@@ -54,7 +168,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -63,7 +179,10 @@
       "pluginVersion": "11.6.4",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_database_conn_in_use{instance=~\"$instance\"} / grafana_database_conn_max_open{instance=~\"$instance\"} * 100",
           "legendFormat": "DB Pool Saturation",
           "refId": "A"
@@ -73,25 +192,44 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "Rate of goroutines waiting for a database connection. Non-zero = pool exhaustion.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#73BF69", "value": null },
-              { "color": "#FF9830", "value": 1 },
-              { "color": "#F2495C", "value": 10 }
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 1
+              },
+              {
+                "color": "#F2495C",
+                "value": 10
+              }
             ]
           },
           "unit": "ops"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
       "id": 2,
       "options": {
         "colorMode": "background",
@@ -99,7 +237,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -108,7 +248,10 @@
       "pluginVersion": "11.6.4",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "rate(grafana_database_conn_wait_count_total{instance=~\"$instance\"}[$__rate_interval])",
           "legendFormat": "DB Wait Rate",
           "refId": "A"
@@ -118,25 +261,44 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "Average time goroutines spend waiting for a DB connection. >100ms means queries are visibly delayed.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#73BF69", "value": null },
-              { "color": "#FF9830", "value": 0.01 },
-              { "color": "#F2495C", "value": 0.1 }
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 0.01
+              },
+              {
+                "color": "#F2495C",
+                "value": 0.1
+              }
             ]
           },
           "unit": "s"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
       "id": 3,
       "options": {
         "colorMode": "background",
@@ -144,7 +306,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -153,7 +317,10 @@
       "pluginVersion": "11.6.4",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "rate(grafana_database_conn_wait_duration_seconds_total{instance=~\"$instance\"}[$__rate_interval]) / (rate(grafana_database_conn_wait_count_total{instance=~\"$instance\"}[$__rate_interval]) + 0.001)",
           "legendFormat": "Avg DB Wait Time",
           "refId": "A"
@@ -163,23 +330,36 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "Grafana process resident memory (RSS). Track for unexpected growth indicating memory leaks.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "continuous-blues" },
+          "color": {
+            "mode": "continuous-blues"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6ED0E0", "value": null }
+              {
+                "color": "#6ED0E0",
+                "value": null
+              }
             ]
           },
           "unit": "bytes"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
       "id": 4,
       "options": {
         "colorMode": "value",
@@ -187,7 +367,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -196,7 +378,10 @@
       "pluginVersion": "11.6.4",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "process_resident_memory_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
           "legendFormat": "Memory Usage",
           "refId": "A"
@@ -206,25 +391,44 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "GC pause time in ms/sec. High values mean Go is spending too much time in garbage collection.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#73BF69", "value": null },
-              { "color": "#FF9830", "value": 5 },
-              { "color": "#F2495C", "value": 20 }
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 5
+              },
+              {
+                "color": "#F2495C",
+                "value": 20
+              }
             ]
           },
           "unit": "ms"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
       "id": 5,
       "options": {
         "colorMode": "background",
@@ -232,7 +436,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -241,7 +447,10 @@
       "pluginVersion": "11.6.4",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "rate(go_gc_duration_seconds_sum{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval]) * 1000",
           "legendFormat": "GC Pause Rate",
           "refId": "A"
@@ -251,25 +460,44 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "File descriptor utilization. >80% = risk of 'too many open files' errors crashing Grafana.",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#73BF69", "value": null },
-              { "color": "#FF9830", "value": 50 },
-              { "color": "#F2495C", "value": 80 }
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 50
+              },
+              {
+                "color": "#F2495C",
+                "value": 80
+              }
             ]
           },
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
       "id": 6,
       "options": {
         "colorMode": "background",
@@ -277,7 +505,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -286,7 +516,10 @@
       "pluginVersion": "11.6.4",
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "process_open_fds{job=~\".*grafana.*\", instance=~\"$instance\"} / process_max_fds{job=~\".*grafana.*\", instance=~\"$instance\"} * 100",
           "legendFormat": "FD Saturation",
           "refId": "A"
@@ -297,15 +530,25 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
       "id": 101,
       "panels": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Complete view of the database connection pool. When 'In Use' approaches 'Max Open', new requests will be queued.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -316,89 +559,175 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "short"
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Max Open" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Max Open"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#F2495C", "mode": "fixed" } },
-                  { "id": "custom.lineStyle", "value": { "dash": [10, 10], "fill": "dash" } },
-                  { "id": "custom.fillOpacity", "value": 0 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#F2495C",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "dash": [
+                        10,
+                        10
+                      ],
+                      "fill": "dash"
+                    }
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Total Open" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Total Open"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#6ED0E0", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#6ED0E0",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "In Use" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "In Use"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF9830", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF9830",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Idle" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Idle"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#73BF69", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#73BF69",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 6
+          },
           "id": 7,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom",
               "sortBy": "Max",
               "sortDesc": true
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "grafana_database_conn_max_open{instance=~\"$instance\"}",
               "legendFormat": "Max Open",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "grafana_database_conn_open{instance=~\"$instance\"}",
               "legendFormat": "Total Open",
               "refId": "B"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "grafana_database_conn_in_use{instance=~\"$instance\"}",
               "legendFormat": "In Use",
               "refId": "C"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "grafana_database_conn_idle{instance=~\"$instance\"}",
               "legendFormat": "Idle",
               "refId": "D"
@@ -408,11 +737,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Connection pool lifecycle. Frequent closures indicate pool thrashing. Waits indicate saturation.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -423,56 +757,91 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops"
             },
             "overrides": []
           },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 6
+          },
           "id": 8,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom",
               "sortBy": "Max",
               "sortDesc": true
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(grafana_database_conn_wait_count_total{instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "Waits/sec",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(grafana_database_conn_max_idle_closed_total{instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "Max Idle Closed/sec",
               "refId": "B"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(grafana_database_conn_max_lifetime_closed_total{instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "Max Lifetime Closed/sec",
               "refId": "C"
@@ -487,15 +856,26 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
       "id": 102,
       "panels": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Total time spent waiting for DB connections per second. This is direct user-visible latency.",
           "fieldConfig": {
             "defaults": {
-              "color": { "fixedColor": "#F2495C", "mode": "fixed" },
+              "color": {
+                "fixedColor": "#F2495C",
+                "mode": "fixed"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -506,42 +886,71 @@
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "s"
             },
             "overrides": []
           },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 15 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 15
+          },
           "id": 9,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(grafana_database_conn_wait_duration_seconds_total{instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "Wait Duration Rate (s/s)",
               "refId": "A"
@@ -551,11 +960,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Correlation between database wait time and HTTP latency. If they move together, the DB is the bottleneck.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -566,62 +980,115 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "s"
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "HTTP P95 Latency" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "HTTP P95 Latency"
+                },
                 "properties": [
-                  { "id": "custom.axisPlacement", "value": "right" },
-                  { "id": "color", "value": { "fixedColor": "#6ED0E0", "mode": "fixed" } }
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#6ED0E0",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "DB Wait (s/s)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "DB Wait (s/s)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#F2495C", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#F2495C",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 15 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 15
+          },
           "id": 10,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(grafana_database_conn_wait_duration_seconds_total{instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "DB Wait (s/s)",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
               "legendFormat": "HTTP P95 Latency",
               "refId": "B"
@@ -636,15 +1103,25 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
       "id": 103,
       "panels": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Go heap memory states. Large gap between Sys and In Use indicates fragmentation.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -655,89 +1132,175 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "bytes"
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Heap Allocated" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Heap Allocated"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#6ED0E0", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#6ED0E0",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Heap In Use" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Heap In Use"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF9830", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF9830",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Heap Idle" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Heap Idle"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#73BF69", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#73BF69",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Heap Sys (Reserved)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Heap Sys (Reserved)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#F2495C", "mode": "fixed" } },
-                  { "id": "custom.lineStyle", "value": { "dash": [10, 10], "fill": "dash" } },
-                  { "id": "custom.fillOpacity", "value": 0 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#F2495C",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "dash": [
+                        10,
+                        10
+                      ],
+                      "fill": "dash"
+                    }
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  }
                 ]
               }
             ]
           },
-          "gridPos": { "h": 8, "w": 8, "x": 0, "y": 24 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 24
+          },
           "id": 11,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom",
               "sortBy": "Max",
               "sortDesc": true
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_heap_alloc_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "Heap Allocated",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_heap_inuse_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "Heap In Use",
               "refId": "B"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_heap_idle_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "Heap Idle",
               "refId": "C"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_heap_sys_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "Heap Sys (Reserved)",
               "refId": "D"
@@ -747,11 +1310,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Memory allocation throughput. High allocation rates drive GC pressure.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -762,57 +1330,101 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "Bps"
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Free Rate" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Free Rate"
+                },
                 "properties": [
-                  { "id": "unit", "value": "short" },
-                  { "id": "custom.axisPlacement", "value": "right" },
-                  { "id": "custom.axisLabel", "value": "Frees/sec" }
+                  {
+                    "id": "unit",
+                    "value": "short"
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  },
+                  {
+                    "id": "custom.axisLabel",
+                    "value": "Frees/sec"
+                  }
                 ]
               }
             ]
           },
-          "gridPos": { "h": 8, "w": 8, "x": 8, "y": 24 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 24
+          },
           "id": 12,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(go_memstats_alloc_bytes_total{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "Alloc Rate",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(go_memstats_frees_total{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "Free Rate",
               "refId": "B"
@@ -822,11 +1434,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Non-heap memory usage. Stack growth correlates with goroutine count.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -837,54 +1454,89 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "bytes"
             },
             "overrides": []
           },
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 24 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 24
+          },
           "id": 13,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_stack_inuse_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "Stack In Use",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_mspan_inuse_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "MSpan In Use",
               "refId": "B"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_memstats_mcache_inuse_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "MCache In Use",
               "refId": "C"
@@ -899,15 +1551,25 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 32 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
       "id": 104,
       "panels": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "GC cycle frequency. Higher frequency = more memory pressure.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -918,42 +1580,71 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "ops"
             },
             "overrides": []
           },
-          "gridPos": { "h": 8, "w": 8, "x": 0, "y": 33 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 33
+          },
           "id": 14,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(go_gc_duration_seconds_count{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval])",
               "legendFormat": "GC Cycles/sec",
               "refId": "A"
@@ -963,11 +1654,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Individual GC pause durations. Max pause directly impacts tail latency.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -978,73 +1674,135 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "s"
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "P50 GC Pause" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P50 GC Pause"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#73BF69", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#73BF69",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "P75 GC Pause" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "P75 GC Pause"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF9830", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF9830",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Max GC Pause" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Max GC Pause"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#F2495C", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#F2495C",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
-          "gridPos": { "h": 8, "w": 8, "x": 8, "y": 33 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 33
+          },
           "id": 15,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_gc_duration_seconds{job=~\".*grafana.*\", instance=~\"$instance\", quantile=\"0.5\"}",
               "legendFormat": "P50 GC Pause",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_gc_duration_seconds{job=~\".*grafana.*\", instance=~\"$instance\", quantile=\"0.75\"}",
               "legendFormat": "P75 GC Pause",
               "refId": "B"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_gc_duration_seconds{job=~\".*grafana.*\", instance=~\"$instance\", quantile=\"1\"}",
               "legendFormat": "Max GC Pause",
               "refId": "C"
@@ -1054,11 +1812,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "What percentage of CPU time is spent in garbage collection. >10% indicates significant GC overhead.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -1069,15 +1832,24 @@
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "line",
                   "value": 10
@@ -1087,29 +1859,53 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "#73BF69", "value": null },
-                  { "color": "#FF9830", "value": 5 },
-                  { "color": "#F2495C", "value": 15 }
+                  {
+                    "color": "#73BF69",
+                    "value": null
+                  },
+                  {
+                    "color": "#FF9830",
+                    "value": 5
+                  },
+                  {
+                    "color": "#F2495C",
+                    "value": 15
+                  }
                 ]
               },
               "unit": "percent"
             },
             "overrides": []
           },
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 33 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 33
+          },
           "id": 16,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(go_gc_duration_seconds_sum{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval]) / rate(process_cpu_seconds_total{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval]) * 100",
               "legendFormat": "GC % of CPU",
               "refId": "A"
@@ -1124,15 +1920,25 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 41 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
       "id": 105,
       "panels": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Process CPU utilization. 100% = 1 full core.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -1143,42 +1949,71 @@
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "percent"
             },
             "overrides": []
           },
-          "gridPos": { "h": 8, "w": 8, "x": 0, "y": 42 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 42
+          },
           "id": 17,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(process_cpu_seconds_total{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval]) * 100",
               "legendFormat": "CPU %",
               "refId": "A"
@@ -1188,11 +2023,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Active goroutines. Sustained increase without plateau = goroutine leak.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -1203,42 +2043,71 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "short"
             },
             "overrides": []
           },
-          "gridPos": { "h": 8, "w": 8, "x": 8, "y": 42 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 42
+          },
           "id": 18,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "go_goroutines{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "{{instance}}",
               "refId": "A"
@@ -1248,11 +2117,16 @@
           "type": "timeseries"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "File descriptor usage vs system limit. Exhaustion causes 'too many open files' errors.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -1263,63 +2137,125 @@
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "short"
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Max FDs" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Max FDs"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#F2495C", "mode": "fixed" } },
-                  { "id": "custom.lineStyle", "value": { "dash": [10, 10], "fill": "dash" } },
-                  { "id": "custom.fillOpacity", "value": 0 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#F2495C",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "dash": [
+                        10,
+                        10
+                      ],
+                      "fill": "dash"
+                    }
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Open FDs" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Open FDs"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#6ED0E0", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#6ED0E0",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 42 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 42
+          },
           "id": 19,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "process_open_fds{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "Open FDs",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "process_max_fds{job=~\".*grafana.*\", instance=~\"$instance\"}",
               "legendFormat": "Max FDs",
               "refId": "B"
@@ -1334,15 +2270,25 @@
     },
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 50 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 50
+      },
       "id": 106,
       "panels": [
         {
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "description": "Multi-signal correlation chart for incident analysis. When multiple signals spike together, this reveals the root cause chain: e.g., high CPU -> GC pressure -> DB saturation -> HTTP errors.",
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -1353,99 +2299,185 @@
                 "drawStyle": "line",
                 "fillOpacity": 5,
                 "gradientMode": "scheme",
-                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
                 "insertNulls": false,
                 "lineInterpolation": "smooth",
                 "lineWidth": 2,
                 "pointSize": 5,
-                "scaleDistribution": { "type": "linear" },
+                "scaleDistribution": {
+                  "type": "linear"
+                },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": { "group": "A", "mode": "none" },
-                "thresholdsStyle": { "mode": "off" }
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               },
               "unit": "short"
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "HTTP P95 x10 (s)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "HTTP P95 x10 (s)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#6ED0E0", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#6ED0E0",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "DB Saturation %" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "DB Saturation %"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#FF9830", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#FF9830",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "GC Pause (ms/s)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "GC Pause (ms/s)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#B877D9", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#B877D9",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "CPU %" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU %"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#73BF69", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#73BF69",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Errors x100 (/s)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Errors x100 (/s)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "fixedColor": "#F2495C", "mode": "fixed" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#F2495C",
+                      "mode": "fixed"
+                    }
+                  }
                 ]
               }
             ]
           },
-          "gridPos": { "h": 8, "w": 24, "x": 0, "y": 51 },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 51
+          },
           "id": 20,
           "options": {
             "legend": {
-              "calcs": ["mean", "max", "lastNotNull"],
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom",
               "sortBy": "Max",
               "sortDesc": true
             },
-            "tooltip": { "mode": "multi", "sort": "desc" }
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "pluginVersion": "11.6.4",
           "targets": [
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le)) * 10",
               "legendFormat": "HTTP P95 x10 (s)",
               "refId": "A"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "grafana_database_conn_in_use{instance=~\"$instance\"} / grafana_database_conn_max_open{instance=~\"$instance\"} * 100",
               "legendFormat": "DB Saturation %",
               "refId": "B"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(go_gc_duration_seconds_sum{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval]) * 1000",
               "legendFormat": "GC Pause (ms/s)",
               "refId": "C"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "rate(process_cpu_seconds_total{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval]) * 100",
               "legendFormat": "CPU %",
               "refId": "D"
             },
             {
-              "datasource": { "type": "prometheus", "uid": "$datasource" },
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
               "expr": "sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", status_code=~\"5..\"}[$__rate_interval])) * 100",
               "legendFormat": "Errors x100 (/s)",
               "refId": "E"
@@ -1493,10 +2525,17 @@
       {
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
-        "datasource": { "type": "prometheus", "uid": "$datasource" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
         "definition": "label_values(grafana_build_info, instance)",
         "hide": 0,
         "includeAll": true,
@@ -1523,7 +2562,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Grafana Admin \u2014 Database & Performance Deep Dive",
+  "title": "Grafana Admin — Database & Performance Deep Dive",
   "uid": "grafana-db-perf-deep-dive",
   "version": 1,
   "weekStart": ""

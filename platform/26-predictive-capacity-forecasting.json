@@ -55,9 +55,16 @@
     ]
   },
   "uid": "predictive-capacity-forecasting",
-  "title": "LGTM Stack \u2014 Predictive Capacity Forecasting",
+  "title": "LGTM Stack — Predictive Capacity Forecasting",
   "description": "Predictive capacity forecasting using linear regression. Forecasts when Mimir active series, Loki streams, Tempo traces, and infrastructure resources will hit limits.",
-  "tags": ["capacity", "forecasting", "predictive", "advanced", "lgtm", "premium"],
+  "tags": [
+    "capacity",
+    "forecasting",
+    "predictive",
+    "advanced",
+    "lgtm",
+    "premium"
+  ],
   "editable": true,
   "graphTooltip": 2,
   "schemaVersion": 39,
@@ -71,10 +78,113 @@
   "timezone": "utc",
   "weekStart": "",
   "timepicker": {
-    "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m", "30m", "1h"]
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ]
   },
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "CEO Summary",
+      "url": "/d/ceo-platform-exec-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Risk Intelligence",
+      "url": "/d/risk-incident-intelligence",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Health Matrix",
+      "url": "/d/service-health-matrix",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Anomaly Detection",
+      "url": "/d/anomaly-detection-outliers",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "templating": {
     "list": [
       {
@@ -139,19 +249,29 @@
       "title": "Capacity Headlines",
       "type": "row",
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "panels": []
     },
     {
       "id": 1,
-      "title": "Mimir Series \u2014 Days to Double",
+      "title": "Mimir Series — Days to Double",
       "type": "stat",
       "description": "Estimated days until Mimir active series doubles at current growth rate.",
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -165,10 +285,22 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "red", "value": 0 },
-              { "color": "yellow", "value": 30 },
-              { "color": "green", "value": 90 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
             ]
           },
           "custom": {}
@@ -177,7 +309,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -191,14 +325,19 @@
     },
     {
       "id": 2,
-      "title": "Loki Streams \u2014 Days to Double",
+      "title": "Loki Streams — Days to Double",
       "type": "stat",
       "description": "Estimated days until Loki streams doubles at current growth rate.",
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -212,10 +351,22 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "red", "value": 0 },
-              { "color": "yellow", "value": 30 },
-              { "color": "green", "value": 90 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
             ]
           },
           "custom": {}
@@ -224,7 +375,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -238,14 +391,19 @@
     },
     {
       "id": 3,
-      "title": "Tempo Traces \u2014 Days to Double",
+      "title": "Tempo Traces — Days to Double",
       "type": "stat",
       "description": "Estimated days until Tempo live traces doubles at current growth rate.",
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -259,10 +417,22 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "red", "value": 0 },
-              { "color": "yellow", "value": 30 },
-              { "color": "green", "value": 90 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
             ]
           },
           "custom": {}
@@ -271,7 +441,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -285,14 +457,19 @@
     },
     {
       "id": 4,
-      "title": "Pyroscope Series \u2014 Days to Double",
+      "title": "Pyroscope Series — Days to Double",
       "type": "stat",
       "description": "Estimated days until Pyroscope active series doubles at current growth rate.",
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
       "targets": [
         {
           "refId": "A",
@@ -306,10 +483,22 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "red", "value": null },
-              { "color": "red", "value": 0 },
-              { "color": "yellow", "value": 30 },
-              { "color": "green", "value": 90 }
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
             ]
           },
           "custom": {}
@@ -318,7 +507,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -330,24 +521,33 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 101,
       "title": "Mimir Series Forecast",
       "type": "row",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
       "panels": [
         {
           "id": 5,
-          "title": "Mimir Active Series \u2014 Trend & Forecast",
+          "title": "Mimir Active Series — Trend & Forecast",
           "type": "timeseries",
           "description": "Active series trend with 30-day linear forecast.",
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 9, "w": 24, "x": 0, "y": 7 },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 7
+          },
           "targets": [
             {
               "refId": "A",
@@ -374,21 +574,65 @@
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Active Series (Current)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Active Series (Current)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#6C63FF" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 10 },
-                  { "id": "custom.lineStyle", "value": { "fill": "solid" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#6C63FF"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 10
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "solid"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Predicted (30d)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Predicted (30d)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 0 },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#FF4757"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  }
                 ]
               }
             ]
@@ -401,31 +645,45 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         }
       ]
     },
-
     {
       "id": 102,
       "title": "Loki Volume Forecast",
       "type": "row",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 16 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
       "panels": [
         {
           "id": 6,
-          "title": "Loki Streams \u2014 Growth Trend",
+          "title": "Loki Streams — Growth Trend",
           "type": "timeseries",
           "description": "Loki in-memory stream count with 30-day linear forecast.",
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 17 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 17
+          },
           "targets": [
             {
               "refId": "A",
@@ -452,21 +710,65 @@
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Current Streams" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Current Streams"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 10 },
-                  { "id": "custom.lineStyle", "value": { "fill": "solid" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#4FC3F7"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 10
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "solid"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "30d Forecast" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "30d Forecast"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 0 },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#FF4757"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  }
                 ]
               }
             ]
@@ -479,21 +781,31 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         },
         {
           "id": 7,
-          "title": "Loki Ingestion Rate \u2014 Current vs 7d Ago",
+          "title": "Loki Ingestion Rate — Current vs 7d Ago",
           "type": "timeseries",
           "description": "Comparison of current Loki byte ingestion rate versus one week ago.",
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 17 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 17
+          },
           "targets": [
             {
               "refId": "A",
@@ -520,21 +832,65 @@
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Current Rate" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Current Rate"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 10 },
-                  { "id": "custom.lineStyle", "value": { "fill": "solid" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#4FC3F7"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 10
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "solid"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "7d Ago" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "7d Ago"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 3 },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#4FC3F7"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 3
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  }
                 ]
               }
             ]
@@ -547,31 +903,45 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         }
       ]
     },
-
     {
       "id": 103,
       "title": "Tempo & Pyroscope Forecast",
       "type": "row",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 25 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
       "panels": [
         {
           "id": 8,
-          "title": "Tempo Live Traces \u2014 Trend",
+          "title": "Tempo Live Traces — Trend",
           "type": "timeseries",
           "description": "Tempo live trace count with 30-day linear forecast.",
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 26 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 26
+          },
           "targets": [
             {
               "refId": "A",
@@ -598,21 +968,65 @@
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Current" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Current"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FFB020" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 10 },
-                  { "id": "custom.lineStyle", "value": { "fill": "solid" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#FFB020"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 10
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "solid"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "30d Forecast" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "30d Forecast"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 0 },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#FF4757"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  }
                 ]
               }
             ]
@@ -625,21 +1039,31 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         },
         {
           "id": 9,
-          "title": "Pyroscope Active Series \u2014 Trend",
+          "title": "Pyroscope Active Series — Trend",
           "type": "timeseries",
           "description": "Pyroscope active series count with 30-day linear forecast.",
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 26 },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 26
+          },
           "targets": [
             {
               "refId": "A",
@@ -666,21 +1090,65 @@
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Current" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Current"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#6C63FF" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 10 },
-                  { "id": "custom.lineStyle", "value": { "fill": "solid" } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#6C63FF"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 10
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "solid"
+                    }
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "30d Forecast" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "30d Forecast"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 0 },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#FF4757"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  }
                 ]
               }
             ]
@@ -693,20 +1161,29 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         }
       ]
     },
-
     {
       "id": 104,
       "title": "Infrastructure Resource Forecast",
       "type": "row",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 34 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 34
+      },
       "panels": [
         {
           "id": 10,
@@ -717,7 +1194,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 8, "x": 0, "y": 35 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 35
+          },
           "targets": [
             {
               "refId": "A",
@@ -747,7 +1229,12 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
@@ -761,7 +1248,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 8, "x": 8, "y": 35 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 35
+          },
           "targets": [
             {
               "refId": "A",
@@ -791,7 +1283,12 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
@@ -805,7 +1302,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 35 },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 35
+          },
           "targets": [
             {
               "refId": "A",
@@ -835,20 +1337,29 @@
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["lastNotNull", "mean", "min", "max"]
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ]
             }
           },
           "pluginVersion": "11.6.4"
         }
       ]
     },
-
     {
       "id": 105,
       "title": "Week-over-Week Growth Analysis",
       "type": "row",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 43 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
       "panels": [
         {
           "id": 13,
@@ -859,7 +1370,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "gridPos": { "h": 8, "w": 24, "x": 0, "y": 44 },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 44
+          },
           "targets": [
             {
               "refId": "A",
@@ -892,10 +1408,22 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 5 },
-                  { "color": "red", "value": 15 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 5
+                  },
+                  {
+                    "color": "red",
+                    "value": 15
+                  }
                 ]
               },
               "custom": {}
@@ -904,7 +1432,9 @@
           },
           "options": {
             "reduceOptions": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "fields": "",
               "values": false
             },

@@ -61,9 +61,17 @@
     ]
   },
   "uid": "anomaly-detection-outliers",
-  "title": "LGTM Stack \u2014 Anomaly Detection & Outlier Analysis",
+  "title": "LGTM Stack — Anomaly Detection & Outlier Analysis",
   "description": "Advanced anomaly detection using statistical analysis. Identifies deviations from baseline in latency, error rates, throughput, and resource usage across Grafana, Mimir, Loki, and Tempo. Uses z-score patterns and standard deviation bands.",
-  "tags": ["anomaly", "outlier", "detection", "advanced", "aiops", "lgtm", "premium"],
+  "tags": [
+    "anomaly",
+    "outlier",
+    "detection",
+    "advanced",
+    "aiops",
+    "lgtm",
+    "premium"
+  ],
   "editable": true,
   "graphTooltip": 2,
   "schemaVersion": 39,
@@ -77,10 +85,105 @@
   "timezone": "utc",
   "weekStart": "",
   "timepicker": {
-    "refresh_intervals": ["10s", "30s", "1m", "5m", "15m", "30m", "1h"]
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ]
   },
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "CEO Summary",
+      "url": "/d/ceo-platform-exec-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Risk Intelligence",
+      "url": "/d/risk-incident-intelligence",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Health Matrix",
+      "url": "/d/service-health-matrix",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "templating": {
     "list": [
       {
@@ -139,7 +242,7 @@
       },
       {
         "name": "sensitivity",
-        "label": "Sensitivity (\u03c3)",
+        "label": "Sensitivity (σ)",
         "type": "custom",
         "query": "1,2,3",
         "current": {
@@ -151,9 +254,21 @@
         "includeAll": false,
         "multi": false,
         "options": [
-          { "selected": false, "text": "1", "value": "1" },
-          { "selected": true, "text": "2", "value": "2" },
-          { "selected": false, "text": "3", "value": "3" }
+          {
+            "selected": false,
+            "text": "1",
+            "value": "1"
+          },
+          {
+            "selected": true,
+            "text": "2",
+            "value": "2"
+          },
+          {
+            "selected": false,
+            "text": "3",
+            "value": "3"
+          }
         ],
         "refresh": 0,
         "skipUrlSync": false
@@ -161,35 +276,50 @@
     ]
   },
   "panels": [
-
     {
       "id": 0,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "options": {
         "mode": "html",
-        "content": "<div style=\"text-align:center;padding:8px 0 2px 0;\">\n  <h1 style=\"margin:0;font-size:1.6em;letter-spacing:0.03em;\">LGTM Stack \u2014 Anomaly Detection & Outlier Analysis</h1>\n  <p style=\"margin:4px 0 0 0;font-size:0.95em;opacity:0.8;\">Statistical Analysis \u2022 $sensitivity \u03c3 Sensitivity \u2022 Real-Time</p>\n</div>"
+        "content": "<div style=\"text-align:center;padding:8px 0 2px 0;\">\n  <h1 style=\"margin:0;font-size:1.6em;letter-spacing:0.03em;\">LGTM Stack — Anomaly Detection & Outlier Analysis</h1>\n  <p style=\"margin:4px 0 0 0;font-size:0.95em;opacity:0.8;\">Statistical Analysis • $sensitivity σ Sensitivity • Real-Time</p>\n</div>"
       },
       "transparent": true
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 2 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
       "id": 100,
       "panels": [],
-      "title": "Anomaly Status \u2014 Current vs Baseline Ratios",
+      "title": "Anomaly Status — Current vs Baseline Ratios",
       "type": "row"
     },
-
     {
       "id": 1,
       "title": "Grafana Latency Anomaly",
       "description": "Current P95 latency vs 1-hour rolling average. >2.0x means latency has doubled.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -205,19 +335,39 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 1.5 },
-              { "color": "red", "value": 2.0 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1.5
+              },
+              {
+                "color": "red",
+                "value": 2.0
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": []
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -225,14 +375,21 @@
         "justifyMode": "auto"
       }
     },
-
     {
       "id": 2,
       "title": "Mimir Error Rate Anomaly",
       "description": "Current Mimir 5xx error rate vs 1h baseline. >3.0x indicates a significant spike in errors.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -248,19 +405,39 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 1.5 },
-              { "color": "red", "value": 3.0 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1.5
+              },
+              {
+                "color": "red",
+                "value": 3.0
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": []
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -268,14 +445,21 @@
         "justifyMode": "auto"
       }
     },
-
     {
       "id": 3,
       "title": "Loki Ingestion Anomaly",
       "description": "Loki ingestion rate vs 1h baseline. <0.5x = sudden drop, >2x = ingestion spike.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -291,19 +475,39 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 2.0 },
-              { "color": "red", "value": 3.0 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 2.0
+              },
+              {
+                "color": "red",
+                "value": 3.0
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": []
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -311,14 +515,21 @@
         "justifyMode": "auto"
       }
     },
-
     {
       "id": 4,
       "title": "Tempo Span Anomaly",
       "description": "Tempo span ingestion rate vs 1h baseline. >2x indicates an unexpected surge in tracing volume.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -334,19 +545,39 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 2.0 },
-              { "color": "red", "value": 3.0 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 2.0
+              },
+              {
+                "color": "red",
+                "value": 3.0
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": []
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -354,14 +585,21 @@
         "justifyMode": "auto"
       }
     },
-
     {
       "id": 5,
       "title": "Memory Anomaly",
       "description": "Current resident memory vs 1h rolling average. >1.3x signals a memory growth anomaly.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -377,19 +615,39 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 1.1 },
-              { "color": "red", "value": 1.3 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1.1
+              },
+              {
+                "color": "red",
+                "value": 1.3
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": []
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -397,14 +655,21 @@
         "justifyMode": "auto"
       }
     },
-
     {
       "id": 6,
       "title": "CPU Anomaly",
       "description": "Current CPU usage rate vs 1h rolling average. >1.3x signals abnormal CPU consumption.",
       "type": "stat",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 3 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      },
       "targets": [
         {
           "refId": "A",
@@ -420,19 +685,39 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "green", "value": 0 },
-              { "color": "yellow", "value": 1.1 },
-              { "color": "red", "value": 1.3 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1.1
+              },
+              {
+                "color": "red",
+                "value": 1.3
+              }
             ]
           },
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": []
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "background",
@@ -440,23 +725,34 @@
         "justifyMode": "auto"
       }
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 7 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
       "id": 101,
       "panels": [],
-      "title": "Latency Anomaly Detection \u2014 Deviation Bands",
+      "title": "Latency Anomaly Detection — Deviation Bands",
       "type": "row"
     },
-
     {
       "id": 7,
-      "title": "Grafana Latency \u2014 Deviation Bands",
-      "description": "P95 latency with statistical deviation bands. Points outside the band are anomalies. Sensitivity controlled by the \u03c3 variable.",
+      "title": "Grafana Latency — Deviation Bands",
+      "description": "P95 latency with statistical deviation bands. Points outside the band are anomalies. Sensitivity controlled by the σ variable.",
       "type": "timeseries",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 9, "w": 12, "x": 0, "y": 8 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
       "targets": [
         {
           "refId": "A",
@@ -466,12 +762,12 @@
         {
           "refId": "B",
           "expr": "avg_over_time(histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m])) by (le))[1h:5m]) + $sensitivity * stddev_over_time(histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m])) by (le))[1h:5m])",
-          "legendFormat": "Upper Bound (+$sensitivity\u03c3)"
+          "legendFormat": "Upper Bound (+$sensitivityσ)"
         },
         {
           "refId": "C",
           "expr": "avg_over_time(histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m])) by (le))[1h:5m]) - $sensitivity * stddev_over_time(histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m])) by (le))[1h:5m])",
-          "legendFormat": "Lower Bound (-$sensitivity\u03c3)"
+          "legendFormat": "Lower Bound (-$sensitivityσ)"
         },
         {
           "refId": "D",
@@ -493,71 +789,178 @@
             "spanNulls": true,
             "axisCenteredZero": false,
             "axisLabel": "",
-            "scaleDistribution": { "type": "linear" },
-            "thresholdsStyle": { "mode": "off" }
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           }
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Current P95" },
+            "matcher": {
+              "id": "byName",
+              "options": "Current P95"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#6C63FF" } },
-              { "id": "custom.lineWidth", "value": 3 },
-              { "id": "custom.fillOpacity", "value": 8 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#6C63FF"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 8
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Upper Bound (+$sensitivity\u03c3)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Upper Bound (+$sensitivityσ)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-              { "id": "custom.lineWidth", "value": 1 },
-              { "id": "custom.fillBelowTo", "value": "Lower Bound (-$sensitivity\u03c3)" },
-              { "id": "custom.fillOpacity", "value": 6 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF4757"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    5
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              },
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Lower Bound (-$sensitivityσ)"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 6
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Lower Bound (-$sensitivity\u03c3)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Lower Bound (-$sensitivityσ)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-              { "id": "custom.lineWidth", "value": 1 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#00C48C"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    5
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "1h Mean" },
+            "matcher": {
+              "id": "byName",
+              "options": "1h Mean"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#B0BEC5" } },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [6, 4] } },
-              { "id": "custom.lineWidth", "value": 1 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#B0BEC5"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    6,
+                    4
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
             ]
           }
         ]
       },
       "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "lastNotNull", "max"]
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ]
         }
       }
     },
-
     {
       "id": 8,
-      "title": "Mimir Write Latency \u2014 Deviation Bands",
+      "title": "Mimir Write Latency — Deviation Bands",
       "description": "Mimir push P95 latency with statistical deviation bands. Points outside the band indicate write path anomalies.",
       "type": "timeseries",
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "gridPos": { "h": 9, "w": 12, "x": 12, "y": 8 },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
       "targets": [
         {
           "refId": "A",
@@ -567,12 +970,12 @@
         {
           "refId": "B",
           "expr": "avg_over_time(histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\"/distributor.Distributor/Push|api_v1_push|/push\"}[5m])) by (le))[1h:5m]) + $sensitivity * stddev_over_time(histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\"/distributor.Distributor/Push|api_v1_push|/push\"}[5m])) by (le))[1h:5m])",
-          "legendFormat": "Upper Bound (+$sensitivity\u03c3)"
+          "legendFormat": "Upper Bound (+$sensitivityσ)"
         },
         {
           "refId": "C",
           "expr": "avg_over_time(histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\"/distributor.Distributor/Push|api_v1_push|/push\"}[5m])) by (le))[1h:5m]) - $sensitivity * stddev_over_time(histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\"/distributor.Distributor/Push|api_v1_push|/push\"}[5m])) by (le))[1h:5m])",
-          "legendFormat": "Lower Bound (-$sensitivity\u03c3)"
+          "legendFormat": "Lower Bound (-$sensitivityσ)"
         },
         {
           "refId": "D",
@@ -594,67 +997,171 @@
             "spanNulls": true,
             "axisCenteredZero": false,
             "axisLabel": "",
-            "scaleDistribution": { "type": "linear" },
-            "thresholdsStyle": { "mode": "off" }
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           }
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Current P95" },
+            "matcher": {
+              "id": "byName",
+              "options": "Current P95"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#6C63FF" } },
-              { "id": "custom.lineWidth", "value": 3 },
-              { "id": "custom.fillOpacity", "value": 8 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#6C63FF"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 8
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Upper Bound (+$sensitivity\u03c3)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Upper Bound (+$sensitivityσ)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-              { "id": "custom.lineWidth", "value": 1 },
-              { "id": "custom.fillBelowTo", "value": "Lower Bound (-$sensitivity\u03c3)" },
-              { "id": "custom.fillOpacity", "value": 6 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF4757"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    5
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              },
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Lower Bound (-$sensitivityσ)"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 6
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Lower Bound (-$sensitivity\u03c3)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Lower Bound (-$sensitivityσ)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-              { "id": "custom.lineWidth", "value": 1 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#00C48C"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    5
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "1h Mean" },
+            "matcher": {
+              "id": "byName",
+              "options": "1h Mean"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#B0BEC5" } },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [6, 4] } },
-              { "id": "custom.lineWidth", "value": 1 }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#B0BEC5"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    6,
+                    4
+                  ]
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
             ]
           }
         ]
       },
       "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "lastNotNull", "max"]
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ]
         }
       }
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 17 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
       "id": 102,
       "panels": [
         {
@@ -662,8 +1169,16 @@
           "title": "Multi-Service Error Rate vs Baseline",
           "description": "Current error rate vs 6-hour rolling baseline for each service. Deviations from baseline indicate emerging issues.",
           "type": "timeseries",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 24, "x": 0, "y": 18 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 18
+          },
           "targets": [
             {
               "refId": "A",
@@ -710,94 +1225,230 @@
                 "spanNulls": true,
                 "axisCenteredZero": false,
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               }
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Grafana (Current)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Grafana (Current)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#6C63FF" } },
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#6C63FF"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Grafana (6h Baseline)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Grafana (6h Baseline)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#6C63FF" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillOpacity", "value": 4 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#6C63FF"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 4
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Mimir (Current)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Mimir (Current)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#00C48C"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Mimir (6h Baseline)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Mimir (6h Baseline)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillOpacity", "value": 4 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#00C48C"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 4
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Loki (Current)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Loki (Current)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } },
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#4FC3F7"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Loki (6h Baseline)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Loki (6h Baseline)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillOpacity", "value": 4 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#4FC3F7"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 4
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["mean", "lastNotNull", "max"]
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ]
             }
           }
         }
       ],
-      "title": "Error Rate Anomaly \u2014 Current vs Baseline",
+      "title": "Error Rate Anomaly — Current vs Baseline",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 18 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
       "id": 103,
       "panels": [
         {
           "id": 10,
-          "title": "Ingestion Volume \u2014 Current vs Expected",
-          "description": "Loki ingestion rate with \u00b1\u03c3 deviation bands. Values outside the bands indicate abnormal ingestion volume.",
+          "title": "Ingestion Volume — Current vs Expected",
+          "description": "Loki ingestion rate with ±σ deviation bands. Values outside the bands indicate abnormal ingestion volume.",
           "type": "timeseries",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 19 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 19
+          },
           "targets": [
             {
               "refId": "A",
@@ -807,12 +1458,12 @@
             {
               "refId": "B",
               "expr": "avg_over_time(sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m]) + $sensitivity * stddev_over_time(sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m])",
-              "legendFormat": "Upper Bound (+$sensitivity\u03c3)"
+              "legendFormat": "Upper Bound (+$sensitivityσ)"
             },
             {
               "refId": "C",
               "expr": "avg_over_time(sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m]) - $sensitivity * stddev_over_time(sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m])",
-              "legendFormat": "Lower Bound (-$sensitivity\u03c3)"
+              "legendFormat": "Lower Bound (-$sensitivityσ)"
             },
             {
               "refId": "D",
@@ -834,71 +1485,178 @@
                 "spanNulls": true,
                 "axisCenteredZero": false,
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               }
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Current Ingestion" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Current Ingestion"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#4FC3F7" } },
-                  { "id": "custom.lineWidth", "value": 3 },
-                  { "id": "custom.fillOpacity", "value": 8 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#4FC3F7"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 3
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 8
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Upper Bound (+$sensitivity\u03c3)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Upper Bound (+$sensitivityσ)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillBelowTo", "value": "Lower Bound (-$sensitivity\u03c3)" },
-                  { "id": "custom.fillOpacity", "value": 6 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#FF4757"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillBelowTo",
+                    "value": "Lower Bound (-$sensitivityσ)"
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 6
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Lower Bound (-$sensitivity\u03c3)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Lower Bound (-$sensitivityσ)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#00C48C"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "1h Mean" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "1h Mean"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#B0BEC5" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [6, 4] } },
-                  { "id": "custom.lineWidth", "value": 1 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#B0BEC5"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        6,
+                        4
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["mean", "lastNotNull", "max"]
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ]
             }
           }
         },
-
         {
           "id": 11,
-          "title": "Mimir Samples \u2014 Current vs Expected",
-          "description": "Mimir sample ingestion rate with \u00b1\u03c3 deviation bands. Anomalies indicate unexpected changes in metric volume.",
+          "title": "Mimir Samples — Current vs Expected",
+          "description": "Mimir sample ingestion rate with ±σ deviation bands. Anomalies indicate unexpected changes in metric volume.",
           "type": "timeseries",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 19 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 19
+          },
           "targets": [
             {
               "refId": "A",
@@ -908,12 +1666,12 @@
             {
               "refId": "B",
               "expr": "avg_over_time(sum(rate(cortex_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m]) + $sensitivity * stddev_over_time(sum(rate(cortex_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m])",
-              "legendFormat": "Upper Bound (+$sensitivity\u03c3)"
+              "legendFormat": "Upper Bound (+$sensitivityσ)"
             },
             {
               "refId": "C",
               "expr": "avg_over_time(sum(rate(cortex_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m]) - $sensitivity * stddev_over_time(sum(rate(cortex_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m]))[1h:5m])",
-              "legendFormat": "Lower Bound (-$sensitivity\u03c3)"
+              "legendFormat": "Lower Bound (-$sensitivityσ)"
             },
             {
               "refId": "D",
@@ -935,80 +1693,192 @@
                 "spanNulls": true,
                 "axisCenteredZero": false,
                 "axisLabel": "samples/s",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               }
             },
             "overrides": [
               {
-                "matcher": { "id": "byName", "options": "Current Samples/s" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Current Samples/s"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-                  { "id": "custom.lineWidth", "value": 3 },
-                  { "id": "custom.fillOpacity", "value": 8 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#00C48C"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 3
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 8
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Upper Bound (+$sensitivity\u03c3)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Upper Bound (+$sensitivityσ)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF4757" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillBelowTo", "value": "Lower Bound (-$sensitivity\u03c3)" },
-                  { "id": "custom.fillOpacity", "value": 6 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#FF4757"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillBelowTo",
+                    "value": "Lower Bound (-$sensitivityσ)"
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 6
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "Lower Bound (-$sensitivity\u03c3)" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "Lower Bound (-$sensitivityσ)"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00C48C" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#00C48C"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byName", "options": "1h Mean" },
+                "matcher": {
+                  "id": "byName",
+                  "options": "1h Mean"
+                },
                 "properties": [
-                  { "id": "color", "value": { "mode": "fixed", "fixedColor": "#B0BEC5" } },
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [6, 4] } },
-                  { "id": "custom.lineWidth", "value": 1 }
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed",
+                      "fixedColor": "#B0BEC5"
+                    }
+                  },
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        6,
+                        4
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["mean", "lastNotNull", "max"]
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ]
             }
           }
         }
       ],
-      "title": "Throughput Anomaly \u2014 Ingestion Deviation Bands",
+      "title": "Throughput Anomaly — Ingestion Deviation Bands",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 19 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
       "id": 104,
       "panels": [
         {
           "id": 12,
-          "title": "Memory Usage \u2014 Anomaly Detection",
+          "title": "Memory Usage — Anomaly Detection",
           "description": "Resident memory per LGTM service with upper deviation band. Sustained values above the band indicate memory leaks or abnormal growth.",
           "type": "timeseries",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 8, "x": 0, "y": 20 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 20
+          },
           "targets": [
             {
               "refId": "A",
@@ -1018,7 +1888,7 @@
             {
               "refId": "B",
               "expr": "sum by (job) (avg_over_time(process_resident_memory_bytes{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[1h:5m])) + $sensitivity * sum by (job) (stddev_over_time(process_resident_memory_bytes{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[1h:5m]))",
-              "legendFormat": "{{job}} (Upper +$sensitivity\u03c3)"
+              "legendFormat": "{{job}} (Upper +$sensitivityσ)"
             }
           ],
           "fieldConfig": {
@@ -1035,52 +1905,102 @@
                 "spanNulls": true,
                 "axisCenteredZero": false,
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               }
             },
             "overrides": [
               {
-                "matcher": { "id": "byRegexp", "options": ".*Upper.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Upper.*"
+                },
                 "properties": [
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillOpacity", "value": 4 }
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 4
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byRegexp", "options": ".*Current.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Current.*"
+                },
                 "properties": [
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 6 }
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 6
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["mean", "lastNotNull", "max"]
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ]
             }
           }
         },
-
         {
           "id": 13,
           "title": "GC Pause Anomaly",
           "description": "Go GC pause duration rate with upper deviation band. Spikes above the band indicate GC pressure anomalies.",
           "type": "timeseries",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 8, "x": 8, "y": 20 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 20
+          },
           "targets": [
             {
               "refId": "A",
@@ -1090,7 +2010,7 @@
             {
               "refId": "B",
               "expr": "sum by (job) (avg_over_time(rate(go_gc_duration_seconds_sum{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m])[1h:5m])) + $sensitivity * sum by (job) (stddev_over_time(rate(go_gc_duration_seconds_sum{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[5m])[1h:5m]))",
-              "legendFormat": "{{job}} (Upper +$sensitivity\u03c3)"
+              "legendFormat": "{{job}} (Upper +$sensitivityσ)"
             },
             {
               "refId": "C",
@@ -1112,58 +2032,120 @@
                 "spanNulls": true,
                 "axisCenteredZero": false,
                 "axisLabel": "",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               }
             },
             "overrides": [
               {
-                "matcher": { "id": "byRegexp", "options": ".*Upper.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Upper.*"
+                },
                 "properties": [
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillOpacity", "value": 4 }
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 4
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byRegexp", "options": ".*Mean.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Mean.*"
+                },
                 "properties": [
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [6, 4] } },
-                  { "id": "custom.lineWidth", "value": 1 }
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        6,
+                        4
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byRegexp", "options": ".*Current.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Current.*"
+                },
                 "properties": [
-                  { "id": "custom.lineWidth", "value": 2 }
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["mean", "lastNotNull", "max"]
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ]
             }
           }
         },
-
         {
           "id": 14,
           "title": "Goroutine Count Anomaly",
           "description": "Goroutine count per service with deviation bands. Sustained growth above the upper band may signal goroutine leaks.",
           "type": "timeseries",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 20 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 20
+          },
           "targets": [
             {
               "refId": "A",
@@ -1173,12 +2155,12 @@
             {
               "refId": "B",
               "expr": "sum by (job) (avg_over_time(go_goroutines{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[1h:5m])) + $sensitivity * sum by (job) (stddev_over_time(go_goroutines{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[1h:5m]))",
-              "legendFormat": "{{job}} (Upper +$sensitivity\u03c3)"
+              "legendFormat": "{{job}} (Upper +$sensitivityσ)"
             },
             {
               "refId": "C",
               "expr": "sum by (job) (avg_over_time(go_goroutines{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[1h:5m])) - $sensitivity * sum by (job) (stddev_over_time(go_goroutines{job=~\".*grafana.*|.*mimir.*|.*loki.*|.*tempo.*\", cluster=~\"$cluster\", namespace=~\"$namespace\"}[1h:5m]))",
-              "legendFormat": "{{job}} (Lower -$sensitivity\u03c3)"
+              "legendFormat": "{{job}} (Lower -$sensitivityσ)"
             }
           ],
           "fieldConfig": {
@@ -1195,59 +2177,121 @@
                 "spanNulls": true,
                 "axisCenteredZero": false,
                 "axisLabel": "goroutines",
-                "scaleDistribution": { "type": "linear" },
-                "thresholdsStyle": { "mode": "off" }
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
-              "color": { "mode": "palette-classic" },
+              "color": {
+                "mode": "palette-classic"
+              },
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null }
+                  {
+                    "color": "green",
+                    "value": null
+                  }
                 ]
               }
             },
             "overrides": [
               {
-                "matcher": { "id": "byRegexp", "options": ".*Upper.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Upper.*"
+                },
                 "properties": [
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 },
-                  { "id": "custom.fillBelowTo", "value": "" }
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.fillBelowTo",
+                    "value": ""
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byRegexp", "options": ".*Lower.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Lower.*"
+                },
                 "properties": [
-                  { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 5] } },
-                  { "id": "custom.lineWidth", "value": 1 }
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        5
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 1
+                  }
                 ]
               },
               {
-                "matcher": { "id": "byRegexp", "options": ".*Current.*" },
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*Current.*"
+                },
                 "properties": [
-                  { "id": "custom.lineWidth", "value": 2 },
-                  { "id": "custom.fillOpacity", "value": 6 }
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 6
+                  }
                 ]
               }
             ]
           },
           "options": {
-            "tooltip": { "mode": "multi", "sort": "desc" },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            },
             "legend": {
               "displayMode": "table",
               "placement": "bottom",
-              "calcs": ["mean", "lastNotNull", "max"]
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ]
             }
           }
         }
       ],
-      "title": "Resource Anomalies \u2014 Memory, GC, Goroutines",
+      "title": "Resource Anomalies — Memory, GC, Goroutines",
       "type": "row"
     },
-
     {
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 20 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
       "id": 105,
       "panels": [
         {
@@ -1255,8 +2299,16 @@
           "title": "Endpoint Latency Outliers",
           "description": "Endpoints whose current P95 latency significantly exceeds their 1h baseline. Ratio >2.0 = anomalous.",
           "type": "bargauge",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 21 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 21
+          },
           "targets": [
             {
               "refId": "A",
@@ -1273,19 +2325,39 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 1.5 },
-                  { "color": "red", "value": 2.0 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1.5
+                  },
+                  {
+                    "color": "red",
+                    "value": 2.0
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "mappings": []
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "horizontal",
             "displayMode": "gradient",
             "showUnfilled": true,
@@ -1294,14 +2366,21 @@
             "text": {}
           }
         },
-
         {
           "id": 16,
           "title": "Endpoint Error Spike Detection",
           "description": "Endpoints with the largest error rate spike vs their 1h baseline. Ratio >2.0 = anomalous spike.",
           "type": "bargauge",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 21 },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 21
+          },
           "targets": [
             {
               "refId": "A",
@@ -1318,19 +2397,39 @@
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "green", "value": 0 },
-                  { "color": "yellow", "value": 1.5 },
-                  { "color": "red", "value": 2.0 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 1.5
+                  },
+                  {
+                    "color": "red",
+                    "value": 2.0
+                  }
                 ]
               },
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "mappings": []
             },
             "overrides": []
           },
           "options": {
-            "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" },
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": ""
+            },
             "orientation": "horizontal",
             "displayMode": "gradient",
             "showUnfilled": true,
@@ -1340,15 +2439,19 @@
           }
         }
       ],
-      "title": "Outlier Endpoint Detection \u2014 Latency & Error Spikes",
+      "title": "Outlier Endpoint Detection — Latency & Error Spikes",
       "type": "row"
     },
-
     {
       "id": 17,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 21 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
       "options": {
         "mode": "html",
         "content": "<div style=\"text-align:center;padding:8px 0;font-size:0.9em;opacity:0.85;\">\n  <strong>Quick Navigation</strong>&ensp;|&ensp;\n  <a href=\"/d/platform-ui-qos-exec/\" style=\"color:#6C63FF;\">Platform UI QoS</a>&ensp;|&ensp;\n  <a href=\"/d/loki-write-qos-exec/\" style=\"color:#4FC3F7;\">Loki Write QoS</a>&ensp;|&ensp;\n  <a href=\"/d/mimir-write-qos-exec/\" style=\"color:#00C48C;\">Mimir Write QoS</a>&ensp;|&ensp;\n  <a href=\"/d/mimir-read-qos-exec/\" style=\"color:#00C48C;\">Mimir Read QoS</a>&ensp;|&ensp;\n  <a href=\"/d/lgtm-stack-health-multi/\" style=\"color:#FFB020;\">LGTM Stack Health</a>&ensp;|&ensp;\n  <a href=\"/d/mimir-deep-dive-multi-stack/\" style=\"color:#00C48C;\">Mimir Deep Dive</a>&ensp;|&ensp;\n  <a href=\"/d/loki-deep-dive-multi-stack/\" style=\"color:#4FC3F7;\">Loki Deep Dive</a>&ensp;|&ensp;\n  <a href=\"/d/tempo-deep-dive-multi-stack/\" style=\"color:#FFB020;\">Tempo Deep Dive</a>&ensp;|&ensp;\n  <a href=\"/d/slo-error-budget-burn/\" style=\"color:#FF6B6B;\">SLO Error Budget</a>&ensp;|&ensp;\n  <a href=\"/d/service-health-matrix/\" style=\"color:#E0E0E0;\">Service Health Matrix</a>&ensp;|&ensp;\n  <a href=\"/d/cross-stack-capacity/\" style=\"color:#B0BEC5;\">Capacity Planning</a>\n</div>"

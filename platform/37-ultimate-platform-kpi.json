@@ -59,18 +59,113 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "CEO Summary",
+      "url": "/d/ceo-platform-exec-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Risk Intelligence",
+      "url": "/d/risk-incident-intelligence",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Health Matrix",
+      "url": "/d/service-health-matrix",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Anomaly Detection",
+      "url": "/d/anomaly-detection-outliers",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "panels": [
     {
       "id": 1,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "transparent": true,
       "options": {
         "mode": "html",
         "content": "<div style=\"display:flex; align-items:center; justify-content:space-between; padding:8px 16px;\">\n  <div>\n    <h1 style=\"margin:0; font-size:26px; font-weight:700; color:#E0E0E0; letter-spacing:0.5px;\">Platform KPI — Single Pane of Glass</h1>\n    <p style=\"margin:4px 0 0; font-size:12px; color:#888;\">Enterprise Observability Platform • All Signals • Real-Time</p>\n  </div>\n  <div style=\"display:flex; gap:16px; align-items:center;\">\n    <div style=\"padding:4px 14px; border-radius:14px; background:rgba(0,230,118,0.1); border:1px solid rgba(0,230,118,0.3);\">\n      <span style=\"font-size:12px; color:#00E676; font-weight:500;\">● LIVE</span>\n    </div>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     },
@@ -79,13 +174,24 @@
       "title": "Grafana",
       "description": "Grafana UI availability based on non-5xx responses.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 5, "x": 0, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 0,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "(1 - (sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval])) + 0.001))) * 100",
           "legendFormat": "Grafana",
           "instant": true
@@ -98,9 +204,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -112,7 +227,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -132,13 +249,24 @@
       "title": "Mimir",
       "description": "Mimir metrics backend availability based on non-5xx responses.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 5, "x": 5, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 5,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "(1 - (sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001))) * 100",
           "legendFormat": "Mimir",
           "instant": true
@@ -151,9 +279,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -165,7 +302,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -185,13 +324,24 @@
       "title": "Loki",
       "description": "Loki log backend availability based on non-5xx responses.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 5, "x": 10, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 10,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "(1 - (sum(rate(loki_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(loki_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001))) * 100",
           "legendFormat": "Loki",
           "instant": true
@@ -204,9 +354,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -218,7 +377,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -238,13 +399,24 @@
       "title": "Tempo",
       "description": "Tempo tracing backend availability based on non-5xx responses.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 5, "x": 15, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 15,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "(1 - (sum(rate(tempo_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(tempo_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001))) * 100",
           "legendFormat": "Tempo",
           "instant": true
@@ -257,9 +429,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -271,7 +452,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -291,13 +474,24 @@
       "title": "Pyroscope",
       "description": "Pyroscope profiling backend availability based on non-5xx responses.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "(1 - (sum(rate(pyroscope_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(pyroscope_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001))) * 100",
           "legendFormat": "Pyroscope",
           "instant": true
@@ -310,9 +504,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -324,7 +527,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -344,13 +549,24 @@
       "title": "UI SLO (≤1s)",
       "description": "Percentage of Grafana UI requests completing within 1 second. Target: 99%.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 7 },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 7
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "UI SLO",
           "instant": true
@@ -363,9 +579,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -377,7 +602,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -397,13 +624,24 @@
       "title": "Metrics Write SLO (≤0.5s)",
       "description": "Percentage of Mimir metric write requests completing within 500ms. Target: 99%.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 7 },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 7
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", le=\"0.5\", route=~\"/api/v1/push|api/prom/push\"}[$__rate_interval])) / (sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Metrics Write SLO",
           "instant": true
@@ -416,9 +654,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -430,7 +677,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -450,13 +699,24 @@
       "title": "Log Write SLO (≤0.5s)",
       "description": "Percentage of Loki log write requests completing within 500ms. Target: 99%.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 7 },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 7
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_request_duration_seconds_bucket{cluster=~\"$cluster\", le=\"0.5\", route=~\"/loki/api/v1/push|/api/prom/push\"}[$__rate_interval])) / (sum(rate(loki_request_duration_seconds_bucket{cluster=~\"$cluster\", le=\"+Inf\", route=~\"/loki/api/v1/push|/api/prom/push\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Log Write SLO",
           "instant": true
@@ -469,9 +729,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -483,7 +752,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -503,13 +774,24 @@
       "title": "Query SLO (≤0.5s)",
       "description": "Percentage of Mimir query requests enqueued within 500ms. Target: 99%.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 7 },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 7
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(cortex_query_frontend_queue_duration_seconds_bucket{cluster=~\"$cluster\", le=\"0.5\"}[$__rate_interval])) / (sum(rate(cortex_query_frontend_queue_duration_seconds_bucket{cluster=~\"$cluster\", le=\"+Inf\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Query SLO",
           "instant": true
@@ -522,9 +804,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 95 },
-              { "color": "#00E676", "value": 99 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 95
+              },
+              {
+                "color": "#00E676",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -536,7 +827,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -556,13 +849,24 @@
       "title": "Error Budget (30d)",
       "description": "Composite error budget remaining over 30 days across all LGTM components. Below 20% indicates accelerated burn.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 11 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 11
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "(1 - ((sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[30d])) + sum(rate(loki_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[30d])) + sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[30d]))) / ((sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\"}[30d])) + sum(rate(loki_request_duration_seconds_count{cluster=~\"$cluster\"}[30d])) + sum(rate(grafana_http_request_duration_seconds_count[30d]))) + 0.001)) / 0.001) * 100",
           "legendFormat": "Error Budget",
           "instant": true
@@ -575,9 +879,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF1744", "value": null },
-              { "color": "#FFC400", "value": 20 },
-              { "color": "#00E676", "value": 50 }
+              {
+                "color": "#FF1744",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 20
+              },
+              {
+                "color": "#00E676",
+                "value": 50
+              }
             ]
           },
           "mappings": []
@@ -589,7 +902,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -609,13 +924,24 @@
       "title": "Active Users",
       "description": "Number of active Grafana users currently logged in.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 11 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 11
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "grafana_stat_active_users",
           "legendFormat": "Active Users",
           "instant": true
@@ -632,7 +958,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#651FFF", "value": null }
+              {
+                "color": "#651FFF",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -644,7 +973,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -664,13 +995,24 @@
       "title": "Total Dashboards",
       "description": "Total number of dashboards provisioned across the platform.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 11 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 11
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "grafana_stat_total_dashboards",
           "legendFormat": "Dashboards",
           "instant": true
@@ -687,7 +1029,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#40C4FF", "value": null }
+              {
+                "color": "#40C4FF",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -699,7 +1044,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -719,13 +1066,24 @@
       "title": "Active Series (Mimir)",
       "description": "Total active time series across all Mimir ingesters. Key capacity indicator.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 11 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 11
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(cortex_ingester_active_series{cluster=~\"$cluster\"})",
           "legendFormat": "Active Series",
           "instant": true
@@ -742,7 +1100,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00E676", "value": null }
+              {
+                "color": "#00E676",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -754,7 +1115,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -774,13 +1137,24 @@
       "title": "Log Streams (Loki)",
       "description": "Total active log streams held in memory across Loki ingesters.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 11 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 11
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(loki_ingester_memory_streams{cluster=~\"$cluster\"})",
           "legendFormat": "Log Streams",
           "instant": true
@@ -797,7 +1171,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#40C4FF", "value": null }
+              {
+                "color": "#40C4FF",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -809,7 +1186,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -829,13 +1208,24 @@
       "title": "Active Alerts",
       "description": "Number of currently firing alerts across the platform. High counts indicate systemic issues.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 11 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 11
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "grafana_alerting_active_alerts",
           "legendFormat": "Active Alerts",
           "instant": true
@@ -848,9 +1238,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00E676", "value": null },
-              { "color": "#FFC400", "value": 5 },
-              { "color": "#FF1744", "value": 20 }
+              {
+                "color": "#00E676",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 5
+              },
+              {
+                "color": "#FF1744",
+                "value": 20
+              }
             ]
           },
           "mappings": []
@@ -862,7 +1261,9 @@
         "colorMode": "background_solid",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -882,37 +1283,60 @@
       "title": "Platform Error Rate",
       "description": "Error rate across all 5 platform components. Any line crossing 1% needs attention.",
       "type": "timeseries",
-      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 15 },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Grafana"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Mimir"
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(loki_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Loki"
         },
         {
           "refId": "D",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(tempo_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(tempo_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Tempo"
         },
         {
           "refId": "E",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_request_duration_seconds_count{cluster=~\"$cluster\", status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(pyroscope_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Pyroscope"
         }
@@ -936,8 +1360,14 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "transparent", "value": null },
-              { "color": "#FF1744", "value": 1 }
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "#FF1744",
+                "value": 1
+              }
             ]
           },
           "color": {
@@ -947,33 +1377,78 @@
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Grafana" },
+            "matcher": {
+              "id": "byName",
+              "options": "Grafana"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#651FFF" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#651FFF"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Mimir" },
+            "matcher": {
+              "id": "byName",
+              "options": "Mimir"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00E676" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#00E676"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Loki" },
+            "matcher": {
+              "id": "byName",
+              "options": "Loki"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#40C4FF" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#40C4FF"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Tempo" },
+            "matcher": {
+              "id": "byName",
+              "options": "Tempo"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FFC400" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FFC400"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Pyroscope" },
+            "matcher": {
+              "id": "byName",
+              "options": "Pyroscope"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FF6B6B" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF6B6B"
+                }
+              }
             ]
           }
         ]
@@ -982,7 +1457,11 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
-          "calcs": ["lastNotNull", "mean", "max"],
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
           "showLegend": true
         },
         "tooltip": {
@@ -1003,25 +1482,42 @@
       "title": "Platform Request Volume",
       "description": "Total request throughput across main platform components. Shows load distribution.",
       "type": "timeseries",
-      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 15 },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval]))",
           "legendFormat": "Grafana"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "Mimir"
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_request_duration_seconds_count{cluster=~\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "Loki"
         }
@@ -1049,28 +1545,58 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Grafana" },
+            "matcher": {
+              "id": "byName",
+              "options": "Grafana"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#651FFF" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#651FFF"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Mimir" },
+            "matcher": {
+              "id": "byName",
+              "options": "Mimir"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00E676" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#00E676"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Loki" },
+            "matcher": {
+              "id": "byName",
+              "options": "Loki"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#40C4FF" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#40C4FF"
+                }
+              }
             ]
           }
         ]
@@ -1079,7 +1605,11 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
-          "calcs": ["lastNotNull", "mean", "max"],
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
           "showLegend": true
         },
         "tooltip": {
@@ -1100,41 +1630,64 @@
       "title": "Component P95 Latency",
       "description": "P95 latency per component. All should be under 1s for good user experience.",
       "type": "bargauge",
-      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 22 },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket[$__rate_interval])) by (le))",
           "legendFormat": "Grafana UI",
           "instant": true
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", route=~\"/api/v1/push|api/prom/push\"}[$__rate_interval])) by (le))",
           "legendFormat": "Mimir Write",
           "instant": true
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(loki_request_duration_seconds_bucket{cluster=~\"$cluster\", route=~\"/loki/api/v1/push|/api/prom/push\"}[$__rate_interval])) by (le))",
           "legendFormat": "Loki Write",
           "instant": true
         },
         {
           "refId": "D",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{cluster=~\"$cluster\", route=~\"api_prom_api_v1_query|api_prom_api_v1_query_range\"}[$__rate_interval])) by (le))",
           "legendFormat": "Mimir Query",
           "instant": true
         },
         {
           "refId": "E",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(tempo_request_duration_seconds_bucket{cluster=~\"$cluster\", route=~\"/tempopb.Querier/.*|/tempo.Querier/.*\"}[$__rate_interval])) by (le))",
           "legendFormat": "Tempo Query",
           "instant": true
@@ -1149,9 +1702,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00E676", "value": null },
-              { "color": "#FFC400", "value": 0.3 },
-              { "color": "#FF1744", "value": 1.0 }
+              {
+                "color": "#00E676",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 0.3
+              },
+              {
+                "color": "#FF1744",
+                "value": 1.0
+              }
             ]
           },
           "mappings": []
@@ -1163,7 +1725,9 @@
         "displayMode": "gradient",
         "showUnfilled": true,
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1185,34 +1749,54 @@
       "title": "Ingestion Volume",
       "description": "Data ingestion rate across all signal types.",
       "type": "bargauge",
-      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 22 },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 22
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "Logs (bytes/s)",
           "instant": true
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(cortex_distributor_received_samples_total{cluster=~\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "Metrics (samples/s)",
           "instant": true
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(tempo_distributor_spans_received_total{cluster=~\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "Traces (spans/s)",
           "instant": true
         },
         {
           "refId": "D",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "Profiles (samples/s)",
           "instant": true
@@ -1225,35 +1809,77 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00E676", "value": null }
+              {
+                "color": "#00E676",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Logs (bytes/s)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Logs (bytes/s)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#40C4FF" } },
-              { "id": "unit", "value": "Bps" }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#40C4FF"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "Bps"
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Metrics (samples/s)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Metrics (samples/s)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#00E676" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#00E676"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Traces (spans/s)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Traces (spans/s)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#FFC400" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FFC400"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Profiles (samples/s)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Profiles (samples/s)"
+            },
             "properties": [
-              { "id": "color", "value": { "mode": "fixed", "fixedColor": "#651FFF" } }
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#651FFF"
+                }
+              }
             ]
           }
         ]
@@ -1263,7 +1889,9 @@
         "displayMode": "gradient",
         "showUnfilled": true,
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1284,19 +1912,35 @@
       "id": 21,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 28 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
       "transparent": true,
       "options": {
         "mode": "html",
         "content": "<div style=\"display:flex; justify-content:space-between; align-items:center; padding:8px 16px; border-top:1px solid rgba(255,255,255,0.05);\">\n  <span style=\"font-size:11px; color:#555;\">Platform Engineering • Observability Infrastructure</span>\n  <div style=\"display:flex; gap:16px;\">\n    <a href=\"/d/ceo-platform-exec-summary\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">Executive Summary →</a>\n    <a href=\"/d/sla-business-impact-report\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">SLA Report →</a>\n    <a href=\"/d/risk-incident-intelligence\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">Risk Intelligence →</a>\n    <a href=\"/d/service-health-matrix\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">Health Matrix →</a>\n    <a href=\"/d/anomaly-detection-outliers\" style=\"font-size:11px; color:#651FFF; text-decoration:none;\">Anomaly Detection →</a>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     }
   ],
   "refresh": "1m",
   "schemaVersion": 39,
-  "tags": ["kpi", "executive", "single-pane", "c-suite", "premium", "ultimate"],
+  "tags": [
+    "kpi",
+    "executive",
+    "single-pane",
+    "c-suite",
+    "premium",
+    "ultimate"
+  ],
   "templating": {
     "list": [
       {
@@ -1318,8 +1962,12 @@
         "allValue": ".*",
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",

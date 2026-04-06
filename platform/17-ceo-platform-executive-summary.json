@@ -59,18 +59,114 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
+    },
+    {
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "SLA Report",
+      "url": "/d/sla-business-impact-report",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Risk Intelligence",
+      "url": "/d/risk-incident-intelligence",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Health Matrix",
+      "url": "/d/service-health-matrix",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "SLO Burn Rate",
+      "url": "/d/slo-error-budget-burn",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Anomaly Detection",
+      "url": "/d/anomaly-detection-outliers",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Grafana",
+      "url": "/d/grafana-admin-command-center",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Loki",
+      "url": "/d/loki-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Mimir",
+      "url": "/d/mimir-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Tempo",
+      "url": "/d/tempo-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "→ Pyroscope",
+      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    }
+  ],
   "panels": [
     {
       "id": 1,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "transparent": true,
       "options": {
         "mode": "html",
         "content": "<div style=\"display:flex; align-items:center; justify-content:space-between; padding: 8px 16px;\">\n  <div>\n    <h1 style=\"margin:0; font-size:24px; font-weight:600; color:#E0E0E0; letter-spacing:0.5px;\">Observability Platform — Executive Summary</h1>\n    <p style=\"margin:4px 0 0 0; font-size:13px; color:#999; letter-spacing:0.3px;\">Enterprise Platform Engineering • Real-Time Status</p>\n  </div>\n  <div style=\"text-align:right;\">\n    <span style=\"font-size:11px; color:#666; text-transform:uppercase; letter-spacing:1px;\">Last Updated</span><br/>\n    <span style=\"font-size:14px; color:#4FC3F7; font-weight:500;\">Live • Auto-Refresh 1m</span>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     },
@@ -79,13 +175,24 @@
       "title": "Platform Availability",
       "description": "Rolling availability calculated from non-5xx HTTP responses. Target: 99.9%",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "(1 - (sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval])) + 0.001))) * 100",
           "legendFormat": "Availability",
           "instant": true
@@ -98,9 +205,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF4757", "value": null },
-              { "color": "#FFB020", "value": 99 },
-              { "color": "#00C48C", "value": 99.9 }
+              {
+                "color": "#FF4757",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 99
+              },
+              {
+                "color": "#00C48C",
+                "value": 99.9
+              }
             ]
           },
           "mappings": [
@@ -122,7 +238,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -142,13 +260,24 @@
       "title": "Metrics Write SLO",
       "description": "Mimir metrics ingestion SLO. 95th percentile write latency ≤ 500ms. Target: 95%",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\"}[30m])) / (sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\"}[30m])) + 0.001) * 100",
           "legendFormat": "Metrics Write SLO",
           "instant": true
@@ -161,9 +290,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF4757", "value": null },
-              { "color": "#FFB020", "value": 95 },
-              { "color": "#00C48C", "value": 99 }
+              {
+                "color": "#FF4757",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 95
+              },
+              {
+                "color": "#00C48C",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -175,7 +313,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -195,13 +335,24 @@
       "title": "Log Ingestion SLO",
       "description": "Loki log ingestion SLO. 95th percentile write latency ≤ 500ms. Target: 95%",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[30m])) / (sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) + 0.001) * 100",
           "legendFormat": "Log Ingestion SLO",
           "instant": true
@@ -214,9 +365,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF4757", "value": null },
-              { "color": "#FFB020", "value": 95 },
-              { "color": "#00C48C", "value": 99 }
+              {
+                "color": "#FF4757",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 95
+              },
+              {
+                "color": "#00C48C",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -228,7 +388,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -248,13 +410,24 @@
       "title": "Query Performance SLO",
       "description": "Mimir query frontend SLO. Query enqueue latency ≤ 500ms. Target: 95%",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_query_frontend_enqueue_duration_seconds_bucket{le=\"0.5\"}[30m])) / (sum(rate(cortex_query_frontend_enqueue_duration_seconds_bucket{le=\"+Inf\"}[30m])) + 0.001) * 100",
           "legendFormat": "Query Performance SLO",
           "instant": true
@@ -267,9 +440,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF4757", "value": null },
-              { "color": "#FFB020", "value": 95 },
-              { "color": "#00C48C", "value": 99 }
+              {
+                "color": "#FF4757",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 95
+              },
+              {
+                "color": "#00C48C",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -281,7 +463,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -301,13 +485,24 @@
       "title": "Error Budget Remaining",
       "description": "30-day error budget remaining. When this reaches 0%, the SLO is breached for the period.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "((sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30d])) / (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30d])) + 0.001)) - 0.95) / 0.05 * 100",
           "legendFormat": "Error Budget",
           "instant": true
@@ -319,9 +514,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF4757", "value": null },
-              { "color": "#FFB020", "value": 20 },
-              { "color": "#00C48C", "value": 50 }
+              {
+                "color": "#FF4757",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 20
+              },
+              {
+                "color": "#00C48C",
+                "value": 50
+              }
             ]
           },
           "mappings": []
@@ -333,7 +537,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -347,13 +553,24 @@
       "title": "Active Users",
       "description": "Currently active Grafana users across all instances.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 2 },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 2
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_stat_active_users",
           "legendFormat": "Active Users",
           "instant": true
@@ -364,7 +581,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6C63FF", "value": null }
+              {
+                "color": "#6C63FF",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -376,7 +596,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -390,32 +612,52 @@
       "title": "SLO Compliance — All Services (30 Day)",
       "description": "30-day SLO compliance trend for all platform services. The red dashed line marks the 95% SLO target. All services should remain above this line.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 16, "x": 0, "y": 7 },
+      "gridPos": {
+        "h": 8,
+        "w": 16,
+        "x": 0,
+        "y": 7
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "timeFrom": "30d",
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[1h])) / (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[1h])) + 0.001) * 100",
           "legendFormat": "Platform UI"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\"}[1h])) / (sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\"}[1h])) + 0.001) * 100",
           "legendFormat": "Metrics (Mimir)"
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[1h])) / (sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[1h])) + 0.001) * 100",
           "legendFormat": "Logs (Loki)"
         },
         {
           "refId": "D",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_query_frontend_enqueue_duration_seconds_bucket{le=\"0.5\"}[1h])) / (sum(rate(cortex_query_frontend_enqueue_duration_seconds_bucket{le=\"+Inf\"}[1h])) + 0.001) * 100",
           "legendFormat": "Queries (Mimir)"
         }
@@ -441,8 +683,13 @@
             "barAlignment": 0,
             "drawStyle": "line",
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
-            "stacking": { "group": "A", "mode": "none" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line"
             }
@@ -450,35 +697,77 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF4757", "value": null },
-              { "color": "#FF4757", "value": 95 }
+              {
+                "color": "#FF4757",
+                "value": null
+              },
+              {
+                "color": "#FF4757",
+                "value": 95
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Platform UI" },
+            "matcher": {
+              "id": "byName",
+              "options": "Platform UI"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#6C63FF", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#6C63FF",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Metrics (Mimir)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Metrics (Mimir)"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#00C48C", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#00C48C",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Logs (Loki)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Logs (Loki)"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#4FC3F7", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#4FC3F7",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Queries (Mimir)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Queries (Mimir)"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FFB020", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FFB020",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
@@ -487,7 +776,11 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
-          "calcs": ["lastNotNull", "mean", "min"],
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min"
+          ],
           "showLegend": true
         },
         "tooltip": {
@@ -502,41 +795,64 @@
       "title": "Service Health Matrix",
       "description": "Current SLO compliance by service. Green = excellent, amber = at target, red = breaching SLO.",
       "type": "bargauge",
-      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 7 },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 7
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30m])) / (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) + 0.001) * 100",
           "legendFormat": "Platform UI",
           "instant": true
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\"}[30m])) / (sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\"}[30m])) + 0.001) * 100",
           "legendFormat": "Mimir Write",
           "instant": true
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(loki_write_request_duration_seconds_bucket{le=\"0.5\"}[30m])) / (sum(rate(loki_write_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) + 0.001) * 100",
           "legendFormat": "Loki Write",
           "instant": true
         },
         {
           "refId": "D",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_query_frontend_enqueue_duration_seconds_bucket{le=\"0.5\"}[30m])) / (sum(rate(cortex_query_frontend_enqueue_duration_seconds_bucket{le=\"+Inf\"}[30m])) + 0.001) * 100",
           "legendFormat": "Mimir Read",
           "instant": true
         },
         {
           "refId": "E",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"2.0\"}[30m])) / (sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\", le=\"+Inf\"}[30m])) + 0.001) * 100",
           "legendFormat": "Log Query",
           "instant": true
@@ -551,9 +867,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FF4757", "value": null },
-              { "color": "#FFB020", "value": 95 },
-              { "color": "#00C48C", "value": 99 }
+              {
+                "color": "#FF4757",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 95
+              },
+              {
+                "color": "#00C48C",
+                "value": 99
+              }
             ]
           },
           "mappings": []
@@ -565,7 +890,9 @@
         "displayMode": "gradient",
         "showUnfilled": true,
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -582,25 +909,42 @@
       "title": "Platform Traffic Volume",
       "description": "Total platform request throughput by service. Shows the scale and distribution of platform utilization.",
       "type": "timeseries",
-      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 15 },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval]))",
           "legendFormat": "Grafana UI"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_count[$__rate_interval]))",
           "legendFormat": "Metrics Pipeline"
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(loki_write_request_duration_seconds_count[$__rate_interval]))",
           "legendFormat": "Log Pipeline"
         }
@@ -623,35 +967,72 @@
             "barAlignment": 0,
             "drawStyle": "line",
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
-            "stacking": { "group": "A", "mode": "normal" },
-            "thresholdsStyle": { "mode": "off" }
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Grafana UI" },
+            "matcher": {
+              "id": "byName",
+              "options": "Grafana UI"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#6C63FF", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#6C63FF",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Metrics Pipeline" },
+            "matcher": {
+              "id": "byName",
+              "options": "Metrics Pipeline"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#00C48C", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#00C48C",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Log Pipeline" },
+            "matcher": {
+              "id": "byName",
+              "options": "Log Pipeline"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#4FC3F7", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#4FC3F7",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
@@ -660,7 +1041,11 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
         "tooltip": {
@@ -675,13 +1060,24 @@
       "title": "Cluster Capacity Utilization",
       "description": "Request throughput by cluster. Helps identify capacity imbalances and plan scaling.",
       "type": "bargauge",
-      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 15 },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum by (cluster) (rate(cortex_request_duration_seconds_count[$__rate_interval])) / 1000",
           "legendFormat": "{{cluster}}",
           "instant": true
@@ -693,9 +1089,18 @@
           "thresholds": {
             "mode": "percentage",
             "steps": [
-              { "color": "#00C48C", "value": null },
-              { "color": "#FFB020", "value": 70 },
-              { "color": "#FF4757", "value": 90 }
+              {
+                "color": "#00C48C",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 70
+              },
+              {
+                "color": "#FF4757",
+                "value": 90
+              }
             ]
           },
           "mappings": []
@@ -707,7 +1112,9 @@
         "displayMode": "gradient",
         "showUnfilled": true,
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -724,25 +1131,42 @@
       "title": "User-Perceived Latency (P95)",
       "description": "P95 latency for key user actions. Users notice degradation above 1 second.",
       "type": "timeseries",
-      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 22 },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/dashboards/.*\"}[$__rate_interval])) by (le))",
           "legendFormat": "Dashboard Load"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/datasources/proxy/.*\"}[$__rate_interval])) by (le))",
           "legendFormat": "Query Execution"
         },
         {
           "refId": "C",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\"/api/search.*\"}[$__rate_interval])) by (le))",
           "legendFormat": "Search"
         }
@@ -766,8 +1190,13 @@
             "barAlignment": 0,
             "drawStyle": "line",
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
-            "stacking": { "group": "A", "mode": "none" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line+area"
             }
@@ -775,30 +1204,66 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#73BF69", "value": null },
-              { "color": "#FFB020", "value": 1.0 },
-              { "color": "#FF4757", "value": 2.0 }
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 1.0
+              },
+              {
+                "color": "#FF4757",
+                "value": 2.0
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Dashboard Load" },
+            "matcher": {
+              "id": "byName",
+              "options": "Dashboard Load"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#6C63FF", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#6C63FF",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Query Execution" },
+            "matcher": {
+              "id": "byName",
+              "options": "Query Execution"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FFB020", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FFB020",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Search" },
+            "matcher": {
+              "id": "byName",
+              "options": "Search"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#4FC3F7", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#4FC3F7",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
@@ -807,7 +1272,11 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
-          "calcs": ["lastNotNull", "mean", "max"],
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
           "showLegend": true
         },
         "tooltip": {
@@ -822,19 +1291,33 @@
       "title": "Error Impact Score",
       "description": "Server error rates by service. Sustained rates above 1% indicate user-impacting issues.",
       "type": "timeseries",
-      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 22 },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 22
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Grafana Error Rate"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "sum(rate(cortex_request_duration_seconds_count{status_code=~\"5..\"}[$__rate_interval])) / (sum(rate(cortex_request_duration_seconds_count[$__rate_interval])) + 0.001) * 100",
           "legendFormat": "Mimir Error Rate"
         }
@@ -858,8 +1341,13 @@
             "barAlignment": 0,
             "drawStyle": "line",
             "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
-            "stacking": { "group": "A", "mode": "none" },
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
             "thresholdsStyle": {
               "mode": "line"
             }
@@ -867,23 +1355,47 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00C48C", "value": null },
-              { "color": "#FF4757", "value": 1 }
+              {
+                "color": "#00C48C",
+                "value": null
+              },
+              {
+                "color": "#FF4757",
+                "value": 1
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Grafana Error Rate" },
+            "matcher": {
+              "id": "byName",
+              "options": "Grafana Error Rate"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FF4757", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF4757",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "Mimir Error Rate" },
+            "matcher": {
+              "id": "byName",
+              "options": "Mimir Error Rate"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FFB020", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FFB020",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
@@ -892,7 +1404,11 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
-          "calcs": ["lastNotNull", "mean", "max"],
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
           "showLegend": true
         },
         "tooltip": {
@@ -907,13 +1423,24 @@
       "title": "Dashboards",
       "description": "Total number of dashboards across the platform.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 29 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 29
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_stat_total_dashboards",
           "legendFormat": "Dashboards",
           "instant": true
@@ -928,7 +1455,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6C63FF", "value": null }
+              {
+                "color": "#6C63FF",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -940,7 +1470,9 @@
         "colorMode": "value",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -954,13 +1486,24 @@
       "title": "Data Sources",
       "description": "Total number of configured data sources.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 29 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 29
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_stat_totals_datasource",
           "legendFormat": "Data Sources",
           "instant": true
@@ -975,7 +1518,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#4FC3F7", "value": null }
+              {
+                "color": "#4FC3F7",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -987,7 +1533,9 @@
         "colorMode": "value",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1001,13 +1549,24 @@
       "title": "Alert Rules",
       "description": "Total number of alert rules configured across all organizations.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 29 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 29
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_stat_total_alert_rules",
           "legendFormat": "Alert Rules",
           "instant": true
@@ -1022,7 +1581,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FFB020", "value": null }
+              {
+                "color": "#FFB020",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -1034,7 +1596,9 @@
         "colorMode": "value",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1048,13 +1612,24 @@
       "title": "Organizations",
       "description": "Total number of Grafana organizations (tenants).",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 29 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 29
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_stat_total_orgs",
           "legendFormat": "Organizations",
           "instant": true
@@ -1069,7 +1644,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00C48C", "value": null }
+              {
+                "color": "#00C48C",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -1081,7 +1659,9 @@
         "colorMode": "value",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1095,13 +1675,24 @@
       "title": "Total Users",
       "description": "Total registered users across the platform.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 29 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 29
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_stat_total_users",
           "legendFormat": "Total Users",
           "instant": true
@@ -1116,7 +1707,10 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#6C63FF", "value": null }
+              {
+                "color": "#6C63FF",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -1128,7 +1722,9 @@
         "colorMode": "value",
         "textMode": "value_and_name",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1142,13 +1738,24 @@
       "title": "Active Alerts",
       "description": "Number of currently firing alert rules. Low is healthy.",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 29 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 29
+      },
       "transparent": false,
-      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "$datasource" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
           "expr": "grafana_alerting_active_alerts",
           "legendFormat": "Active Alerts",
           "instant": true
@@ -1159,9 +1766,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00C48C", "value": null },
-              { "color": "#FFB020", "value": 5 },
-              { "color": "#FF4757", "value": 20 }
+              {
+                "color": "#00C48C",
+                "value": null
+              },
+              {
+                "color": "#FFB020",
+                "value": 5
+              },
+              {
+                "color": "#FF4757",
+                "value": 20
+              }
             ]
           },
           "mappings": []
@@ -1173,7 +1789,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1186,12 +1804,21 @@
       "id": 20,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 33 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 33
+      },
       "transparent": true,
       "options": {
         "mode": "html",
         "content": "<div style=\"display:flex; justify-content:space-between; align-items:center; padding:8px 16px; border-top:1px solid rgba(255,255,255,0.05);\">\n  <span style=\"font-size:11px; color:#666;\">Platform Engineering Team • Observability Infrastructure</span>\n  <div style=\"display:flex; gap:24px;\">\n    <a href=\"/d/grafana-admin-command-center\" style=\"font-size:11px; color:#6C63FF; text-decoration:none;\">Admin Command Center →</a>\n    <a href=\"/d/grafana-access-security\" style=\"font-size:11px; color:#6C63FF; text-decoration:none;\">Security Analytics →</a>\n    <a href=\"/d/grafana-db-perf-deep-dive\" style=\"font-size:11px; color:#6C63FF; text-decoration:none;\">Performance Deep Dive →</a>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     }
@@ -1199,7 +1826,13 @@
   "refresh": "1m",
   "schemaVersion": 39,
   "style": "dark",
-  "tags": ["c-suite", "executive", "platform", "next-gen", "premium"],
+  "tags": [
+    "c-suite",
+    "executive",
+    "platform",
+    "next-gen",
+    "premium"
+  ],
   "templating": {
     "list": [
       {
@@ -1229,9 +1862,21 @@
         "multi": false,
         "name": "environment",
         "options": [
-          { "selected": true, "text": "Production", "value": "Production" },
-          { "selected": false, "text": "Staging", "value": "Staging" },
-          { "selected": false, "text": "Development", "value": "Development" }
+          {
+            "selected": true,
+            "text": "Production",
+            "value": "Production"
+          },
+          {
+            "selected": false,
+            "text": "Staging",
+            "value": "Staging"
+          },
+          {
+            "selected": false,
+            "text": "Development",
+            "value": "Development"
+          }
         ],
         "query": "Production,Staging,Development",
         "queryValue": "",
@@ -1242,8 +1887,12 @@
         "allValue": ".*",
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",

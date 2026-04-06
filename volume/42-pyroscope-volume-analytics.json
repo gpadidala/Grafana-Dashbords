@@ -55,7 +55,7 @@
     ]
   },
   "uid": "pyroscope-volume-analytics",
-  "title": "Pyroscope \u2014 Volume & Throughput Analytics",
+  "title": "Pyroscope — Volume & Throughput Analytics",
   "description": "Deep-dive into Pyroscope continuous profiling volume and throughput. Track profile ingestion rates by tenant, service, and cluster. Identify top producers, monitor active series growth, and correlate volume with performance.",
   "tags": [
     "pyroscope",
@@ -81,22 +81,67 @@
   "id": null,
   "links": [
     {
-      "title": "Pyroscope Ingestion Analytics",
-      "url": "/d/pyroscope-ingestion-analytics",
-      "icon": "external link",
+      "title": "⬆ Platform KPI",
+      "url": "/d/ultimate-platform-kpi",
       "type": "link",
-      "tooltip": "Detailed Pyroscope ingestion & storage analytics"
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Single Pane of Glass"
     },
     {
-      "title": "Cross-Stack Volume Summary",
-      "url": "/d/cross-stack-volume-summary",
-      "icon": "external link",
+      "title": "⬆ L0 Command Center",
+      "url": "/d/l0-executive-command-center",
       "type": "link",
-      "tooltip": "LGTM unified volume overview"
+      "icon": "dashboard",
+      "targetBlank": false,
+      "tooltip": "Executive Command Center"
+    },
+    {
+      "title": "Volume Summary",
+      "url": "/d/cross-stack-volume-summary",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Grafana Volume",
+      "url": "/d/grafana-volume-analytics",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Loki Volume",
+      "url": "/d/loki-volume-analytics",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Mimir Volume",
+      "url": "/d/mimir-volume-analytics",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
+    },
+    {
+      "title": "Tempo Volume",
+      "url": "/d/tempo-volume-analytics",
+      "type": "link",
+      "icon": "dashboard",
+      "targetBlank": false
     }
   ],
   "timepicker": {
-    "refresh_intervals": ["10s", "30s", "1m", "5m", "15m", "30m", "1h"]
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ]
   },
   "templating": {
     "list": [
@@ -201,36 +246,59 @@
       "id": 1,
       "title": "",
       "type": "text",
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "transparent": true,
       "options": {
         "mode": "html",
-        "content": "<div style=\"display:flex; align-items:center; justify-content:space-between; padding: 8px 16px;\">\n  <div>\n    <h1 style=\"margin:0; font-size:24px; font-weight:600; color:#E0E0E0; letter-spacing:0.5px;\">Pyroscope \u2014 Volume & Throughput Analytics</h1>\n    <p style=\"margin:4px 0 0 0; font-size:13px; color:#999; letter-spacing:0.3px;\">Profile Ingestion Volume \u2022 Top Producers \u2022 Growth Analysis</p>\n  </div>\n  <div style=\"text-align:right;\">\n    <span style=\"font-size:11px; color:#666; text-transform:uppercase; letter-spacing:1px;\">Signal</span><br/>\n    <span style=\"font-size:14px; color:#651FFF; font-weight:600;\">Continuous Profiling</span>\n  </div>\n</div>",
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false }
+        "content": "<div style=\"display:flex; align-items:center; justify-content:space-between; padding: 8px 16px;\">\n  <div>\n    <h1 style=\"margin:0; font-size:24px; font-weight:600; color:#E0E0E0; letter-spacing:0.5px;\">Pyroscope — Volume & Throughput Analytics</h1>\n    <p style=\"margin:4px 0 0 0; font-size:13px; color:#999; letter-spacing:0.3px;\">Profile Ingestion Volume • Top Producers • Growth Analysis</p>\n  </div>\n  <div style=\"text-align:right;\">\n    <span style=\"font-size:11px; color:#666; text-transform:uppercase; letter-spacing:1px;\">Signal</span><br/>\n    <span style=\"font-size:14px; color:#651FFF; font-weight:600;\">Continuous Profiling</span>\n  </div>\n</div>",
+        "code": {
+          "language": "html",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 2 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
       "id": 100,
       "title": "Key Volume Indicators",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 2,
       "title": "Profiles/sec",
       "description": "Total rate of profile samples ingested per second across all Pyroscope distributors. Core throughput indicator for profiling volume.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 3 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\", service_name=~\"$service\"}[$__rate_interval]))",
           "legendFormat": "Profiles/sec",
           "instant": true
@@ -243,10 +311,16 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#651FFF", "value": null }
+              {
+                "color": "#651FFF",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#651FFF", "mode": "fixed" },
+          "color": {
+            "fixedColor": "#651FFF",
+            "mode": "fixed"
+          },
           "mappings": []
         },
         "overrides": []
@@ -256,7 +330,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -265,18 +341,28 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 3,
       "title": "Bytes/sec",
       "description": "Rate of compressed profile bytes received by Pyroscope distributors. Reflects network bandwidth consumed by profiling data.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 3 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_compressed_bytes_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\"}[$__rate_interval]))",
           "legendFormat": "Bytes/sec",
           "instant": true
@@ -289,10 +375,16 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#651FFF", "value": null }
+              {
+                "color": "#651FFF",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#7C4DFF", "mode": "fixed" },
+          "color": {
+            "fixedColor": "#7C4DFF",
+            "mode": "fixed"
+          },
           "mappings": []
         },
         "overrides": []
@@ -302,7 +394,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -311,18 +405,28 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 4,
       "title": "Active Series",
       "description": "Total number of active profiling series across all ingesters. High cardinality may indicate excessive label combinations.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 3 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(pyroscope_ingester_active_series{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "legendFormat": "Active Series",
           "instant": true
@@ -335,10 +439,16 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00E676", "value": null }
+              {
+                "color": "#00E676",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#00E676", "mode": "fixed" },
+          "color": {
+            "fixedColor": "#00E676",
+            "mode": "fixed"
+          },
           "mappings": []
         },
         "overrides": []
@@ -348,7 +458,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -357,18 +469,28 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 5,
       "title": "Write Request Rate",
       "description": "Rate of write/push requests hitting Pyroscope distributors per second.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 3 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_request_duration_seconds_count{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\".*push.*|.*ingest.*\"}[$__rate_interval]))",
           "legendFormat": "Req/sec",
           "instant": true
@@ -381,10 +503,16 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#FFC400", "value": null }
+              {
+                "color": "#FFC400",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#FFC400", "mode": "fixed" },
+          "color": {
+            "fixedColor": "#FFC400",
+            "mode": "fixed"
+          },
           "mappings": []
         },
         "overrides": []
@@ -394,7 +522,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -403,18 +533,28 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 6,
       "title": "Discarded/sec",
       "description": "Rate of profiles discarded due to rate limits, validation errors, or tenant policy. Non-zero values require investigation.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 3 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_discarded_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval])) or vector(0)",
           "legendFormat": "Discarded/sec",
           "instant": true
@@ -427,9 +567,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#00E676", "value": null },
-              { "color": "#FFC400", "value": 1 },
-              { "color": "#FF5252", "value": 100 }
+              {
+                "color": "#00E676",
+                "value": null
+              },
+              {
+                "color": "#FFC400",
+                "value": 1
+              },
+              {
+                "color": "#FF5252",
+                "value": 100
+              }
             ]
           },
           "mappings": []
@@ -441,7 +590,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -450,18 +601,28 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 7,
       "title": "Instances",
       "description": "Number of running Pyroscope component instances reporting build info.",
       "type": "stat",
-      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 3 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "count(pyroscope_build_info{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "legendFormat": "Instances",
           "instant": true
@@ -474,10 +635,16 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#40C4FF", "value": null }
+              {
+                "color": "#40C4FF",
+                "value": null
+              }
             ]
           },
-          "color": { "fixedColor": "#40C4FF", "mode": "fixed" },
+          "color": {
+            "fixedColor": "#40C4FF",
+            "mode": "fixed"
+          },
           "mappings": []
         },
         "overrides": []
@@ -487,7 +654,9 @@
         "colorMode": "background_solid",
         "textMode": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -496,27 +665,41 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 8 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
       "id": 101,
       "title": "Profile Volume Over Time",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 10,
       "title": "Profile Samples/sec by Tenant",
       "description": "Profile ingestion rate broken down by tenant. Stacked view shows relative contribution of each tenant to total volume.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 9 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (tenant) (rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\", service_name=~\"$service\"}[$__rate_interval]))",
           "legendFormat": "{{tenant}}"
         }
@@ -530,18 +713,28 @@
             "lineWidth": 1,
             "fillOpacity": 40,
             "gradientMode": "opacity",
-            "stacking": { "mode": "normal", "group": "A" },
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -552,25 +745,42 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 11,
       "title": "Profile Bytes/sec by Cluster",
       "description": "Compressed bytes throughput broken down by cluster. Shows data bandwidth distribution across clusters.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 9 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (rate(pyroscope_distributor_received_compressed_bytes_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "{{cluster}}"
         }
@@ -584,18 +794,28 @@
             "lineWidth": 1,
             "fillOpacity": 40,
             "gradientMode": "opacity",
-            "stacking": { "mode": "normal", "group": "A" },
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -606,34 +826,55 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 17 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
       "id": 102,
       "title": "Top Producers",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 12,
       "title": "Top 15 Services by Profile Volume",
       "description": "Services generating the highest profile ingestion rate. Target these for profiling optimization or sampling configuration.",
       "type": "bargauge",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 18 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "topk(15, sum by (service_name) (rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\", service_name=~\"$service\"}[$__rate_interval])))",
           "legendFormat": "{{service_name}}",
           "instant": true
@@ -645,12 +886,23 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#651FFF", "value": null },
-              { "color": "#7C4DFF", "value": 100 },
-              { "color": "#B388FF", "value": 1000 }
+              {
+                "color": "#651FFF",
+                "value": null
+              },
+              {
+                "color": "#7C4DFF",
+                "value": 100
+              },
+              {
+                "color": "#B388FF",
+                "value": 1000
+              }
             ]
           },
-          "color": { "mode": "continuous-BlPu" },
+          "color": {
+            "mode": "continuous-BlPu"
+          },
           "mappings": [],
           "min": 0
         },
@@ -658,7 +910,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -674,18 +928,28 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 13,
       "title": "Top 15 Tenants by Profile Volume",
       "description": "Tenants generating the highest profile ingestion rate. Use for chargeback, capacity allocation, and tenant-level rate limiting decisions.",
       "type": "bargauge",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 18 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "topk(15, sum by (tenant) (rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\"}[$__rate_interval])))",
           "legendFormat": "{{tenant}}",
           "instant": true
@@ -697,12 +961,23 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "#651FFF", "value": null },
-              { "color": "#7C4DFF", "value": 100 },
-              { "color": "#B388FF", "value": 1000 }
+              {
+                "color": "#651FFF",
+                "value": null
+              },
+              {
+                "color": "#7C4DFF",
+                "value": 100
+              },
+              {
+                "color": "#B388FF",
+                "value": 1000
+              }
             ]
           },
-          "color": { "mode": "continuous-BlPu" },
+          "color": {
+            "mode": "continuous-BlPu"
+          },
           "mappings": [],
           "min": 0
         },
@@ -710,7 +985,9 @@
       },
       "options": {
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -726,27 +1003,41 @@
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 26 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
       "id": 103,
       "title": "Active Series",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 14,
       "title": "Active Series by Cluster",
       "description": "Active profiling series per cluster over time. Sudden spikes may indicate new services or label explosion.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 27 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (pyroscope_ingester_active_series{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "legendFormat": "{{cluster}}"
         }
@@ -760,18 +1051,28 @@
             "lineWidth": 2,
             "fillOpacity": 20,
             "gradientMode": "opacity",
-            "stacking": { "mode": "normal", "group": "A" },
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -782,25 +1083,42 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 15,
       "title": "Active Series by Service",
       "description": "Active profiling series by service_name. Identifies which services contribute most to series cardinality.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 27 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "topk(15, sum by (service_name) (pyroscope_ingester_active_series{cluster=~\"$cluster\", namespace=~\"$namespace\"}))",
           "legendFormat": "{{service_name}}"
         }
@@ -814,18 +1132,28 @@
             "lineWidth": 2,
             "fillOpacity": 20,
             "gradientMode": "opacity",
-            "stacking": { "mode": "normal", "group": "A" },
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -836,40 +1164,64 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 35 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
       "id": 104,
       "title": "Storage & Compaction",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 16,
       "title": "Compactor Runs",
       "description": "Rate of compactor runs over time. Tracks compaction cycles that merge and deduplicate blocks in object storage.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 36 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 36
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (rate(pyroscope_compactor_runs_completed_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "completed - {{cluster}}"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (rate(pyroscope_compactor_runs_failed_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "failed - {{cluster}}"
         }
@@ -883,27 +1235,45 @@
             "lineWidth": 2,
             "fillOpacity": 15,
             "gradientMode": "opacity",
-            "stacking": { "mode": "none" },
+            "stacking": {
+              "mode": "none"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byRegexp", "options": "failed.*" },
+            "matcher": {
+              "id": "byRegexp",
+              "options": "failed.*"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FF5252", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF5252",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
@@ -912,31 +1282,51 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 17,
       "title": "Blocks Cleaned / Deleted",
       "description": "Rate of blocks cleaned up or deleted by the compactor. Tracks garbage collection effectiveness for object storage.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 36 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 36
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (rate(pyroscope_compactor_blocks_cleaned_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "cleaned - {{cluster}}"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (cluster) (rate(pyroscope_compactor_blocks_marked_for_deletion_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "marked for deletion - {{cluster}}"
         }
@@ -950,18 +1340,27 @@
             "lineWidth": 2,
             "fillOpacity": 15,
             "gradientMode": "opacity",
-            "stacking": { "mode": "none" },
+            "stacking": {
+              "mode": "none"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -972,40 +1371,64 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 44 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
       "id": 105,
       "title": "Growth Analysis",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 18,
-      "title": "Profile Volume \u2014 Current vs 7d Ago",
+      "title": "Profile Volume — Current vs 7d Ago",
       "description": "Compares current profile ingestion rate to the same period one week ago. Reveals week-over-week growth trends.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 45 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 45
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\"}[$__rate_interval]))",
           "legendFormat": "Current"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\"}[$__rate_interval] offset 7d))",
           "legendFormat": "7d Ago"
         }
@@ -1019,35 +1442,74 @@
             "lineWidth": 2,
             "fillOpacity": 10,
             "gradientMode": "opacity",
-            "stacking": { "mode": "none" },
+            "stacking": {
+              "mode": "none"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Current" },
+            "matcher": {
+              "id": "byName",
+              "options": "Current"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#651FFF",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "7d Ago" },
+            "matcher": {
+              "id": "byName",
+              "options": "7d Ago"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } },
-              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } },
-              { "id": "custom.fillOpacity", "value": 0 }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#651FFF",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
             ]
           }
         ]
@@ -1056,25 +1518,42 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 19,
       "title": "Discarded Profiles by Reason",
       "description": "Profile samples discarded broken down by reason (rate limit, validation error, etc.). Pinpoints the dominant rejection cause.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 45 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 45
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (reason) (rate(pyroscope_discarded_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "legendFormat": "{{reason}}"
         }
@@ -1088,18 +1567,28 @@
             "lineWidth": 2,
             "fillOpacity": 30,
             "gradientMode": "opacity",
-            "stacking": { "mode": "normal", "group": "A" },
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
@@ -1110,40 +1599,64 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 53 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 53
+      },
       "id": 106,
       "title": "Volume vs Performance",
       "type": "row",
       "panels": []
     },
-
     {
       "id": 20,
       "title": "Volume vs P95 Write Latency",
       "description": "Dual-axis view correlating profile ingestion volume (left) with write request P95 latency (right). Helps identify volume-driven latency degradation.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 54 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 54
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum(rate(pyroscope_distributor_received_samples_total{cluster=~\"$cluster\", namespace=~\"$namespace\", tenant=~\"$tenant\"}[$__rate_interval]))",
           "legendFormat": "Profile Volume (samples/s)"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(pyroscope_request_duration_seconds_bucket{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\".*push.*|.*ingest.*\"}[$__rate_interval])) by (le))",
           "legendFormat": "P95 Write Latency"
         }
@@ -1157,40 +1670,88 @@
             "lineWidth": 2,
             "fillOpacity": 10,
             "gradientMode": "opacity",
-            "stacking": { "mode": "none" },
+            "stacking": {
+              "mode": "none"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "Profile Volume (samples/s)" },
+            "matcher": {
+              "id": "byName",
+              "options": "Profile Volume (samples/s)"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#651FFF", "mode": "fixed" } },
-              { "id": "custom.fillOpacity", "value": 20 },
-              { "id": "custom.axisPlacement", "value": "left" },
-              { "id": "custom.axisLabel", "value": "Profiles/sec" }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#651FFF",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 20
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "left"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Profiles/sec"
+              }
             ]
           },
           {
-            "matcher": { "id": "byName", "options": "P95 Write Latency" },
+            "matcher": {
+              "id": "byName",
+              "options": "P95 Write Latency"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FF5252", "mode": "fixed" } },
-              { "id": "unit", "value": "s" },
-              { "id": "custom.axisPlacement", "value": "right" },
-              { "id": "custom.axisLabel", "value": "Latency (s)" },
-              { "id": "custom.fillOpacity", "value": 0 }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF5252",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Latency (s)"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
             ]
           }
         ]
@@ -1199,31 +1760,51 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     },
-
     {
       "id": 21,
       "title": "Write Errors Rate",
       "description": "Rate of failed write/push requests to Pyroscope. Non-zero indicates ingestion failures requiring immediate attention.",
       "type": "timeseries",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 54 },
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 54
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (status_code) (rate(pyroscope_request_duration_seconds_count{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\".*push.*|.*ingest.*\", status_code=~\"5..\"}[$__rate_interval]))",
           "legendFormat": "5xx - {{status_code}}"
         },
         {
           "refId": "B",
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "sum by (status_code) (rate(pyroscope_request_duration_seconds_count{cluster=~\"$cluster\", namespace=~\"$namespace\", route=~\".*push.*|.*ingest.*\", status_code=~\"4..\"}[$__rate_interval]))",
           "legendFormat": "4xx - {{status_code}}"
         }
@@ -1237,33 +1818,61 @@
             "lineWidth": 2,
             "fillOpacity": 20,
             "gradientMode": "opacity",
-            "stacking": { "mode": "normal", "group": "A" },
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
             "spanNulls": false,
             "showPoints": "never",
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "scaleDistribution": { "type": "linear" }
+            "scaleDistribution": {
+              "type": "linear"
+            }
           },
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null }
+              {
+                "color": "green",
+                "value": null
+              }
             ]
           },
           "mappings": []
         },
         "overrides": [
           {
-            "matcher": { "id": "byRegexp", "options": "5xx.*" },
+            "matcher": {
+              "id": "byRegexp",
+              "options": "5xx.*"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FF5252", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF5252",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
           {
-            "matcher": { "id": "byRegexp", "options": "4xx.*" },
+            "matcher": {
+              "id": "byRegexp",
+              "options": "4xx.*"
+            },
             "properties": [
-              { "id": "color", "value": { "fixedColor": "#FFC400", "mode": "fixed" } }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FFC400",
+                  "mode": "fixed"
+                }
+              }
             ]
           }
         ]
@@ -1272,10 +1881,17 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "showLegend": true
         },
-        "tooltip": { "mode": "multi", "sort": "desc" }
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "pluginVersion": "11.6.4"
     }
