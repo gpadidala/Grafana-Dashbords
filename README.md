@@ -12,9 +12,7 @@ The most comprehensive open-source Grafana dashboard collection for the LGTM+ ob
 
 ---
 
-<<<<<<< Updated upstream
 ## Quick Start
-=======
 ## Dashboard Previews
 
 > **To view live:** 
@@ -59,7 +57,6 @@ The most comprehensive open-source Grafana dashboard collection for the LGTM+ ob
 ### Generating Screenshots
 
 Both Docker and Podman setups include a Grafana Image Renderer service for generating dashboard screenshots. Once Grafana is running with real data:
->>>>>>> Stashed changes
 
 **Docker/Podman (Linux):**
 ```bash
@@ -72,7 +69,6 @@ docker compose up -d
 open http://localhost:3200    # admin / admin
 ```
 
-<<<<<<< Updated upstream
 All 57 dashboards appear in organized folders. No manual import needed.
 
 ---
@@ -101,7 +97,6 @@ All 57 dashboards appear in organized folders. No manual import needed.
 
 ### User Journey
 > Enter a user email → see their complete journey across 5 signals.
-=======
 **Podman (Windows PowerShell):**
 ```powershell
 # Example: render a dashboard to PNG
@@ -114,7 +109,6 @@ Invoke-WebRequest -Uri "http://localhost:3200/render/d/ceo-platform-exec-summary
 - Prometheus: http://localhost:9090
 
 > **Note:** Screenshots require real metrics data flowing through the LGTM stack. With the stub Prometheus included, panels will show "No data" — the dashboard layouts, colors, and structure are still fully visible.
->>>>>>> Stashed changes
 
 ---
 
@@ -383,9 +377,7 @@ docker compose up -d
 open http://localhost:3200    # admin / admin
 ```
 
-<<<<<<< Updated upstream
 ### Option 2: Manual Import
-=======
 Open **http://localhost:3200** (admin / admin)
 
 ### Option 2: Podman (Windows - Recommended for Corporate Environments)
@@ -438,7 +430,6 @@ Open **http://localhost:3200** (admin / admin)
 - **Machine Not Running:** Run `podman machine start`
 
 ### Option 3: Manual Import
->>>>>>> Stashed changes
 
 1. Go to **Dashboards → New → Import**
 2. Upload any `.json` file
@@ -469,9 +460,7 @@ done
 
 ---
 
-<<<<<<< Updated upstream
 ## Grafana MCP Server (AI Integration)
-=======
 ## Podman Setup Guide (Windows)
 
 This project includes comprehensive Podman support for Windows environments, especially useful in corporate networks where Docker Desktop may not be available or TLS certificate issues occur.
@@ -550,7 +539,6 @@ podman machine start
 ---
 
 ## User Guide
->>>>>>> Stashed changes
 
 This project includes configuration for the [official Grafana MCP server](https://github.com/grafana/mcp-grafana), enabling AI-powered dashboard search and exploration.
 
