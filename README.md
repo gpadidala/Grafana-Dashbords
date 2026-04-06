@@ -12,8 +12,56 @@ The most comprehensive open-source Grafana dashboard collection for the LGTM+ ob
 
 ---
 
+<<<<<<< Updated upstream
 ## Quick Start
+=======
+## Dashboard Previews
 
+> **To view live:** 
+> - **Docker:** Run `docker compose up -d` and open http://localhost:3200 (admin/admin)
+> - **Podman (Windows):** Run `.\Start-Grafana-TLS-Fix.ps1` and open http://localhost:3200 (admin/admin)
+> - **Podman (Alternative):** Run `.\start-podman-dashboards-alt.bat` 
+> 
+> All 33 dashboards are auto-provisioned and organized into folders:
+> - 📁 **Grafana** - Admin and operational dashboards
+> - 📁 **Loki** - Log analytics dashboards  
+> - 📁 **Mimir** - Metrics storage dashboards
+> - 📁 **Tempo** - Distributed tracing dashboards
+> - 📁 **Pyroscope** - Continuous profiling dashboards
+> - 📁 **Platform & Executive** - Executive summary dashboards
+
+### C-Suite Executive Dashboards
+
+| Dashboard | Description | Live Link |
+|-----------|-------------|-----------|
+| **Observability Platform — Executive Summary** | SLO scorecard, 30-day compliance trends, traffic volume, user experience latency | [Open](http://localhost:3200/d/ceo-platform-exec-summary) |
+| **SLA & Business Impact Report** | 3-decimal SLA precision, error budget gauge, MTBI, service-level breakdown | [Open](http://localhost:3200/d/sla-business-impact-report) |
+| **Risk & Incident Intelligence** | Threat-level indicators, multi-window burn rate, latency risk bands | [Open](http://localhost:3200/d/risk-incident-intelligence) |
+
+### Admin & Operations
+
+| Dashboard | Description | Live Link |
+|-----------|-------------|-----------|
+| **Admin Command Center** | Instance health, HTTP analytics, DB pool, resources | [Open](http://localhost:3200/d/grafana-admin-command-center) |
+| **Service Health Matrix** | Flight-status board for every LGTM component | [Open](http://localhost:3200/d/service-health-matrix) |
+| **Anomaly Detection** | Statistical deviation bands, z-score, configurable sigma | [Open](http://localhost:3200/d/anomaly-detection-outliers) |
+
+### Ingestion Analytics
+
+| Dashboard | Description | Live Link |
+|-----------|-------------|-----------|
+| **Loki Ingestion** | Log volume by namespace/job/tenant, stream cardinality | [Open](http://localhost:3200/d/loki-ingestion-analytics) |
+| **Mimir Ingestion** | Samples/series by tenant, distributor health | [Open](http://localhost:3200/d/mimir-ingestion-analytics) |
+| **Tempo Ingestion** | Spans by tenant, live traces, compaction | [Open](http://localhost:3200/d/tempo-ingestion-analytics) |
+| **Pyroscope Ingestion** | Profiles by service/tenant, active series | [Open](http://localhost:3200/d/pyroscope-ingestion-analytics) |
+| **Cross-Signal Volume** | Unified bytes/sec across all signals, WoW growth | [Open](http://localhost:3200/d/cross-signal-volume-analytics) |
+
+### Generating Screenshots
+
+Both Docker and Podman setups include a Grafana Image Renderer service for generating dashboard screenshots. Once Grafana is running with real data:
+>>>>>>> Stashed changes
+
+**Docker/Podman (Linux):**
 ```bash
 # Clone and run — dashboards auto-provision
 git clone https://github.com/gpadidala/Grafana-Dashbords.git
@@ -24,6 +72,7 @@ docker compose up -d
 open http://localhost:3200    # admin / admin
 ```
 
+<<<<<<< Updated upstream
 All 57 dashboards appear in organized folders. No manual import needed.
 
 ---
@@ -52,6 +101,20 @@ All 57 dashboards appear in organized folders. No manual import needed.
 
 ### User Journey
 > Enter a user email → see their complete journey across 5 signals.
+=======
+**Podman (Windows PowerShell):**
+```powershell
+# Example: render a dashboard to PNG
+Invoke-WebRequest -Uri "http://localhost:3200/render/d/ceo-platform-exec-summary?orgId=1&width=1400&height=900&theme=dark&timeout=120" -Credential (New-Object System.Management.Automation.PSCredential("admin", (ConvertTo-SecureString "admin" -AsPlainText -Force))) -OutFile "screenshot.png"
+```
+
+**Available Render Endpoints:**
+- Grafana UI: http://localhost:3200
+- Renderer Service: http://localhost:8081
+- Prometheus: http://localhost:9090
+
+> **Note:** Screenshots require real metrics data flowing through the LGTM stack. With the stub Prometheus included, panels will show "No data" — the dashboard layouts, colors, and structure are still fully visible.
+>>>>>>> Stashed changes
 
 ---
 
@@ -311,7 +374,7 @@ Consistent across all dashboards:
 
 ## Deployment Options
 
-### Option 1: Docker Compose (Recommended)
+### Option 1: Docker Compose (Traditional)
 
 ```bash
 git clone https://github.com/gpadidala/Grafana-Dashbords.git
@@ -320,7 +383,62 @@ docker compose up -d
 open http://localhost:3200    # admin / admin
 ```
 
+<<<<<<< Updated upstream
 ### Option 2: Manual Import
+=======
+Open **http://localhost:3200** (admin / admin)
+
+### Option 2: Podman (Windows - Recommended for Corporate Environments)
+
+**Step 1: Install Podman**
+```powershell
+# Option A: Use local PowerShell installer
+.\Install-Podman.ps1
+
+# Option B: Use local batch installer
+.\install-podman-local.bat
+
+# Option C: Use parent directory installer
+& "..\Next-Gen-O11y-Onboarding-Platform\install-podman.bat"
+```
+
+**Step 2: Start Grafana Dashboards**
+```powershell
+# Recommended: TLS workaround for corporate networks
+.\Start-Grafana-TLS-Fix.ps1
+
+# Alternative: Standard start (if no TLS issues)
+.\start-podman-dashboards-alt.bat
+
+# Option: Use compose (if available)
+.\start-podman-dashboards.bat
+```
+
+**Step 3: Fix Dashboard Mounts (if needed)**
+```powershell
+# If dashboards don't appear, run this fix
+.\Fix-Dashboard-Mounts.ps1
+```
+
+Open **http://localhost:3200** (admin / admin)
+
+**Podman Command Reference:**
+- `Install-Podman.ps1` - PowerShell Podman installer
+- `Start-Grafana-TLS-Fix.ps1` - Start with TLS workarounds (recommended)
+- `start-podman-dashboards-alt.bat` - Start using individual commands
+- `Fix-Dashboard-Mounts.ps1` - Fix dashboard volume mounts
+- `Stop-Podman-Dashboards.ps1` - Stop all services (PowerShell)
+- `check-dashboards.bat` - Verify dashboard loading
+- `setup-podman.bat` - One-time environment setup
+
+**Troubleshooting:**
+- **TLS Certificate Errors:** Use `.\Start-Grafana-TLS-Fix.ps1`
+- **Missing Dashboards:** Run `.\Fix-Dashboard-Mounts.ps1`
+- **PATH Issues:** Restart PowerShell after Podman installation
+- **Machine Not Running:** Run `podman machine start`
+
+### Option 3: Manual Import
+>>>>>>> Stashed changes
 
 1. Go to **Dashboards → New → Import**
 2. Upload any `.json` file
@@ -351,7 +469,88 @@ done
 
 ---
 
+<<<<<<< Updated upstream
 ## Grafana MCP Server (AI Integration)
+=======
+## Podman Setup Guide (Windows)
+
+This project includes comprehensive Podman support for Windows environments, especially useful in corporate networks where Docker Desktop may not be available or TLS certificate issues occur.
+
+### Features
+
+- ✅ **Automated Podman Installation** - PowerShell and batch installers
+- ✅ **TLS Certificate Workarounds** - For corporate firewall/proxy environments  
+- ✅ **Proper Dashboard Mounting** - All 33 dashboards organized in folders
+- ✅ **PATH Resolution** - Automatic Podman path detection and fixing
+- ✅ **Machine Management** - Automated VM creation and startup
+- ✅ **Multiple Startup Methods** - Compose, individual commands, and PowerShell
+
+### Quick Start (Podman)
+
+```powershell
+# 1. Install Podman
+.\Install-Podman.ps1
+
+# 2. Start Grafana (with TLS fix for corporate networks)
+.\Start-Grafana-TLS-Fix.ps1
+
+# 3. Access dashboards
+# Open: http://localhost:3200 (admin/admin)
+```
+
+### File Overview
+
+| File | Purpose |
+|------|---------|
+| `Install-Podman.ps1` | PowerShell installer for Podman |
+| `Start-Grafana-TLS-Fix.ps1` | Start with TLS certificate workarounds |
+| `Fix-Dashboard-Mounts.ps1` | Fix dashboard volume mounting issues |
+| `start-podman-dashboards-alt.bat` | Alternative startup using individual commands |
+| `check-dashboards.bat` | Verify dashboard loading status |
+| `podman-compose.yml` | Compose file with proper volume mounts |
+
+### Common Issues & Solutions
+
+**Problem: TLS Certificate Errors**
+```
+Error: x509: certificate signed by unknown authority
+```
+**Solution:** Use the TLS fix script
+```powershell
+.\Start-Grafana-TLS-Fix.ps1
+```
+
+**Problem: Dashboards Not Appearing**
+```
+Grafana loads but no dashboards in folders
+```
+**Solution:** Fix dashboard mounts
+```powershell
+.\Fix-Dashboard-Mounts.ps1
+```
+
+**Problem: Podman Not Found in PATH**
+```
+ERROR: Podman is not installed or not in PATH
+```
+**Solution:** Restart PowerShell or fix PATH manually
+```powershell
+$env:Path += ";C:\Users\$env:USERNAME\AppData\Local\Programs\Podman"
+```
+
+**Problem: Machine Not Running**
+```
+Error: unable to connect to podman socket
+```
+**Solution:** Start the Podman machine
+```powershell
+podman machine start
+```
+
+---
+
+## User Guide
+>>>>>>> Stashed changes
 
 This project includes configuration for the [official Grafana MCP server](https://github.com/grafana/mcp-grafana), enabling AI-powered dashboard search and exploration.
 

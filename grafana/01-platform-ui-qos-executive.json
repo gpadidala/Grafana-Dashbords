@@ -19,7 +19,7 @@
           "uid": "${datasource}"
         },
         "enable": true,
-        "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) * 100 < 95",
+        "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30m])) * 100 < 95",
         "hide": false,
         "iconColor": "#FF4444",
         "name": "SLO Breach",
@@ -248,7 +248,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) * 100",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30m])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30m])) * 100",
           "instant": true,
           "legendFormat": "UI QoS Score",
           "range": false,
@@ -386,7 +386,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[5m]))",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[5m]))",
           "instant": true,
           "legendFormat": "Total Request Rate",
           "range": false,
@@ -462,7 +462,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "((sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30d])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30d]))) - 0.95) / 0.05 * 100",
+          "expr": "((sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30d])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30d]))) - 0.95) / 0.05 * 100",
           "instant": true,
           "legendFormat": "Error Budget Remaining",
           "range": false,
@@ -657,7 +657,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[1h])) * 100",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[1h])) * 100",
           "legendFormat": "UI QoS %",
           "range": true,
           "refId": "A"
@@ -855,7 +855,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[30m])) by (handler) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[30m])) by (handler) * 100",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30m])) by (handler) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[30m])) by (handler) * 100",
           "instant": true,
           "legendFormat": "{{handler}}",
           "range": false,
@@ -955,7 +955,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[5m])) by (handler)",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[5m])) by (handler)",
           "legendFormat": "{{handler}}",
           "range": true,
           "refId": "A"
@@ -1071,7 +1071,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "1 - (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\"}[1h])))",
+          "expr": "1 - (sum(rate(grafana_http_request_duration_seconds_bucket{le=\"1.0\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[1h])) / sum(rate(grafana_http_request_duration_seconds_bucket{le=\"+Inf\", cluster=\"$cluster\", namespace=\"$namespace\", app=\"$app\"}[1h])))",
           "legendFormat": "Error Budget Burn Rate",
           "range": true,
           "refId": "A"
@@ -1302,6 +1302,39 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "name": "cluster",
+        "type": "query",
+        "label": "Cluster",
+        "hide": 0,
+        "datasource": "${datasource}",
+        "refresh": 1,
+        "query": "label_values(grafana_http_request_duration_seconds_bucket, cluster)",
+        "multi": false,
+        "includeAll": false
+      },
+      {
+        "name": "namespace",
+        "type": "query",
+        "label": "Namespace",
+        "hide": 0,
+        "datasource": "${datasource}",
+        "refresh": 1,
+        "query": "label_values(grafana_http_request_duration_seconds_bucket, namespace)",
+        "multi": false,
+        "includeAll": false
+      },
+      {
+        "name": "app",
+        "type": "query",
+        "label": "App",
+        "hide": 0,
+        "datasource": "${datasource}",
+        "refresh": 1,
+        "query": "label_values(grafana_http_request_duration_seconds_bucket, app)",
+        "multi": false,
+        "includeAll": false
       }
     ]
   },
