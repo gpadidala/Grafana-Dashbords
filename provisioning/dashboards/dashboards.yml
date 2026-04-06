@@ -88,3 +88,36 @@ providers:
       path: /var/lib/grafana/dashboards/volume
       foldersFromFilesStructure: false
     folder: "Volume Analytics"
+
+  - name: "L0 Executive"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/L0-executive
+      foldersFromFilesStructure: false
+    folder: "L0 — Executive Command Center"
+
+  - name: "L1 Domain"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/L1-domain
+      foldersFromFilesStructure: false
+    folder: "L1 — Domain Overview"
+
+  - name: "L2 Service"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/L2-service
+      foldersFromFilesStructure: false
+    folder: "L2 — Service Golden Signals"
