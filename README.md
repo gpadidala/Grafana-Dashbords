@@ -1,132 +1,315 @@
-# Enterprise Grafana Observability Platform Dashboards
+# Grafana Enterprise Dashboard Suite
 
-**33 production-ready, executive-grade Grafana dashboards** for the complete LGTM+ observability stack (Loki, Grafana, Tempo, Mimir, Pyroscope). Built for Grafana 11.6.4 with 558 panels covering QoS, SLO compliance, admin operations, ingestion analytics, anomaly detection, and predictive capacity forecasting.
+**57 production-ready dashboards | 991 panels | 11 folders | Grafana 11.6.4**
 
-[![Grafana](https://img.shields.io/badge/Grafana-11.6.4-orange?logo=grafana)](https://grafana.com)
-[![Dashboards](https://img.shields.io/badge/Dashboards-33-blue)]()
-[![Panels](https://img.shields.io/badge/Panels-558-green)]()
-[![License](https://img.shields.io/badge/License-MIT-yellow)]()
+The most comprehensive open-source Grafana dashboard collection for the LGTM+ observability stack (Loki, Grafana, Tempo, Mimir, Pyroscope). From C-suite executive summaries to deep-dive SRE troubleshooting — every dashboard you need, production-ready.
+
+[![Grafana](https://img.shields.io/badge/Grafana-11.6.4-F46800?logo=grafana&logoColor=white)](https://grafana.com)
+[![Dashboards](https://img.shields.io/badge/Dashboards-57-blue)](.)
+[![Panels](https://img.shields.io/badge/Panels-991-green)](.)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+[![MCP](https://img.shields.io/badge/MCP-Grafana_v0.11.4-purple)](https://github.com/grafana/mcp-grafana)
 
 ---
 
-## Dashboard Previews
-
-> **To view live:** Run `docker compose up -d` and open http://localhost:3200 (admin/admin). All 33 dashboards are auto-provisioned.
-
-### C-Suite Executive Dashboards
-
-| Dashboard | Description | Live Link |
-|-----------|-------------|-----------|
-| **Observability Platform — Executive Summary** | SLO scorecard, 30-day compliance trends, traffic volume, user experience latency | [Open](http://localhost:3200/d/ceo-platform-exec-summary) |
-| **SLA & Business Impact Report** | 3-decimal SLA precision, error budget gauge, MTBI, service-level breakdown | [Open](http://localhost:3200/d/sla-business-impact-report) |
-| **Risk & Incident Intelligence** | Threat-level indicators, multi-window burn rate, latency risk bands | [Open](http://localhost:3200/d/risk-incident-intelligence) |
-
-### Admin & Operations
-
-| Dashboard | Description | Live Link |
-|-----------|-------------|-----------|
-| **Admin Command Center** | Instance health, HTTP analytics, DB pool, resources | [Open](http://localhost:3200/d/grafana-admin-command-center) |
-| **Service Health Matrix** | Flight-status board for every LGTM component | [Open](http://localhost:3200/d/service-health-matrix) |
-| **Anomaly Detection** | Statistical deviation bands, z-score, configurable sigma | [Open](http://localhost:3200/d/anomaly-detection-outliers) |
-
-### Ingestion Analytics
-
-| Dashboard | Description | Live Link |
-|-----------|-------------|-----------|
-| **Loki Ingestion** | Log volume by namespace/job/tenant, stream cardinality | [Open](http://localhost:3200/d/loki-ingestion-analytics) |
-| **Mimir Ingestion** | Samples/series by tenant, distributor health | [Open](http://localhost:3200/d/mimir-ingestion-analytics) |
-| **Tempo Ingestion** | Spans by tenant, live traces, compaction | [Open](http://localhost:3200/d/tempo-ingestion-analytics) |
-| **Pyroscope Ingestion** | Profiles by service/tenant, active series | [Open](http://localhost:3200/d/pyroscope-ingestion-analytics) |
-| **Cross-Signal Volume** | Unified bytes/sec across all signals, WoW growth | [Open](http://localhost:3200/d/cross-signal-volume-analytics) |
-
-### Generating Screenshots
-
-To generate screenshots from your running Grafana instance, the Docker Compose includes a Grafana Image Renderer service. Once Grafana is running with real data, use:
+## Quick Start
 
 ```bash
-# Example: render a dashboard to PNG
-curl -u admin:admin \
-  "http://localhost:3200/render/d/ceo-platform-exec-summary?orgId=1&width=1400&height=900&theme=dark&timeout=120" \
-  -o screenshot.png
+# Clone and run — dashboards auto-provision
+git clone https://github.com/gpadidala/Grafana-Dashbords.git
+cd Grafana-Dashbords
+docker compose up -d
+
+# Open Grafana
+open http://localhost:3200    # admin / admin
 ```
 
-> **Note:** Screenshots require real metrics data flowing through the LGTM stack. With the stub Prometheus included in docker-compose, panels will show "No data" — the dashboard layouts, colors, and structure are still fully visible.
+All 57 dashboards appear in organized folders. No manual import needed.
+
+---
+
+## Demo
+
+### Home Page
+> Clean, search-first landing page. Press `Cmd+K` to search everything.
+
+| Home | Your starred dashboards + Firing alerts |
+|------|----------------------------------------|
+| Centered search prompt | Native `dashlist` + `alertlist` panels |
+
+### L0 Executive Command Center
+> Single pane of glass for leadership. Every metric links to its drill-down.
+
+### Platform KPI
+> The one dashboard a CTO opens at 8am. 5-second read.
+
+| Component Health | SLO Strip | Error Budget | Request Volume |
+|-----------------|-----------|-------------|----------------|
+| Grafana/Mimir/Loki/Tempo/Pyroscope | UI/Write/Read/Query SLOs | 30-day remaining % | Stacked by component |
+
+### Anomaly Detection
+> Statistical deviation bands with adjustable sigma sensitivity.
+
+### User Journey
+> Enter a user email → see their complete journey across 5 signals.
 
 ---
 
 ## Dashboard Catalog
 
-### QoS Executive Dashboards (01-05)
+### Dashboard Hierarchy (L0 → L3)
 
-| # | Dashboard | SLO | Source Metric |
-|---|-----------|-----|---------------|
-| 01 | Platform UI QoS | 95% ≤ 1.0s | `grafana_http_request_duration_seconds_bucket` |
-| 02 | Loki Write QoS | 95% ≤ 0.5s | `loki_write_request_duration_seconds_bucket` |
-| 03 | Mimir Write QoS | 95% ≤ 0.5s | `cortex_request_duration_seconds_bucket` |
-| 04 | Mimir Read QoS | 95% ≤ 0.5s | `cortex_query_frontend_enqueue_duration_seconds_bucket` |
-| 05 | Log Query Experience | 95% ≤ 2.0s | `grafana_http_request_duration_seconds_bucket` (proxy) |
+Dashboards follow a **drill-down hierarchy** — click any metric to go deeper:
 
-### Deep Dive Operations (06-13)
+```
+L0 Executive ──→ L1 Domain ──→ L2 Service ──→ L3 Deep Dive
+   (1 dashboard)    (3)           (1)            (4)
+```
 
-| # | Dashboard | Focus |
-|---|-----------|-------|
-| 06 | LGTM Stack Health Overview | Single pane of glass for entire stack |
-| 07 | Mimir Deep Dive | Write/read path, compactor, querier, cache |
-| 08 | Loki Deep Dive | Distributor, ingester, compactor, index |
-| 09 | Tempo Deep Dive | Spans, traces, compaction, block storage |
-| 10 | Pyroscope Deep Dive | Profiles, distributor, ingester, compactor |
-| 11 | Cross-Stack Capacity Planning | Resource forecasting across all services |
-| 12 | Multi-Tenant Analytics | Per-tenant usage, quotas, cardinality |
-| 13 | SLO Error Budget Burn Rate | Multi-window burn rate (Google SRE) |
+| Level | Dashboard | Panels | Purpose |
+|-------|-----------|--------|---------|
+| **L0** | Executive Command Center | 22 | C-suite overview, links to all L1s |
+| **L1** | Infrastructure Overview | 21 | K8s clusters, nodes, resources |
+| **L1** | Application Performance | 21 | Service RED metrics, SLOs |
+| **L1** | Profiling Overview | 15 | CPU/memory profiles across services |
+| **L2** | Service Golden Signals | 24 | Per-service rate, errors, duration, saturation |
+| **L3** | Trace Explorer | 16 | Distributed tracing deep dive |
+| **L3** | Log Explorer | 12 | LogQL query workbench |
+| **L3** | Profile Explorer | 11 | Flamegraph analysis |
+| **L3** | Kubernetes Debug | 18 | Pod/container troubleshooting |
 
-### Grafana Admin (14-16)
+### Platform & Executive (13 dashboards)
 
-| # | Dashboard | Focus |
-|---|-----------|-------|
-| 14 | Admin Command Center | Instance health, HTTP analytics, DB pool, CPU/memory |
-| 15 | Access & Security Analytics | RBAC performance, login security, API patterns |
-| 16 | DB & Performance Deep Dive | Connection pool, GC, heap memory, incident correlation |
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **Home Page** | 3 | Search-first, starred dashboards, firing alerts |
+| **Platform KPI** | 21 | Big Five component health, SLO strip, error budget |
+| **CEO Executive Summary** | 20 | SLO scorecard, 30d compliance trend |
+| **SLA Business Impact** | 12 | 3-decimal SLA, error budget gauge, MTBI |
+| **Risk & Incident Intelligence** | 13 | Burn rate (5m/1h/6h), latency risk bands |
+| **Service Health Matrix** | 16 | Flight-status board for all LGTM components |
+| **Anomaly Detection** | 16 | stddev bands, z-score, configurable sigma |
+| **Predictive Forecasting** | 10 | predict_linear(), days-to-double |
+| **SLO Error Budget Burn** | 19 | Multi-window burn rate (Google SRE) |
+| **Cross-Signal Volume** | 19 | Unified bytes/sec, WoW growth comparison |
+| **Cross-Stack Capacity** | 11 | Resource forecasting across services |
+| **Multi-Tenant Analytics** | 10 | Per-tenant usage, quotas, cardinality |
+| **LGTM Stack Health** | 16 | Single pane of glass for entire stack |
 
-### C-Suite Premium (17-19)
+### Grafana Admin (6 dashboards)
 
-| # | Dashboard | Audience |
-|---|-----------|----------|
-| 17 | Observability Platform — Executive Summary | CTO / Board Meetings |
-| 18 | SLA & Business Impact Report | CFO / QBR Presentations |
-| 19 | Risk & Incident Intelligence | VP Reliability / CTO |
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **Command Center** | 29 | HTTP analytics, DB pool, CPU/memory, goroutines |
+| **Access & Security** | 13 | RBAC performance, login security, API patterns |
+| **DB & Performance** | 13 | Connection pool, GC, heap, incident correlation |
+| **User Activity** | 32 | Per-handler API analysis, session tracking |
+| **Errors & API Health** | 30 | 4xx/5xx by handler, auth errors, proxy errors |
+| **Platform UI QoS** | 15 | SLO: 95% of UI requests within 1.0s |
 
-### Ingestion Analytics (20-23)
+### Loki (5 dashboards)
 
-| # | Dashboard | Drill-Down Variables |
-|---|-----------|---------------------|
-| 20 | Loki — Log Ingestion & Volume | cluster, namespace, job, tenant |
-| 21 | Mimir — Metrics Ingestion & Cardinality | cluster, namespace, tenant |
-| 22 | Tempo — Trace Ingestion & Throughput | cluster, namespace, tenant |
-| 23 | Pyroscope — Profile Ingestion & Storage | cluster, namespace, tenant, service |
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **Write QoS** | 15 | SLO: 95% writes within 0.5s |
+| **Log Query Experience** | 19 | User-perceived query latency via proxy |
+| **Deep Dive** | 13 | Distributor, ingester, compactor health |
+| **Ingestion Analytics** | 26 | Lines/bytes by namespace/tenant/job |
+| **Errors & Rejections** | 14 | 4xx/5xx, discarded samples, rate limiting |
 
-### Advanced Analytics (24-28)
+### Mimir (5 dashboards)
 
-| # | Dashboard | Key Technique |
-|---|-----------|--------------|
-| 24 | Cross-Signal Volume & Growth | Unified bytes/sec across all signals, WoW comparison |
-| 25 | Service Health Matrix | Flight-status board for every LGTM component |
-| 26 | Predictive Capacity Forecasting | `predict_linear()`, `deriv()`, days-to-double |
-| 27 | User Activity & Audit Analytics | Per-handler API analysis, session tracking, RBAC overhead |
-| 28 | Anomaly Detection & Outlier Analysis | `stddev_over_time` bands, z-score, adjustable sigma |
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **Write QoS** | 18 | SLO: 95% writes within 0.5s, per-cluster |
+| **Read QoS** | 18 | Query frontend enqueue latency |
+| **Deep Dive** | 12 | Write/read path, compactor, querier |
+| **Ingestion Analytics** | 26 | Samples/series by tenant, discards by reason |
+| **Errors & Rejections** | 15 | Write/read path errors, query frontend rejections |
 
-### Admin Error & Operations (29-33)
+### Tempo (3 dashboards)
 
-| # | Dashboard | Component |
-|---|-----------|-----------|
-| 29 | Loki Admin — Errors, Rejections & Operations | Loki |
-| 30 | Mimir Admin — Errors, Rejections & Operations | Mimir |
-| 31 | Tempo Admin — Errors, Rejections & Operations | Tempo |
-| 32 | Pyroscope Admin — Errors, Rejections & Operations | Pyroscope |
-| 33 | Grafana Admin — Errors, Requests & API Health | Grafana |
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **Deep Dive** | 12 | Spans, traces, compaction, block storage |
+| **Ingestion Analytics** | 23 | Spans by tenant, live traces per ingester |
+| **Errors & Rejections** | 17 | Discarded spans, write/query path errors |
+
+### Pyroscope (3 dashboards)
+
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **Deep Dive** | 11 | Profiles, distributor, ingester, compactor |
+| **Ingestion Analytics** | 11 | Profiles by service/tenant, active series |
+| **Errors & Rejections** | 14 | Profile rejections, write errors |
+
+### Volume Analytics (6 dashboards)
+
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **Grafana Volume** | 13 | Request traffic by handler, proxy throughput |
+| **Loki Volume** | 15 | Lines/bytes by namespace/tenant/cluster |
+| **Mimir Volume** | 28 | Samples/series, write vs read, WoW growth |
+| **Tempo Volume** | 25 | Spans/bytes, blocks, compaction, queries |
+| **Pyroscope Volume** | 26 | Profiles by service, active series, storage |
+| **Cross-Stack Summary** | 22 | Unified view, WoW growth, rejection rates |
+
+### Observability KPI (7 dashboards)
+
+| Dashboard | Panels | Key Feature |
+|-----------|--------|-------------|
+| **App Overview (4-Signal)** | 17 | Correlates Mimir + Loki + Tempo + Pyroscope |
+| **Loki LogQL Deep Dive** | 13 | unwrap, pattern, quantile_over_time, log-to-trace |
+| **Tempo TraceQL** | 22 | Native trace search, span RED metrics |
+| **Pyroscope Flamegraph** | 14 | Native flamegraph, profile type selector |
+| **Mimir Infrastructure** | 21 | USE method, HPA, pod lifecycle |
+| **SLO / SLI Dashboard** | 16 | Multi-window burn rate, configurable targets |
+| **User Journey** | 17 | Full user investigation across 5 signals |
 
 ---
 
-## Quick Start
+## Architecture
+
+### Folder Structure
+
+```
+Grafana-Dashbords/
+├── L0-executive/          1 dashboard   L0 Executive Command Center
+├── L1-domain/             3 dashboards  Infrastructure, Apps, Profiling
+├── L2-service/            1 dashboard   Service Golden Signals
+├── L3-deepdive/           4 dashboards  Traces, Logs, Profiles, K8s
+├── grafana/               6 dashboards  Admin, Security, DB, Users, Errors, QoS
+├── loki/                  5 dashboards  QoS, Query, Deep Dive, Ingestion, Errors
+├── mimir/                 5 dashboards  Write/Read QoS, Deep Dive, Ingestion, Errors
+├── tempo/                 3 dashboards  Deep Dive, Ingestion, Errors
+├── pyroscope/             3 dashboards  Deep Dive, Ingestion, Errors
+├── platform/             13 dashboards  Executive, SLO, KPI, Anomaly, Forecasting
+├── observability-kpi/     7 dashboards  4-Signal, LogQL, TraceQL, Flamegraph, SLO
+├── volume/                6 dashboards  Per-component & cross-stack volume
+├── docker-compose.yml                   Grafana 11.6.4 + Prometheus + Renderer
+├── provisioning/                        Auto-provisioning configs
+├── validate.py                          6-phase validation suite
+└── README.md
+```
+
+### Navigation Flow
+
+Every dashboard has a **navigation bar** with links to related dashboards:
+
+```
+                         ┌──────────────┐
+                         │  Home Page   │
+                         └──────┬───────┘
+                                │
+                    ┌───────────┼───────────┐
+                    ▼           ▼           ▼
+             ┌──────────┐ ┌─────────┐ ┌─────────┐
+             │Platform  │ │L0 Exec  │ │ Alerts  │
+             │KPI       │ │Command  │ │         │
+             └────┬─────┘ └────┬────┘ └─────────┘
+                  │            │
+    ┌─────────────┼────────────┼─────────────┐
+    ▼             ▼            ▼             ▼
+┌───────┐  ┌──────────┐ ┌──────────┐ ┌──────────┐
+│Grafana│  │  Mimir   │ │  Loki    │ │Tempo/Pyro│
+│Admin  │  │Write/Read│ │Write/Qry │ │Deep Dive │
+└───┬───┘  └────┬─────┘ └────┬─────┘ └────┬─────┘
+    │           │            │             │
+    ▼           ▼            ▼             ▼
+┌───────┐  ┌──────────┐ ┌──────────┐ ┌──────────┐
+│Errors │  │Ingestion │ │Ingestion │ │Ingestion │
+│Volume │  │Errors    │ │Errors    │ │Errors    │
+│Users  │  │Volume    │ │Volume    │ │Volume    │
+└───────┘  └──────────┘ └──────────┘ └──────────┘
+```
+
+### Cross-Dashboard Links
+
+All dashboards include contextual navigation:
+- **Up arrow links** → Platform KPI + L0 Command Center (always present)
+- **Sibling links** → Other dashboards in the same component
+- **Cross-component links** → Jump to Grafana, Mimir, Loki, Tempo, Pyroscope
+- **Variable passthrough** → `includeVars: true`, `keepTime: true` preserves filters
+
+---
+
+## User Guide
+
+### For Executives (CEO / CTO / VP)
+
+Start here:
+1. **Home** → See your starred dashboards and any firing alerts
+2. **Platform KPI** → 5-second health check of everything
+3. **CEO Summary** → SLO scorecard for board meetings
+4. **SLA Report** → 3-decimal SLA with error budget gauge
+
+### For SREs / On-Call Engineers
+
+Start here:
+1. **Home** → Check firing alerts
+2. **L0 Command Center** → Overview with drill-down links
+3. **Error dashboards** (grafana/loki/mimir/tempo) → 4xx/5xx analysis
+4. **Anomaly Detection** → Spot deviations before they become incidents
+5. **SLO Burn Rate** → Multi-window burn rate analysis
+
+### For Platform Engineers
+
+Start here:
+1. **Volume dashboards** → Track ingestion rates across all signals
+2. **Ingestion Analytics** → Top producers by namespace/tenant
+3. **Predictive Forecasting** → Days until capacity limit
+4. **Multi-Tenant Analytics** → Per-tenant resource usage
+
+### For Developers
+
+Start here:
+1. **App Overview (4-Signal)** → Correlate metrics, logs, traces, profiles
+2. **User Journey** → Enter a user email, see everything they did
+3. **Service Golden Signals** → Rate, errors, duration per service
+4. **LogQL Deep Dive** → Advanced log analysis with trace correlation
+
+### Template Variables
+
+Every dashboard includes dropdown filters:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `datasource` | Select Prometheus/Mimir source | Any Prometheus instance |
+| `cluster` | Kubernetes cluster | `prod-us-west-1` |
+| `namespace` | K8s namespace | `payments`, `auth` |
+| `tenant` | Multi-tenant identifier | `team-a`, `org-1` |
+| `instance` | Grafana server instance | `grafana-0:3000` |
+| `handler` / `route` | API endpoint filter | `/api/dashboards/*` |
+| `sensitivity` | Anomaly detection sigma | `1σ`, `2σ`, `3σ` |
+| `slo_target` | SLO compliance target | `99.9%`, `99.0%` |
+
+### Color Guide
+
+Consistent across all dashboards:
+
+| Color | Meaning |
+|-------|---------|
+| **Green** (#73BF69) | Healthy, SLO met, budget remaining |
+| **Yellow/Amber** (#FF9830) | Warning, approaching SLO boundary |
+| **Red** (#F2495C) | Critical, SLO breached, action needed |
+| **Blue** (#5794F2) | Informational, neutral metrics |
+| **Purple** (#B877D9) | User-related, profiling metrics |
+
+### HTTP Status Code Colors (Error Dashboards)
+
+| Code | Color | Meaning |
+|------|-------|---------|
+| 400 | Amber | Bad request |
+| 401 | Orange | Unauthorized |
+| 403 | Dark Orange | Forbidden |
+| 429 | Red | Rate limited |
+| 500 | Dark Red | Internal server error |
+| 502 | Red | Bad gateway |
+| 503 | Light Red | Unavailable |
+
+---
+
+## Deployment Options
 
 ### Option 1: Docker Compose (Recommended)
 
@@ -134,336 +317,151 @@ curl -u admin:admin \
 git clone https://github.com/gpadidala/Grafana-Dashbords.git
 cd Grafana-Dashbords
 docker compose up -d
+open http://localhost:3200    # admin / admin
 ```
-
-Open **http://localhost:3200** (admin / admin)
-
-All 33 dashboards are auto-provisioned on startup.
 
 ### Option 2: Manual Import
 
-1. Open your Grafana instance
-2. Go to **Dashboards** > **New** > **Import**
-3. Click **Upload JSON file**
-4. Select any `.json` file from this repository
-5. Choose your Prometheus/Mimir datasource
-6. Click **Import**
+1. Go to **Dashboards → New → Import**
+2. Upload any `.json` file
+3. Select your Prometheus datasource
+4. Click **Import**
 
-### Option 3: Grafana Provisioning
-
-Copy the files into your Grafana provisioning directory:
+### Option 3: Kubernetes Provisioning
 
 ```bash
-# Copy dashboards
-cp *.json /etc/grafana/provisioning/dashboards/
+# Copy to your Grafana provisioning path
+kubectl cp grafana/ grafana-pod:/var/lib/grafana/dashboards/grafana/
+kubectl cp loki/ grafana-pod:/var/lib/grafana/dashboards/loki/
+# ... repeat for each folder
 
-# Add provisioning config
-cat > /etc/grafana/provisioning/dashboards/dashboards.yml << 'EOF'
-apiVersion: 1
-providers:
-  - name: "Enterprise Dashboards"
-    orgId: 1
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 30
-    allowUiUpdates: true
-    options:
-      path: /etc/grafana/provisioning/dashboards
-EOF
+# Or mount as a ConfigMap / PersistentVolume
+```
+
+### Option 4: Grafana API Bulk Import
+
+```bash
+# Import all dashboards via API
+for f in **/*.json; do
+  curl -s -u admin:admin -H "Content-Type: application/json" \
+    -X POST "http://localhost:3200/api/dashboards/db" \
+    -d "{\"dashboard\": $(cat "$f" | python3 -c "import sys,json; d=json.load(sys.stdin); d['id']=None; print(json.dumps(d))"), \"overwrite\": true}"
+done
 ```
 
 ---
 
-## User Guide
+## Grafana MCP Server (AI Integration)
 
-### Understanding Template Variables
+This project includes configuration for the [official Grafana MCP server](https://github.com/grafana/mcp-grafana), enabling AI-powered dashboard search and exploration.
 
-Every dashboard includes dropdown filters at the top. These let you drill down into specific clusters, namespaces, tenants, or services without editing any queries.
+### Setup
 
-| Variable | Used In | Purpose |
-|----------|---------|---------|
-| `datasource` | All dashboards | Select your Prometheus/Mimir data source |
-| `cluster` | Most dashboards | Filter by Kubernetes cluster |
-| `namespace` | Most dashboards | Filter by Kubernetes namespace |
-| `tenant` | Ingestion dashboards | Filter by Mimir/Loki/Tempo tenant |
-| `job` | Loki ingestion | Filter by Prometheus job label |
-| `service` | Pyroscope ingestion | Filter by service name |
-| `instance` | Grafana admin | Filter by Grafana instance |
-| `handler` | Grafana admin | Filter by API handler/route |
-| `route` | Admin error dashboards | Filter by component route |
-| `slo_period` | SLA report | Select SLO evaluation window (7d/14d/30d/90d) |
-| `severity_window` | Risk intelligence | Alert sensitivity window (5m/15m/1h/6h) |
-| `sensitivity` | Anomaly detection | Standard deviation threshold (1σ/2σ/3σ) |
-| `environment` | CEO summary | Filter by environment (Production/Staging/Dev) |
+```bash
+# 1. Install the MCP server
+npm install -g mcp-grafana-npx
 
-### Reading the Executive Dashboards (17-19)
+# 2. Create a Grafana service account (Viewer role)
+curl -s -u admin:admin -X POST -H "Content-Type: application/json" \
+  "http://localhost:3200/api/serviceaccounts" \
+  -d '{"name":"mcp-readonly","role":"Viewer"}'
 
-These dashboards tell a story from top to bottom:
+# 3. Create a token
+curl -s -u admin:admin -X POST -H "Content-Type: application/json" \
+  "http://localhost:3200/api/serviceaccounts/2/tokens" \
+  -d '{"name":"mcp-token"}'
 
-```
-1. HERO STRIP       — Branded header with live status
-2. SCORECARD        — 4-6 large KPI stat panels (the headlines)
-3. TREND            — 30-day compliance line charts
-4. BREAKDOWN        — Per-service or per-cluster bar gauges
-5. DETAILS          — Latency percentiles, error rates
-6. FOOTER           — Navigation links to related dashboards
-```
-
-**Color semantics across all dashboards:**
-- **Green** — Healthy, SLO met, budget remaining
-- **Amber/Yellow** — Warning, approaching SLO boundary
-- **Red** — Critical, SLO breached, action required
-
-### Reading the Admin Error Dashboards (29-33)
-
-Each admin dashboard follows the same structure:
-
-```
-Row 0: ERROR OVERVIEW       — 6 stat panels (error %, 5xx/s, 4xx/s, success %, P95)
-Row 1: STATUS CODE BREAKDOWN — Stacked timeseries with per-code colors
-Row 2: ERROR ROUTES          — Top 10 worst routes (horizontal bar gauges)
-Row 3: CLUSTER ANALYSIS      — Per-cluster error rate & volume
-Row 4: REJECTIONS            — Discarded samples/spans/profiles by reason
-Row 5: REQUEST VOLUME        — Top 15 routes by traffic
-Row 6: WRITE/READ PATH       — Path-specific error isolation
-Row 7: LATENCY              — P95 by route + percentile distribution
+# 4. Add to .claude/settings.local.json (gitignored)
+{
+  "mcpServers": {
+    "grafana": {
+      "command": "mcp-grafana-npx",
+      "env": {
+        "GRAFANA_URL": "http://localhost:3200",
+        "GRAFANA_SERVICE_ACCOUNT_TOKEN": "<your-token>"
+      }
+    }
+  }
+}
 ```
 
-**HTTP status code color mapping:**
+### What MCP Provides
 
-| Code | Color | Meaning |
-|------|-------|---------|
-| 400 | Amber | Bad request — check client payload |
-| 401 | Orange | Unauthorized — credentials issue |
-| 403 | Dark Orange | Forbidden — RBAC/permission issue |
-| 404 | Grey | Not found — usually harmless |
-| 429 | Red | Rate limited — tenant hitting limits |
-| 500 | Dark Red | Internal server error — investigate immediately |
-| 502 | Red | Bad gateway — upstream service down |
-| 503 | Light Red | Service unavailable — capacity issue |
-| 504 | Salmon | Gateway timeout — slow upstream |
-
-### Using Ingestion Analytics (20-23)
-
-These dashboards answer **"who is sending what, and how much?"**
-
-1. Select a **cluster** from the dropdown
-2. Narrow to a **namespace** or **tenant**
-3. The **Top Producers** bar gauges show your biggest data sources
-4. The **Stream/Series Cardinality** panels reveal label explosion issues
-5. The **Rejections** section shows what's being dropped and why
-
-### Using Anomaly Detection (28)
-
-1. Set the **Sensitivity** dropdown to control detection threshold:
-   - **1σ** — Very sensitive, more alerts
-   - **2σ** — Balanced (recommended)
-   - **3σ** — Only major anomalies
-2. The **Anomaly Status** row shows current-vs-baseline ratios (1.0 = normal)
-3. The **Deviation Bands** show the "normal range" — anything outside the band is anomalous
-4. The **Outlier Endpoints** bar gauges surface specific API handlers that are behaving abnormally
-
-### Using Predictive Forecasting (26)
-
-1. The **headline stats** show "Days to Double" for each LGTM component
-   - **Green (≥90 days)** — No action needed
-   - **Yellow (30-90 days)** — Plan capacity expansion
-   - **Red (<30 days)** — Urgent capacity action required
-2. The **forecast charts** show current trends with dashed prediction lines
-3. The **WoW Growth** bar gauge shows weekly growth rates — anything >15% is a red flag
-
-### Dashboard Navigation Map
-
-```
-CEO Executive Summary (17)
-  ├── Platform UI QoS (01)
-  ├── Mimir Write QoS (03)
-  ├── Loki Write QoS (02)
-  ├── Mimir Read QoS (04)
-  └── Log Query Experience (05)
-
-SLA Business Impact (18)
-  ├── SLO Error Budget Burn (13)
-  └── CEO Executive Summary (17)
-
-Risk Intelligence (19)
-  ├── CEO Executive Summary (17)
-  ├── SLA Business Impact (18)
-  └── Admin Command Center (14)
-
-Admin Command Center (14)
-  ├── Access & Security (15)
-  └── DB Performance (16)
-
-Cross-Signal Volume (24)
-  ├── Loki Ingestion (20)
-  ├── Mimir Ingestion (21)
-  ├── Tempo Ingestion (22)
-  └── Pyroscope Ingestion (23)
-```
+| Tool | Description |
+|------|-------------|
+| `search_dashboards` | Search dashboards by name, tag, or folder |
+| `list_datasources` | List all configured data sources |
+| `get_dashboard` | Get full dashboard JSON by UID |
+| `list_alerts` | List firing/pending alerts |
 
 ---
 
 ## Validation
 
-Run the included validation suite to verify all dashboards:
-
 ```bash
-# Against a running Grafana instance
-GRAFANA_URL=http://localhost:3200 bash validate-dashboards.sh
-
-# Or directly with Python
+# Validate all dashboards against running Grafana
 python3 validate.py --url http://localhost:3200 --dashboard-dir .
-```
 
-The validation suite checks:
-- JSON syntax validity (all 33 files)
-- Grafana API health
-- Datasource provisioning
-- Dashboard loading (all 33 UIDs)
-- Datasource UID consistency across all panels
-- Grafana 11 safety (no range value mappings in stat panels)
-- API import capability
+# Quick local JSON validation
+python3 -c "
+import json, glob
+for f in sorted(glob.glob('**/*.json', recursive=True)):
+    try:
+        json.load(open(f))
+        print(f'OK {f}')
+    except Exception as e:
+        print(f'FAIL {f}: {e}')
+"
+```
 
 ---
 
-## Architecture & Design Principles
+## Design Principles
 
-### Metric Sources
-
-| Component | Metrics Used |
-|-----------|-------------|
-| **Grafana** | `grafana_http_request_duration_seconds_*`, `grafana_stat_*`, `grafana_database_conn_*`, `grafana_alerting_*`, `grafana_access_evaluation_*` |
-| **Mimir** | `cortex_request_duration_seconds_*`, `cortex_ingester_active_series`, `cortex_distributor_received_samples_total`, `cortex_discarded_samples_total`, `cortex_query_frontend_*` |
-| **Loki** | `loki_request_duration_seconds_*`, `loki_write_request_duration_seconds_*`, `loki_distributor_bytes_received_total`, `loki_distributor_lines_received_total`, `loki_ingester_memory_streams`, `loki_discarded_samples_total` |
-| **Tempo** | `tempo_request_duration_seconds_*`, `tempo_distributor_spans_received_total`, `tempo_ingester_live_traces`, `tempo_discarded_spans_total`, `tempodb_blocklist_*` |
-| **Pyroscope** | `pyroscope_request_duration_seconds_*`, `pyroscope_distributor_received_samples_total`, `pyroscope_ingester_active_series`, `pyroscope_discarded_samples_total` |
-| **Go Runtime** | `process_cpu_seconds_total`, `process_resident_memory_bytes`, `go_goroutines`, `go_gc_duration_seconds`, `go_memstats_*` |
-
-### Design Rules
-
-- **No invented metrics** — every query uses confirmed, real Prometheus metrics
+- **No invented metrics** — every query uses real Prometheus/Grafana metrics
 - **No hardcoded datasource UIDs** — all dashboards use `${datasource}` variable
-- **Grafana 11 safe** — no range value mappings in stat panels (known crash trigger)
-- **`le` values are strings** — `"0.5"`, `"1.0"`, `"+Inf"` (histogram format)
-- **`$__rate_interval`** in timeseries panels for adaptive resolution
-- **Division-by-zero protection** — `+ 0.001` on all denominators
+- **Grafana 11 safe** — no range value mappings in stat panels
+- **Portable** — import into any Grafana instance, pick your datasource
+- **`$__rate_interval`** in timeseries for adaptive resolution
+- **Division-by-zero safe** — `+ 0.001` on all denominators
 - **Schema version 39** — compatible with Grafana 10.x and 11.x
-
-### SLO Methodology
-
-All QoS dashboards follow Google SRE practices:
-
-```
-SLO Compliance = rate(bucket{le="threshold"}) / rate(bucket{le="+Inf"}) * 100
-Error Budget   = (current_slo - target) / (1 - target) * 100
-Burn Rate      = (1 - current_slo) / (1 - target)
-```
-
-Multi-window burn rates (5m, 30m, 1h, 6h) detect both fast incidents and slow degradation.
+- **Google SRE methodology** — multi-window burn rates, error budgets
 
 ---
 
-## Requirements
+## Alert & Recording Rules
 
-- **Grafana** 10.x or 11.x (tested on 11.6.4)
-- **Prometheus** or **Mimir** as datasource
-- **LGTM Stack** (Loki, Grafana, Tempo, Mimir) with default metric endpoints
-- **Pyroscope** (optional — dashboards 10, 23, 32 require it)
-- **Docker** (optional — for the included docker-compose setup)
+Located in `observability-kpi/`:
+
+| File | Rules | Coverage |
+|------|-------|---------|
+| `mimir-alert-rules.yaml` | 12 | SLO burn, P99 latency, OOM, CPU throttle, memory |
+| `loki-alert-rules.yaml` | 10 | Error log rate, panic, OOM, timeout, connection refused |
+| `mimir-recording-rules.yaml` | 26 | Pre-aggregated request rates, latency percentiles, SLO ratios |
 
 ---
 
-## File Structure
+## Stats
 
 ```
-Grafana-Dashbords/
-│
-├── grafana/                                    # Grafana UI & Admin (6 dashboards)
-│   ├── 01-platform-ui-qos-executive.json         Platform UI QoS
-│   ├── 14-grafana-admin-command-center.json       Admin Command Center
-│   ├── 15-grafana-access-security-analytics.json  Access & Security
-│   ├── 16-grafana-db-performance-deep-dive.json   DB & Performance
-│   ├── 27-grafana-user-activity-analytics.json    User Activity & Audit
-│   └── 33-grafana-admin-errors-operations.json    Errors & API Health
-│
-├── loki/                                       # Loki Log Platform (5 dashboards)
-│   ├── 02-loki-write-qos-executive.json          Write QoS
-│   ├── 05-log-query-experience-executive.json     Log Query Experience
-│   ├── 08-loki-deep-dive.json                     Deep Dive Operations
-│   ├── 20-loki-ingestion-analytics.json           Ingestion & Volume
-│   └── 29-loki-admin-errors-operations.json       Errors & Rejections
-│
-├── mimir/                                      # Mimir Metrics Platform (5 dashboards)
-│   ├── 03-mimir-write-qos-executive.json          Write QoS
-│   ├── 04-mimir-read-qos-executive.json           Read QoS
-│   ├── 07-mimir-deep-dive.json                    Deep Dive Operations
-│   ├── 21-mimir-ingestion-analytics.json          Ingestion & Cardinality
-│   └── 30-mimir-admin-errors-operations.json      Errors & Rejections
-│
-├── tempo/                                      # Tempo Tracing Platform (3 dashboards)
-│   ├── 09-tempo-deep-dive.json                    Deep Dive Operations
-│   ├── 22-tempo-ingestion-analytics.json          Trace Ingestion
-│   └── 31-tempo-admin-errors-operations.json      Errors & Rejections
-│
-├── pyroscope/                                  # Pyroscope Profiling (3 dashboards)
-│   ├── 10-pyroscope-deep-dive.json                Deep Dive Operations
-│   ├── 23-pyroscope-ingestion-analytics.json      Profile Ingestion
-│   └── 32-pyroscope-admin-errors-operations.json  Errors & Rejections
-│
-├── platform/                                   # Cross-Stack & Executive (11 dashboards)
-│   ├── 06-lgtm-stack-health-overview.json         LGTM Stack Health
-│   ├── 11-cross-stack-capacity-planning.json      Capacity Planning
-│   ├── 12-multi-tenant-analytics.json             Multi-Tenant Analytics
-│   ├── 13-slo-error-budget-burn.json              SLO Error Budget Burn
-│   ├── 17-ceo-platform-executive-summary.json     CEO Executive Summary
-│   ├── 18-sla-business-impact-report.json         SLA Business Impact
-│   ├── 19-risk-incident-intelligence.json         Risk Intelligence
-│   ├── 24-cross-signal-volume-analytics.json      Cross-Signal Volume
-│   ├── 25-service-dependency-health-matrix.json   Service Health Matrix
-│   ├── 26-predictive-capacity-forecasting.json    Predictive Forecasting
-│   └── 28-anomaly-detection-outliers.json         Anomaly Detection
-│
-├── provisioning/                               # Grafana auto-provisioning
-│   ├── datasources/datasources.yml
-│   ├── dashboards/dashboards.yml
-│   └── prometheus.yml
-│
-├── docker-compose.yml                          # Grafana 11.6.4 + Prometheus + Renderer
-├── validate-dashboards.sh                      # Validation entrypoint
-├── validate.py                                 # 6-phase validation suite
-└── README.md
+Dashboards:    57
+Panels:       991
+Folders:       11
+Alert Rules:   22
+Recording Rules: 26
+Grafana:     11.6.4
+MCP Server:  v0.11.4
 ```
-
-### Folder → Grafana Folder Mapping
-
-When deployed via Docker Compose, dashboards auto-provision into **Grafana folders** matching the directory structure:
-
-| Directory | Grafana Folder | Dashboards |
-|-----------|---------------|------------|
-| `grafana/` | Grafana | 6 |
-| `loki/` | Loki | 5 |
-| `mimir/` | Mimir | 5 |
-| `tempo/` | Tempo | 3 |
-| `pyroscope/` | Pyroscope | 3 |
-| `platform/` | Platform & Executive | 11 |
 
 ---
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-dashboard`)
-3. Add your dashboard JSON to the root directory
-4. Run validation: `python3 validate.py --url http://localhost:3200 --dashboard-dir .`
-5. Commit and push
-6. Open a Pull Request
-
----
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for details.
+2. Create a feature branch
+3. Add dashboard JSON to the appropriate folder
+4. Run validation: `python3 validate.py`
+5. Open a Pull Request
 
 ---
 
@@ -471,4 +469,10 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 **Gopal Padidala** — Platform Engineering
 
-Built with the assistance of Claude (Anthropic) for enterprise observability at scale.
+Built with assistance from Claude (Anthropic) for enterprise observability at scale.
+
+---
+
+## License
+
+MIT License
