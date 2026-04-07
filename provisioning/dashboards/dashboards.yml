@@ -121,3 +121,25 @@ providers:
       path: /var/lib/grafana/dashboards/L2-service
       foldersFromFilesStructure: false
     folder: "L2 — Service Golden Signals"
+
+  - name: "L3 Deep Dive"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/L3-deepdive
+      foldersFromFilesStructure: false
+    folder: "L3 — Deep Dive & Debug"
+
+  - name: "OCI"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/oci
+      foldersFromFilesStructure: false
+    folder: "OCI — Oracle Cloud Infrastructure"

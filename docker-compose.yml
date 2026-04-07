@@ -8,7 +8,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/01-platform-ui-qos-executive.json
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/L0-executive/L0-executive-command-center.json
       - GF_LOG_LEVEL=info
       - GF_FEATURE_TOGGLES_ENABLE=
       - GF_RENDERING_SERVER_URL=http://renderer:8081/render
