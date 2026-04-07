@@ -20,7 +20,7 @@ The most comprehensive open-source Grafana dashboard collection for the LGTM+ ob
 > - **Podman (Windows):** Run `.\Start-Grafana-TLS-Fix.ps1` and open http://localhost:3200 (admin/admin)
 > - **Podman (Alternative):** Run `.\start-podman-dashboards-alt.bat` 
 > 
-> All 33 dashboards are auto-provisioned and organized into folders:
+> All 57 dashboards are auto-provisioned and organized into folders:
 > - 📁 **Grafana** - Admin and operational dashboards
 > - 📁 **Loki** - Log analytics dashboards  
 > - 📁 **Mimir** - Metrics storage dashboards
@@ -382,52 +382,135 @@ Open **http://localhost:3200** (admin / admin)
 
 ### Option 2: Podman (Windows - Recommended for Corporate Environments)
 
-**Step 1: Install Podman**
+**Why Podman?** Ideal for corporate environments where Docker Desktop may not be available, or when dealing with TLS certificate issues behind corporate firewalls.
+
+#### Prerequisites
+- Windows 10/11 (PowerShell 5.1+ recommended)
+- WSL2 enabled (if using WSL backend)
+- Administrator privileges for initial setup
+
+#### Step 1: Install Podman
+
 ```powershell
-# Option A: Use local PowerShell installer
+# Option A: Use included PowerShell installer (Recommended)
 .\Install-Podman.ps1
 
 # Option B: Use local batch installer
 .\install-podman-local.bat
 
-# Option C: Use parent directory installer
-& "..\Next-Gen-O11y-Onboarding-Platform\install-podman.bat"
+# Option C: Manual installation
+winget install RedHat.Podman
 ```
 
-**Step 2: Start Grafana Dashboards**
-```powershell
-# Recommended: TLS workaround for corporate networks
-.\Start-Grafana-TLS-Fix.ps1
+#### Step 2: Start Grafana Dashboards
 
-# Alternative: Standard start (if no TLS issues)
+**Option A: TLS-Safe Startup (Recommended for Corporate Networks)**
+```powershell
+# Handles TLS certificate issues and starts all services
+.\Start-Grafana-TLS-Fix.ps1
+```
+
+**Option B: Standard Startup**
+```powershell
+# Standard startup using individual container commands
 .\start-podman-dashboards-alt.bat
 
-# Option: Use compose (if available)
+# Or use Podman Compose (if supported)
 .\start-podman-dashboards.bat
 ```
 
-**Step 3: Fix Dashboard Mounts (if needed)**
+**Option C: Manual Podman Compose**
 ```powershell
-# If dashboards don't appear, run this fix
+# Start using podman-compose.yml
+podman-compose -f podman-compose.yml up -d
+
+# Verify containers are running
+podman ps
+```
+
+#### Step 3: Verify Installation
+
+```powershell
+# Check container status
+podman ps
+
+# Check logs if needed
+podman logs grafana-dashboards
+podman logs prometheus-dashboards
+podman logs renderer-dashboards
+
+# Validate dashboard loading
+.\check-dashboards.bat
+```
+
+**Access the Application:**
+- **Grafana UI:** http://localhost:3200 (admin / admin)
+- **Prometheus:** http://localhost:9090
+- **Renderer Service:** http://localhost:8081
+
+#### Step 4: Troubleshooting (If Needed)
+
+```powershell
+# Fix dashboard mounting issues
+.\Fix-Dashboard-Mounts.ps1
+
+# Restart Podman machine if needed
+podman machine stop
+podman machine start
+
+# Clean up containers and restart
+.\stop-podman-dashboards.bat
+.\start-podman-dashboards-alt.bat
+```
+
+#### Podman Command Reference
+
+| Script | Purpose |
+|--------|---------|
+| `Install-Podman.ps1` | PowerShell installer for Podman |
+| `Start-Grafana-TLS-Fix.ps1` | **Recommended** - Start with TLS workarounds |
+| `start-podman-dashboards-alt.bat` | Alternative startup using individual commands |
+| `start-podman-dashboards.bat` | Standard Podman Compose startup |
+| `Fix-Dashboard-Mounts.ps1` | Fix dashboard volume mounting issues |
+| `Stop-Podman-Dashboards.ps1` | Stop all services (PowerShell) |
+| `check-dashboards.bat` | Verify dashboard loading status |
+| `setup-podman.bat` | One-time environment setup |
+| `validate-dashboards-podman.bat` | Validate all dashboards are accessible |
+
+#### Common Issues & Solutions
+
+**TLS Certificate Errors:**
+```powershell
+# Use the TLS-safe startup script
+.\Start-Grafana-TLS-Fix.ps1
+```
+
+**Missing Dashboards:**
+```powershell
+# Fix volume mount issues
 .\Fix-Dashboard-Mounts.ps1
 ```
 
-Open **http://localhost:3200** (admin / admin)
+**Podman Machine Not Running:**
+```powershell
+# Start the Podman machine
+podman machine start
+```
 
-**Podman Command Reference:**
-- `Install-Podman.ps1` - PowerShell Podman installer
-- `Start-Grafana-TLS-Fix.ps1` - Start with TLS workarounds (recommended)
-- `start-podman-dashboards-alt.bat` - Start using individual commands
-- `Fix-Dashboard-Mounts.ps1` - Fix dashboard volume mounts
-- `Stop-Podman-Dashboards.ps1` - Stop all services (PowerShell)
-- `check-dashboards.bat` - Verify dashboard loading
-- `setup-podman.bat` - One-time environment setup
+**PATH Issues:**
+```powershell
+# Restart PowerShell after Podman installation
+# Or run setup script
+.\setup-podman.bat
+```
 
-**Troubleshooting:**
-- **TLS Certificate Errors:** Use `.\Start-Grafana-TLS-Fix.ps1`
-- **Missing Dashboards:** Run `.\Fix-Dashboard-Mounts.ps1`
-- **PATH Issues:** Restart PowerShell after Podman installation
-- **Machine Not Running:** Run `podman machine start`
+**Container Conflicts:**
+```powershell
+# Remove existing containers and restart
+podman rm -f grafana-dashboards prometheus-dashboards renderer-dashboards
+.\start-podman-dashboards-alt.bat
+```
+
 
 ### Option 3: Manual Import
 
@@ -436,7 +519,7 @@ Open **http://localhost:3200** (admin / admin)
 3. Select your Prometheus datasource
 4. Click **Import**
 
-### Option 3: Kubernetes Provisioning
+### Option 4: Kubernetes Provisioning
 
 ```bash
 # Copy to your Grafana provisioning path
@@ -447,7 +530,7 @@ kubectl cp loki/ grafana-pod:/var/lib/grafana/dashboards/loki/
 # Or mount as a ConfigMap / PersistentVolume
 ```
 
-### Option 4: Grafana API Bulk Import
+### Option 5: Grafana API Bulk Import
 
 ```bash
 # Import all dashboards via API
@@ -461,84 +544,6 @@ done
 ---
 
 ## Grafana MCP Server (AI Integration)
-## Podman Setup Guide (Windows)
-
-This project includes comprehensive Podman support for Windows environments, especially useful in corporate networks where Docker Desktop may not be available or TLS certificate issues occur.
-
-### Features
-
-- ✅ **Automated Podman Installation** - PowerShell and batch installers
-- ✅ **TLS Certificate Workarounds** - For corporate firewall/proxy environments  
-- ✅ **Proper Dashboard Mounting** - All 33 dashboards organized in folders
-- ✅ **PATH Resolution** - Automatic Podman path detection and fixing
-- ✅ **Machine Management** - Automated VM creation and startup
-- ✅ **Multiple Startup Methods** - Compose, individual commands, and PowerShell
-
-### Quick Start (Podman)
-
-```powershell
-# 1. Install Podman
-.\Install-Podman.ps1
-
-# 2. Start Grafana (with TLS fix for corporate networks)
-.\Start-Grafana-TLS-Fix.ps1
-
-# 3. Access dashboards
-# Open: http://localhost:3200 (admin/admin)
-```
-
-### File Overview
-
-| File | Purpose |
-|------|---------|
-| `Install-Podman.ps1` | PowerShell installer for Podman |
-| `Start-Grafana-TLS-Fix.ps1` | Start with TLS certificate workarounds |
-| `Fix-Dashboard-Mounts.ps1` | Fix dashboard volume mounting issues |
-| `start-podman-dashboards-alt.bat` | Alternative startup using individual commands |
-| `check-dashboards.bat` | Verify dashboard loading status |
-| `podman-compose.yml` | Compose file with proper volume mounts |
-
-### Common Issues & Solutions
-
-**Problem: TLS Certificate Errors**
-```
-Error: x509: certificate signed by unknown authority
-```
-**Solution:** Use the TLS fix script
-```powershell
-.\Start-Grafana-TLS-Fix.ps1
-```
-
-**Problem: Dashboards Not Appearing**
-```
-Grafana loads but no dashboards in folders
-```
-**Solution:** Fix dashboard mounts
-```powershell
-.\Fix-Dashboard-Mounts.ps1
-```
-
-**Problem: Podman Not Found in PATH**
-```
-ERROR: Podman is not installed or not in PATH
-```
-**Solution:** Restart PowerShell or fix PATH manually
-```powershell
-$env:Path += ";C:\Users\$env:USERNAME\AppData\Local\Programs\Podman"
-```
-
-**Problem: Machine Not Running**
-```
-Error: unable to connect to podman socket
-```
-**Solution:** Start the Podman machine
-```powershell
-podman machine start
-```
-
----
-
-## User Guide
 
 This project includes configuration for the [official Grafana MCP server](https://github.com/grafana/mcp-grafana), enabling AI-powered dashboard search and exploration.
 

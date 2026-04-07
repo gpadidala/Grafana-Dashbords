@@ -8,7 +8,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/platform/01-platform-ui-qos-executive.json
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/platform/38-enterprise-home-page.json
       - GF_LOG_LEVEL=info
       - GF_FEATURE_TOGGLES_ENABLE=
       - GF_RENDERING_SERVER_URL=http://renderer:8081/render
@@ -24,6 +24,13 @@ services:
       - ./tempo:/var/lib/grafana/dashboards/tempo:ro
       - ./pyroscope:/var/lib/grafana/dashboards/pyroscope:ro
       - ./platform:/var/lib/grafana/dashboards/platform:ro
+      - ./observability-kpi:/var/lib/grafana/dashboards/observability-kpi:ro
+      - ./volume:/var/lib/grafana/dashboards/volume:ro
+      - ./L0-executive:/var/lib/grafana/dashboards/L0-executive:ro
+      - ./L1-domain:/var/lib/grafana/dashboards/L1-domain:ro
+      - ./L2-service:/var/lib/grafana/dashboards/L2-service:ro
+      - ./L3-deepdive:/var/lib/grafana/dashboards/L3-deepdive:ro
+      - ./oci:/var/lib/grafana/dashboards/oci:ro
       - ./:/var/lib/grafana/dashboards/root:ro
     healthcheck:
       test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/api/health"]

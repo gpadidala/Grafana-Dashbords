@@ -135,7 +135,7 @@ podman run -d ^
     -e GF_SECURITY_ADMIN_USER=admin ^
     -e GF_SECURITY_ADMIN_PASSWORD=admin ^
     -e GF_USERS_ALLOW_SIGN_UP=false ^
-    -e "GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/platform/01-platform-ui-qos-executive.json" ^
+    -e "GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/platform/38-enterprise-home-page.json" ^
     -e GF_LOG_LEVEL=info ^
     -e GF_FEATURE_TOGGLES_ENABLE= ^
     -e GF_RENDERING_SERVER_URL=http://renderer:8081/render ^
@@ -150,6 +150,13 @@ podman run -d ^
     -v "%CURRENT_DIR%\tempo:/var/lib/grafana/dashboards/tempo:ro" ^
     -v "%CURRENT_DIR%\pyroscope:/var/lib/grafana/dashboards/pyroscope:ro" ^
     -v "%CURRENT_DIR%\platform:/var/lib/grafana/dashboards/platform:ro" ^
+    -v "%CURRENT_DIR%\observability-kpi:/var/lib/grafana/dashboards/observability-kpi:ro" ^
+    -v "%CURRENT_DIR%\volume:/var/lib/grafana/dashboards/volume:ro" ^
+    -v "%CURRENT_DIR%\L0-executive:/var/lib/grafana/dashboards/L0-executive:ro" ^
+    -v "%CURRENT_DIR%\L1-domain:/var/lib/grafana/dashboards/L1-domain:ro" ^
+    -v "%CURRENT_DIR%\L2-service:/var/lib/grafana/dashboards/L2-service:ro" ^
+    -v "%CURRENT_DIR%\L3-deepdive:/var/lib/grafana/dashboards/L3-deepdive:ro" ^
+    -v "%CURRENT_DIR%\oci:/var/lib/grafana/dashboards/oci:ro" ^
     -v "%CURRENT_DIR%:/var/lib/grafana/dashboards/root:ro" ^
     --restart unless-stopped ^
     grafana/grafana:11.6.4
