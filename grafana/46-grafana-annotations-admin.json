@@ -1,4 +1,43 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.6.4"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "row",
+      "name": "Row",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -12,80 +51,44 @@
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
+        "enable": true,
+        "expr": "changes(process_start_time_seconds{instance=~\"$instance\"}[5m]) > 0",
+        "hide": false,
+        "iconColor": "#F2495C",
+        "name": "Component Restarts",
+        "step": "",
+        "tagKeys": "instance",
+        "titleFormat": "Restart detected",
+        "type": "tags",
+        "useValueForTime": false
       }
     ]
   },
-  "description": "Next-generation Grafana platform administration command center. Real-time instance health, availability, user experience, database health, and resource utilization.",
+  "description": "Enterprise annotation operations dashboard. Annotation volume analytics, API performance, storage management, deployment tracking, and annotation hygiene monitoring. Enables admins to manage annotation sprawl and ensure deployment markers are working correctly.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
   "links": [
     {
-      "title": "⬆ Platform KPI",
-      "url": "/d/ultimate-platform-kpi",
+      "title": "\u2b06 Admin Command Center",
+      "url": "/d/grafana-admin-command-center",
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
-      "tooltip": "Single Pane of Glass",
       "asDropdown": false,
       "includeVars": true,
       "keepTime": true
     },
     {
-      "title": "⬆ L0 Command Center",
+      "title": "\u2b06 L0 Command Center",
       "url": "/d/l0-executive-command-center",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "tooltip": "Executive Command Center",
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "Access & Security",
-      "url": "/d/grafana-access-security",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "DB Performance",
-      "url": "/d/grafana-db-perf-deep-dive",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "User Activity",
-      "url": "/d/grafana-user-activity-analytics",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "Errors & API",
-      "url": "/d/grafana-admin-errors-ops",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "Alerting Advanced",
-      "url": "/d/grafana-alerting-advanced",
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
@@ -104,8 +107,8 @@
       "keepTime": true
     },
     {
-      "title": "Annotations",
-      "url": "/d/grafana-annotations-admin",
+      "title": "Alerting Advanced",
+      "url": "/d/grafana-alerting-advanced",
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
@@ -114,48 +117,8 @@
       "keepTime": true
     },
     {
-      "title": "Volume",
-      "url": "/d/grafana-volume-analytics",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "→ Loki",
-      "url": "/d/loki-deep-dive-multi-stack",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "→ Mimir",
-      "url": "/d/mimir-deep-dive-multi-stack",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "→ Tempo",
-      "url": "/d/tempo-deep-dive-multi-stack",
-      "type": "link",
-      "icon": "dashboard",
-      "targetBlank": false,
-      "asDropdown": false,
-      "includeVars": true,
-      "keepTime": true
-    },
-    {
-      "title": "→ Pyroscope",
-      "url": "/d/pyroscope-deep-dive-multi-stack",
+      "title": "Errors & API",
+      "url": "/d/grafana-admin-errors-ops",
       "type": "link",
       "icon": "dashboard",
       "targetBlank": false,
@@ -176,7 +139,7 @@
       },
       "id": 100,
       "panels": [],
-      "title": "✈️ Platform Health at a Glance",
+      "title": "Annotation API Health",
       "type": "row"
     },
     {
@@ -184,13 +147,13 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Percentage of Grafana instances reporting UP",
+      "description": "Annotation API endpoint availability. Percentage of non-5xx responses. Below 99% requires investigation \u2014 annotation writes may be failing silently.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 1,
+          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -201,11 +164,11 @@
               },
               {
                 "color": "#FF9830",
-                "value": 80
+                "value": 95
               },
               {
                 "color": "#73BF69",
-                "value": 100
+                "value": 99.5
               }
             ]
           },
@@ -214,15 +177,15 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
+        "h": 5,
+        "w": 4,
         "x": 0,
         "y": 1
       },
       "id": 1,
       "options": {
         "colorMode": "background",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -241,12 +204,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "count(up{job=~\".*grafana.*\", instance=~\"$instance\"} == 1) / count(up{job=~\".*grafana.*\", instance=~\"$instance\"}) * 100",
-          "legendFormat": "Platform Status",
+          "expr": "(1 - (sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", status_code=~\"5..\", instance=~\"$instance\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])) + 0.001))) * 100",
+          "legendFormat": "Availability",
           "refId": "A"
         }
       ],
-      "title": "Platform Status",
+      "title": "Annotation API Availability",
       "type": "stat"
     },
     {
@@ -254,12 +217,11 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Number of Grafana instances currently reporting as UP",
+      "description": "Total annotation API request throughput. Includes creates, reads, updates, and deletes.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#73BF69",
-            "mode": "fixed"
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
@@ -271,20 +233,20 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "reqps"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 3,
+        "h": 5,
+        "w": 4,
+        "x": 4,
         "y": 1
       },
       "id": 2,
       "options": {
         "colorMode": "background",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -303,12 +265,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "count(up{job=~\".*grafana.*\", instance=~\"$instance\"} == 1)",
-          "legendFormat": "Instances Online",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval]))",
+          "legendFormat": "Requests/s",
           "refId": "A"
         }
       ],
-      "title": "Instances Online",
+      "title": "Annotation Requests/s",
       "type": "stat"
     },
     {
@@ -316,36 +278,45 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Currently deployed Grafana version across instances",
+      "description": "99th percentile annotation API latency. Values above 2s indicate database contention or large annotation payloads.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#6ED0E0",
-            "mode": "fixed"
+            "mode": "thresholds"
           },
+          "decimals": 3,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#6ED0E0",
+                "color": "#73BF69",
                 "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 0.5
+              },
+              {
+                "color": "#F2495C",
+                "value": 2
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 6,
+        "h": 5,
+        "w": 4,
+        "x": 8,
         "y": 1
       },
       "id": 3,
       "options": {
         "colorMode": "background",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -355,7 +326,7 @@
           "fields": "",
           "values": false
         },
-        "textMode": "name",
+        "textMode": "auto",
         "wideLayout": true
       },
       "targets": [
@@ -364,12 +335,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "grafana_build_info{instance=~\"$instance\"}",
-          "legendFormat": "{{version}}",
+          "expr": "histogram_quantile(0.99, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])) by (le))",
+          "legendFormat": "P99",
           "refId": "A"
         }
       ],
-      "title": "Grafana Version",
+      "title": "Annotation API P99 Latency",
       "type": "stat"
     },
     {
@@ -377,12 +348,11 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Time since Grafana process started. Indicates last restart or deployment.",
+      "description": "Annotation API error rate. Any non-zero value indicates failed annotation operations.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#73BF69",
-            "mode": "fixed"
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
@@ -391,17 +361,25 @@
               {
                 "color": "#73BF69",
                 "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 0.001
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
               }
             ]
           },
-          "unit": "dtdurations"
+          "unit": "reqps"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 9,
+        "h": 5,
+        "w": 4,
+        "x": 12,
         "y": 1
       },
       "id": 4,
@@ -426,12 +404,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "time() - process_start_time_seconds{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "Uptime",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", status_code=~\"5..\", instance=~\"$instance\"}[$__rate_interval])) or vector(0)",
+          "legendFormat": "Errors/s",
           "refId": "A"
         }
       ],
-      "title": "Uptime",
+      "title": "Annotation API Errors/s",
       "type": "stat"
     },
     {
@@ -439,12 +417,11 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Total inbound HTTP request rate across all Grafana instances and endpoints",
+      "description": "Rate of new annotation creations (POST requests). Spikes indicate deployment waves or automated annotation writes.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#73BF69",
-            "mode": "fixed"
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
@@ -461,9 +438,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 12,
+        "h": 5,
+        "w": 4,
+        "x": 16,
         "y": 1
       },
       "id": 5,
@@ -488,12 +465,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\"}[$__rate_interval]))",
-          "legendFormat": "Request Rate",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"POST\", instance=~\"$instance\"}[$__rate_interval])) or vector(0)",
+          "legendFormat": "Writes/s",
           "refId": "A"
         }
       ],
-      "title": "Total Request Rate",
+      "title": "Annotation Write Rate",
       "type": "stat"
     },
     {
@@ -501,106 +478,35 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "30-day rolling availability based on non-5xx response ratio",
+      "description": "Rate of annotation reads (GET requests). High values indicate dashboards with many annotation queries \u2014 can impact load time.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 3,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#F2495C",
-                "value": null
-              },
-              {
-                "color": "#FF9830",
-                "value": 99
-              },
-              {
                 "color": "#73BF69",
-                "value": 99.9
+                "value": null
               }
             ]
           },
-          "unit": "percent"
+          "unit": "reqps"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 15,
+        "h": 5,
+        "w": 4,
+        "x": 20,
         "y": 1
       },
       "id": 6,
       "options": {
         "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "(1 - sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\", instance=~\"$instance\"}[30d])) / sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\"}[30d]))) * 100",
-          "legendFormat": "Availability (30d)",
-          "refId": "A"
-        }
-      ],
-      "title": "Availability (30d)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Number of active users currently tracked by the Grafana instance",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "#6ED0E0",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#6ED0E0",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 18,
-        "y": 1
-      },
-      "id": 7,
-      "options": {
-        "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
@@ -620,74 +526,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "grafana_stat_active_users{instance=~\"$instance\"}",
-          "legendFormat": "Active Users",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"GET\", instance=~\"$instance\"}[$__rate_interval])) or vector(0)",
+          "legendFormat": "Reads/s",
           "refId": "A"
         }
       ],
-      "title": "Active Users",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Total number of dashboards managed by this Grafana instance",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "#6ED0E0",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#6ED0E0",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 21,
-        "y": 1
-      },
-      "id": 8,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "grafana_stat_total_dashboards{instance=~\"$instance\"}",
-          "legendFormat": "Total Dashboards",
-          "refId": "A"
-        }
-      ],
-      "title": "Total Dashboards",
+      "title": "Annotation Read Rate",
       "type": "stat"
     },
     {
@@ -696,11 +540,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 6
       },
       "id": 101,
       "panels": [],
-      "title": "HTTP Request Intelligence",
+      "title": "Annotation API Performance",
       "type": "row"
     },
     {
@@ -708,7 +552,7 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "HTTP request rate broken down by status code class. 5xx errors are the critical signal.",
+      "description": "Annotation API response time percentiles. Gradual increase indicates growing annotation volume impacting DB queries.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -722,192 +566,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 30,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "reqps"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "2xx Success"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#73BF69",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "3xx Redirect"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#6ED0E0",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "4xx Client Error"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#FF9830",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "5xx Server Error"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#F2495C",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 5
-      },
-      "id": 9,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", status_code=~\"2..\"}[$__rate_interval]))",
-          "legendFormat": "2xx Success",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", status_code=~\"3..\"}[$__rate_interval]))",
-          "legendFormat": "3xx Redirect",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", status_code=~\"4..\"}[$__rate_interval]))",
-          "legendFormat": "4xx Client Error",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", status_code=~\"5..\"}[$__rate_interval]))",
-          "legendFormat": "5xx Server Error",
-          "refId": "D"
-        }
-      ],
-      "title": "Request Rate by Status Code",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Latency percentile distribution. P95 crossing 1.0s indicates user-visible degradation.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 5,
-            "gradientMode": "scheme",
+            "fillOpacity": 10,
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -927,7 +587,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "dashed"
+              "mode": "off"
             }
           },
           "mappings": [],
@@ -937,10 +597,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "#F2495C",
-                "value": 1.0
               }
             ]
           },
@@ -965,28 +621,13 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "P90"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#FF9830",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "P95"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#FF780A",
+                  "fixedColor": "#FF9830",
                   "mode": "fixed"
                 }
               }
@@ -1010,24 +651,23 @@
         ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 5
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 7
       },
-      "id": 10,
+      "id": 7,
       "options": {
         "legend": {
           "calcs": [
-            "mean",
+            "min",
             "max",
+            "mean",
             "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLabels": false,
-          "sortBy": "Max",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1040,7 +680,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "histogram_quantile(0.50, sum(rate(grafana_http_request_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.50, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])))",
           "legendFormat": "P50",
           "refId": "A"
         },
@@ -1049,8 +689,8 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "histogram_quantile(0.90, sum(rate(grafana_http_request_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
-          "legendFormat": "P90",
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])))",
+          "legendFormat": "P95",
           "refId": "B"
         },
         {
@@ -1058,21 +698,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
-          "legendFormat": "P95",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "histogram_quantile(0.99, sum(rate(grafana_http_request_duration_seconds_bucket{instance=~\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.99, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])))",
           "legendFormat": "P99",
-          "refId": "D"
+          "refId": "C"
         }
       ],
-      "title": "Response Latency Percentiles",
+      "title": "Annotation API Latency Over Time",
       "type": "timeseries"
     },
     {
@@ -1080,12 +711,11 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Server error rate as percentage of total requests. Target: < 1%",
+      "description": "Annotation API traffic breakdown by HTTP method. POST=create, GET=read, DELETE=remove, PATCH=update.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#F2495C",
-            "mode": "fixed"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1095,8 +725,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "scheme",
+            "fillOpacity": 10,
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -1116,7 +746,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "dashed"
+              "mode": "off"
             }
           },
           "mappings": [],
@@ -1124,40 +754,109 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#73BF69",
+                "color": "green",
                 "value": null
-              },
-              {
-                "color": "#FF9830",
-                "value": 1
-              },
-              {
-                "color": "#F2495C",
-                "value": 5
               }
             ]
           },
-          "unit": "percent"
+          "unit": "reqps"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GET"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3274D9",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "POST"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#73BF69",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DELETE"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2495C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PUT"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF9830",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PATCH"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8B5CF6",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 5
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 7
       },
-      "id": 11,
+      "id": 8,
       "options": {
         "legend": {
           "calcs": [
-            "mean",
+            "min",
             "max",
+            "mean",
             "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLabels": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1170,12 +869,12 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", status_code=~\"5..\"}[$__rate_interval])) / sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\"}[$__rate_interval])) * 100",
-          "legendFormat": "5xx Error Rate",
+          "expr": "sum by (method) (rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval]))",
+          "legendFormat": "{{method}}",
           "refId": "A"
         }
       ],
-      "title": "Error Rate %",
+      "title": "Annotation API Throughput by Method",
       "type": "timeseries"
     },
     {
@@ -1184,11 +883,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 14
       },
       "id": 102,
       "panels": [],
-      "title": "Top Endpoints — Smart Analysis",
+      "title": "Annotation Volume & Trends",
       "type": "row"
     },
     {
@@ -1196,58 +895,81 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Top 10 slowest API endpoints by P95 latency. Focus optimization efforts here.",
+      "description": "Annotation creation rate over time. Spikes correlate with deployment activity, CI/CD pipelines, or automated annotation tools.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#73BF69",
+                "color": "green",
                 "value": null
-              },
-              {
-                "color": "#FF9830",
-                "value": 0.5
-              },
-              {
-                "color": "#F2495C",
-                "value": 1.0
               }
             ]
           },
-          "unit": "s"
+          "unit": "reqps"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 15
       },
-      "id": 12,
+      "id": 9,
       "options": {
-        "displayMode": "gradient",
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
+            "min",
+            "max",
+            "mean",
             "lastNotNull"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "valueMode": "color"
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
       "targets": [
         {
@@ -1255,31 +977,372 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "topk(10, histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{instance=~\"$instance\", handler=~\"$handler\"}[$__rate_interval])) by (le, handler)))",
-          "legendFormat": "{{handler}}",
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"POST\", instance=~\"$instance\"}[$__rate_interval]))",
+          "legendFormat": "Writes/s",
           "refId": "A"
         }
       ],
-      "title": "Slowest Endpoints (P95)",
-      "type": "bargauge"
+      "title": "Annotation Writes Over Time",
+      "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Top 10 endpoints with highest server error rates. These are your reliability hotspots.",
+      "description": "Annotation read rate. Correlates with dashboard load activity. Heavy annotation usage on popular dashboards can degrade performance.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#73BF69",
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"GET\", instance=~\"$instance\"}[$__rate_interval]))",
+          "legendFormat": "Reads/s",
+          "refId": "A"
+        }
+      ],
+      "title": "Annotation Reads Over Time",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 103,
+      "panels": [],
+      "title": "Annotation API Error Analysis",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Annotation API errors by HTTP status code. 400=bad request, 401/403=auth issues, 500+=server errors.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP 400"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF9830",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP 401"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8B5CF6",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP 403"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8B5CF6",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP 404"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3274D9",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP 500"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2495C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP 502"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2495C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP 503"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2495C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "sum by (status_code) (rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", status_code=~\"[45]..\", instance=~\"$instance\"}[$__rate_interval]))",
+          "legendFormat": "HTTP {{status_code}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Annotation Errors by Status Code",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Annotation API error rate as percentage of total requests. Above 1% warrants investigation, above 5% is critical.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line+area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
                 "value": null
               },
               {
@@ -1297,10 +1360,86 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 23
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", status_code=~\"[45]..\", instance=~\"$instance\"}[$__rate_interval])) / (sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])) + 0.001) * 100",
+          "legendFormat": "Error Rate %",
+          "refId": "A"
+        }
+      ],
+      "title": "Annotation API Error Rate %",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 104,
+      "panels": [],
+      "title": "Annotation Handler Breakdown",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Most active annotation API handlers. Identifies which annotation endpoints are receiving the most traffic.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#3274D9",
+                "value": null
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 31
       },
       "id": 13,
       "options": {
@@ -1327,12 +1466,84 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "topk(10, sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", status_code=~\"5..\", handler=~\"$handler\"}[$__rate_interval])) by (handler) / sum(rate(grafana_http_request_duration_seconds_count{instance=~\"$instance\", handler=~\"$handler\"}[$__rate_interval])) by (handler) * 100)",
+          "expr": "topk(10, sum by (handler) (rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])))",
           "legendFormat": "{{handler}}",
           "refId": "A"
         }
       ],
-      "title": "Highest Error Rate Endpoints",
+      "title": "Top Annotation Handlers by Request Volume",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Slowest annotation API handlers by P99 latency. Candidates for database query optimization or annotation cleanup.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 0.5
+              },
+              {
+                "color": "#F2495C",
+                "value": 2
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 31
+      },
+      "id": 14,
+      "options": {
+        "displayMode": "gradient",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "topk(10, histogram_quantile(0.99, sum by (handler, le) (rate(grafana_http_request_duration_seconds_bucket{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval]))))",
+          "legendFormat": "{{handler}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Top Annotation Handlers by Latency",
       "type": "bargauge"
     },
     {
@@ -1341,11 +1552,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 38
       },
-      "id": 103,
+      "id": 105,
       "panels": [],
-      "title": "Database Connection Pool Health",
+      "title": "Annotation-Driven Deployment Tracking",
       "type": "row"
     },
     {
@@ -1353,7 +1564,115 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Database connection pool utilization. When In Use approaches Max Open, queries will queue.",
+      "description": "Annotation creation activity overlaid as a proxy for deployment and incident marker activity. Use Grafana's native annotation overlay to see actual annotation content.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "sum(rate(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"POST\", instance=~\"$instance\"}[$__rate_interval]))",
+          "legendFormat": "Annotation Writes",
+          "refId": "A"
+        }
+      ],
+      "title": "Deployment Annotations",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 46
+      },
+      "id": 106,
+      "panels": [],
+      "title": "Database Impact",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Database query latency for annotation operations. Increasing latency indicates growing annotation table size \u2014 consider implementing annotation cleanup policies.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1368,726 +1687,7 @@
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Open"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#6ED0E0",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "In Use"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#FF9830",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Idle"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#73BF69",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Max Open"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#F2495C",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [
-                    10,
-                    10
-                  ],
-                  "fill": "dash"
-                }
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 2
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 23
-      },
-      "id": 14,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "grafana_database_conn_open{instance=~\"$instance\"}",
-          "legendFormat": "Open",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "grafana_database_conn_in_use{instance=~\"$instance\"}",
-          "legendFormat": "In Use",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "grafana_database_conn_idle{instance=~\"$instance\"}",
-          "legendFormat": "Idle",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "grafana_database_conn_max_open{instance=~\"$instance\"}",
-          "legendFormat": "Max Open",
-          "refId": "D"
-        }
-      ],
-      "title": "DB Connection Pool",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Database connection pool saturation. > 80% indicates risk of connection exhaustion.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#73BF69",
-                "value": null
-              },
-              {
-                "color": "#FF9830",
-                "value": 60
-              },
-              {
-                "color": "#F2495C",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 23
-      },
-      "id": 15,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "grafana_database_conn_in_use{instance=~\"$instance\"} / grafana_database_conn_max_open{instance=~\"$instance\"} * 100",
-          "legendFormat": "Pool Saturation",
-          "refId": "A"
-        }
-      ],
-      "title": "DB Pool Saturation %",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Database connection wait events. Non-zero indicates connection pool pressure.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 15,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "ops"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Wait Duration Rate"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "s"
-              },
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 23
-      },
-      "id": 16,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "rate(grafana_database_conn_wait_count_total{instance=~\"$instance\"}[$__rate_interval])",
-          "legendFormat": "Wait Rate",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "rate(grafana_database_conn_wait_duration_seconds_total{instance=~\"$instance\"}[$__rate_interval])",
-          "legendFormat": "Wait Duration Rate",
-          "refId": "B"
-        }
-      ],
-      "title": "DB Wait Queue",
-      "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 31
-      },
-      "id": 104,
-      "panels": [],
-      "title": "Resource Utilization & Runtime",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "CPU usage rate per Grafana instance. Sustained high CPU indicates compute pressure.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 32
-      },
-      "id": 17,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "rate(process_cpu_seconds_total{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval])",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Usage",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Resident set size (physical memory) per Grafana instance. Trend upward may indicate a memory leak.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 15,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
-        "y": 32
-      },
-      "id": 18,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "process_resident_memory_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Memory (RSS)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Go runtime goroutines. Sustained increase indicates potential goroutine leak.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 15,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 12,
-        "y": 32
-      },
-      "id": 19,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "go_goroutines{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Goroutines",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Go garbage collection pause time rate. Spikes correlate with memory pressure.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 15,
-            "gradientMode": "scheme",
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -2125,22 +1725,23 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 18,
-        "y": 32
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 47
       },
-      "id": 20,
+      "id": 16,
       "options": {
         "legend": {
           "calcs": [
-            "mean",
+            "min",
             "max",
+            "mean",
             "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLabels": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -2153,33 +1754,20 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(go_gc_duration_seconds_sum{job=~\".*grafana.*\", instance=~\"$instance\"}[$__rate_interval])",
-          "legendFormat": "{{instance}}",
+          "expr": "histogram_quantile(0.99, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~\".*annotation.*\", instance=~\"$instance\"}[$__rate_interval])) by (le))",
+          "legendFormat": "P99 Annotation Query Latency",
           "refId": "A"
         }
       ],
-      "title": "GC Pause Duration",
+      "title": "Grafana DB Query Duration (Annotation Queries)",
       "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 40
-      },
-      "id": 105,
-      "panels": [],
-      "title": "File Descriptors & Process Health",
-      "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "File descriptor usage vs limit. Exhaustion causes connection failures.",
+      "description": "Grafana process memory usage. Correlate with annotation volume \u2014 large annotation result sets increase memory pressure.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2194,228 +1782,7 @@
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Max FDs"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#F2495C",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [
-                    10,
-                    10
-                  ],
-                  "fill": "dash"
-                }
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 2
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Open FDs"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#6ED0E0",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 8,
-        "x": 0,
-        "y": 41
-      },
-      "id": 21,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLabels": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "process_open_fds{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "Open FDs",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "process_max_fds{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "Max FDs",
-          "refId": "B"
-        }
-      ],
-      "title": "Open File Descriptors",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "File descriptor saturation percentage. Above 80% risks connection failures and process instability.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#73BF69",
-                "value": null
-              },
-              {
-                "color": "#FF9830",
-                "value": 50
-              },
-              {
-                "color": "#F2495C",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 8,
-        "y": 41
-      },
-      "id": 22,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "process_open_fds{job=~\".*grafana.*\", instance=~\"$instance\"} / process_max_fds{job=~\".*grafana.*\", instance=~\"$instance\"} * 100",
-          "legendFormat": "FD Saturation",
-          "refId": "A"
-        }
-      ],
-      "title": "FD Saturation %",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$datasource"
-      },
-      "description": "Go heap memory breakdown. Gap between Alloc and Sys indicates fragmentation.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -2450,71 +1817,26 @@
           },
           "unit": "bytes"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Heap Alloc"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#73BF69",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Heap In Use"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#FF9830",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Heap Sys"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#6ED0E0",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 41
+        "y": 47
       },
-      "id": 23,
+      "id": 17,
       "options": {
         "legend": {
           "calcs": [
-            "mean",
+            "min",
             "max",
+            "mean",
             "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLabels": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -2527,53 +1849,243 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "go_memstats_heap_alloc_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "Heap Alloc",
+          "expr": "process_resident_memory_bytes{instance=~\"$instance\", job=~\".*grafana.*\"}",
+          "legendFormat": "{{instance}}",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "go_memstats_heap_inuse_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "Heap In Use",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "expr": "go_memstats_heap_sys_bytes{job=~\".*grafana.*\", instance=~\"$instance\"}",
-          "legendFormat": "Heap Sys",
-          "refId": "C"
         }
       ],
-      "title": "Heap Memory Breakdown",
+      "title": "Grafana Instance Memory",
       "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "id": 107,
+      "panels": [],
+      "title": "Annotation Hygiene Recommendations",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Total annotation writes in the selected time range. Use for capacity planning and annotation retention policy decisions.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 55
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "sum(increase(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"POST\", instance=~\"$instance\"}[$__range]))",
+          "legendFormat": "Total Writes",
+          "refId": "A"
+        }
+      ],
+      "title": "Annotation Operations Summary",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Total annotation deletions in the selected time range. Low delete rates combined with high write rates indicate annotation sprawl.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 55
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "sum(increase(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"DELETE\", instance=~\"$instance\"}[$__range])) or vector(0)",
+          "legendFormat": "Total Deletes",
+          "refId": "A"
+        }
+      ],
+      "title": "Annotation Deletes",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "Ratio of annotation writes to deletes. High ratios (>100:1) indicate annotations accumulating without cleanup. Consider implementing retention policies.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#FF9830",
+                "value": 10
+              },
+              {
+                "color": "#F2495C",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 55
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "expr": "(sum(increase(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"POST\", instance=~\"$instance\"}[$__range])) + 0.001) / (sum(increase(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\", method=\"DELETE\", instance=~\"$instance\"}[$__range])) + 0.001)",
+          "legendFormat": "Write/Delete Ratio",
+          "refId": "A"
+        }
+      ],
+      "title": "Write/Delete Ratio",
+      "type": "stat"
     }
   ],
-  "refresh": "30s",
+  "refresh": "1m",
   "schemaVersion": 39,
   "tags": [
-    "admin",
     "grafana",
-    "platform-health",
-    "executive",
-    "next-gen"
+    "annotations",
+    "admin",
+    "operations",
+    "deployments",
+    "enterprise"
   ],
   "templating": {
     "list": [
       {
         "current": {
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "",
+          "value": ""
         },
         "hide": 0,
         "includeAll": false,
-        "label": "Data Source",
+        "label": "Datasource",
         "multi": false,
         "name": "datasource",
         "options": [],
@@ -2630,7 +2142,7 @@
           "type": "prometheus",
           "uid": "$datasource"
         },
-        "definition": "label_values(grafana_http_request_duration_seconds_count, handler)",
+        "definition": "label_values(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\"}, handler)",
         "hide": 0,
         "includeAll": true,
         "label": "Handler",
@@ -2639,7 +2151,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(grafana_http_request_duration_seconds_count, handler)",
+          "query": "label_values(grafana_http_request_duration_seconds_count{handler=~\".*annotation.*\"}, handler)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -2651,13 +2163,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Grafana Admin — Command Center",
-  "uid": "grafana-admin-command-center",
+  "title": "Grafana Annotations \u2014 Admin & Analytics",
+  "uid": "grafana-annotations-admin",
   "version": 1,
   "weekStart": ""
 }
