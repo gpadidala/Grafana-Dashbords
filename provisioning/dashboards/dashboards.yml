@@ -143,3 +143,14 @@ providers:
       path: /var/lib/grafana/dashboards/oci
       foldersFromFilesStructure: false
     folder: "OCI — Oracle Cloud Infrastructure"
+
+  - name: "Azure"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/azure
+      foldersFromFilesStructure: false
+    folder: "Azure — Cloud Infrastructure"
