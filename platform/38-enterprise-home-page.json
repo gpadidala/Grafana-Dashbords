@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "Grafana Home — Search, navigate, and monitor",
+  "description": "Grafana Home",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -20,10 +20,10 @@
   "links": [],
   "panels": [
     {
-      "gridPos": { "h": 5, "w": 24, "x": 0, "y": 0 },
+      "gridPos": { "h": 11, "w": 24, "x": 0, "y": 0 },
       "id": 1,
       "options": {
-        "content": "<div style=\"display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%\">\n  <div style=\"font-size:42px;line-height:1;margin-bottom:8px\">🎯</div>\n  <div style=\"font-size:32px;font-weight:300;letter-spacing:3px;color:#F46800\">Grafana</div>\n  <div style=\"margin-top:6px;font-size:12px;color:#8E8EA0;letter-spacing:2px\">OBSERVE · ANALYZE · ACT</div>\n  <div style=\"margin-top:10px;font-size:13px;color:#8E8EA0\">Press <b style=\"color:#73BF69;font-family:monospace\">Ctrl+K</b> or <b style=\"color:#73BF69;font-family:monospace\">⌘K</b> to search everything</div>\n</div>",
+        "content": "<div style=\"display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:16px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif\">\n  <div style=\"font-size:64px;line-height:1;margin-bottom:4px\">🎯</div>\n  <div style=\"margin-top:12px;font-size:44px;font-weight:200;letter-spacing:4px;color:#F46800;text-shadow:0 0 40px rgba(244,104,0,0.3)\">Grafana</div>\n  <div style=\"margin-top:6px;font-size:12px;color:#6C7080;letter-spacing:3px;text-transform:uppercase\">Observability Platform</div>\n\n  <div style=\"margin-top:28px;padding:14px 42px;background:#14161a;border:1px solid #2a2d35;border-radius:32px;color:#6C7080;font-size:14px;min-width:520px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.3)\">\n    <span style=\"color:#8E8EA0\">🔍 &nbsp;Search dashboards, alerts, data sources...</span>\n    <span style=\"margin-left:24px;padding:4px 12px;background:#1a1d23;color:#bbb;border:1px solid #333;border-radius:6px;font-size:11px;font-family:monospace;font-weight:600\">⌘K</span>\n    <span style=\"margin-left:6px;color:#555;font-size:11px\">or</span>\n    <span style=\"margin-left:6px;padding:4px 12px;background:#1a1d23;color:#bbb;border:1px solid #333;border-radius:6px;font-size:11px;font-family:monospace;font-weight:600\">Ctrl+K</span>\n  </div>\n\n  <div style=\"margin-top:28px;display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:center\">\n    <a href=\"/dashboards\" style=\"display:inline-block;padding:10px 20px;margin:4px;color:#E0E0E0;text-decoration:none;font-size:13px;font-weight:500;background:#181b1f;border:1px solid #2a2d35;border-radius:8px\">📊 &nbsp;Dashboards</a>\n    <a href=\"/explore\" style=\"display:inline-block;padding:10px 20px;margin:4px;color:#E0E0E0;text-decoration:none;font-size:13px;font-weight:500;background:#181b1f;border:1px solid #2a2d35;border-radius:8px\">🔭 &nbsp;Explore</a>\n    <a href=\"/alerting/list\" style=\"display:inline-block;padding:10px 20px;margin:4px;color:#E0E0E0;text-decoration:none;font-size:13px;font-weight:500;background:#181b1f;border:1px solid #2a2d35;border-radius:8px\">🔔 &nbsp;Alerts</a>\n    <a href=\"/connections/datasources\" style=\"display:inline-block;padding:10px 20px;margin:4px;color:#E0E0E0;text-decoration:none;font-size:13px;font-weight:500;background:#181b1f;border:1px solid #2a2d35;border-radius:8px\">🗄️ &nbsp;Data Sources</a>\n    <a href=\"/plugins\" style=\"display:inline-block;padding:10px 20px;margin:4px;color:#E0E0E0;text-decoration:none;font-size:13px;font-weight:500;background:#181b1f;border:1px solid #2a2d35;border-radius:8px\">🧩 &nbsp;Plugins</a>\n    <a href=\"/admin\" style=\"display:inline-block;padding:10px 20px;margin:4px;color:#E0E0E0;text-decoration:none;font-size:13px;font-weight:500;background:#181b1f;border:1px solid #2a2d35;border-radius:8px\">⚙️ &nbsp;Admin</a>\n  </div>\n\n  <div style=\"margin-top:20px;font-size:12px;color:#555;letter-spacing:0.5px\">👋 Welcome &nbsp; · &nbsp; 📊 108 dashboards ready &nbsp; · &nbsp; ⚡ All signals, one pane of glass</div>\n</div>",
         "mode": "html"
       },
       "title": "",
@@ -31,174 +31,18 @@
       "type": "text"
     },
     {
-      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "fixed", "fixedColor": "green" },
-          "mappings": [
-            { "type": "special", "options": { "match": "null", "result": { "text": "📊 Dashboards" } } },
-            { "type": "value", "options": { "0": { "text": "📊 Dashboards" } } }
-          ],
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] },
-          "links": [{ "title": "Browse dashboards", "url": "/dashboards", "targetBlank": false }]
-        }
-      },
-      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 5 },
-      "id": 20,
+      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 11 },
+      "id": 10,
       "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
-        "textMode": "value_and_name",
-        "wideLayout": true
+        "content": "<div style=\"display:flex;justify-content:center;gap:8px;padding:6px 0;flex-wrap:wrap;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif\">\n  <a href=\"/d/ultimate-platform-kpi\" style=\"padding:7px 16px;background:#181b1f;border:1px solid #3274D9;border-radius:20px;color:#3274D9;text-decoration:none;font-size:11px;font-weight:500\">⚡ Platform KPI</a>\n  <a href=\"/d/l0-executive-command-center\" style=\"padding:7px 16px;background:#181b1f;border:1px solid #B877D9;border-radius:20px;color:#B877D9;text-decoration:none;font-size:11px;font-weight:500\">🎯 Command Center</a>\n  <a href=\"/d/service-health-matrix\" style=\"padding:7px 16px;background:#181b1f;border:1px solid #73BF69;border-radius:20px;color:#73BF69;text-decoration:none;font-size:11px;font-weight:500\">💚 Health Matrix</a>\n  <a href=\"/d/anomaly-detection-outliers\" style=\"padding:7px 16px;background:#181b1f;border:1px solid #FF9830;border-radius:20px;color:#FF9830;text-decoration:none;font-size:11px;font-weight:500\">⚠️ Anomalies</a>\n  <a href=\"/d/azure-platform-overview\" style=\"padding:7px 16px;background:#181b1f;border:1px solid #5794F2;border-radius:20px;color:#5794F2;text-decoration:none;font-size:11px;font-weight:500\">☁️ Azure</a>\n  <a href=\"/d/oci-executive-kpi\" style=\"padding:7px 16px;background:#181b1f;border:1px solid #F2495C;border-radius:20px;color:#F2495C;text-decoration:none;font-size:11px;font-weight:500\">🔶 OCI</a>\n</div>",
+        "mode": "html"
       },
-      "pluginVersion": "11.6.4",
-      "targets": [
-        { "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }
-      ],
-      "title": "Browse",
-      "description": "Browse all dashboards",
-      "type": "stat"
+      "title": "",
+      "transparent": true,
+      "type": "text"
     },
     {
-      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "fixed", "fixedColor": "blue" },
-          "mappings": [
-            { "type": "special", "options": { "match": "null", "result": { "text": "🔭 Explore" } } },
-            { "type": "value", "options": { "0": { "text": "🔭 Explore" } } }
-          ],
-          "links": [{ "title": "Open Explore", "url": "/explore", "targetBlank": false }]
-        }
-      },
-      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 5 },
-      "id": 21,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "textMode": "value_and_name",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
-      },
-      "pluginVersion": "11.6.4",
-      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
-      "title": "Query",
-      "description": "Open query explorer",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "fixed", "fixedColor": "orange" },
-          "mappings": [
-            { "type": "special", "options": { "match": "null", "result": { "text": "🔔 Alerts" } } },
-            { "type": "value", "options": { "0": { "text": "🔔 Alerts" } } }
-          ],
-          "links": [{ "title": "View alerts", "url": "/alerting/list", "targetBlank": false }]
-        }
-      },
-      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 5 },
-      "id": 22,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "textMode": "value_and_name",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
-      },
-      "pluginVersion": "11.6.4",
-      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
-      "title": "Monitor",
-      "description": "Alert rules & notifications",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "fixed", "fixedColor": "purple" },
-          "mappings": [
-            { "type": "special", "options": { "match": "null", "result": { "text": "🗄️ Data Sources" } } },
-            { "type": "value", "options": { "0": { "text": "🗄️ Data Sources" } } }
-          ],
-          "links": [{ "title": "Manage data sources", "url": "/connections/datasources", "targetBlank": false }]
-        }
-      },
-      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 5 },
-      "id": 23,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "textMode": "value_and_name",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
-      },
-      "pluginVersion": "11.6.4",
-      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
-      "title": "Connect",
-      "description": "Manage data source connections",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "fixed", "fixedColor": "yellow" },
-          "mappings": [
-            { "type": "special", "options": { "match": "null", "result": { "text": "🧩 Plugins" } } },
-            { "type": "value", "options": { "0": { "text": "🧩 Plugins" } } }
-          ],
-          "links": [{ "title": "Manage plugins", "url": "/plugins", "targetBlank": false }]
-        }
-      },
-      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 5 },
-      "id": 24,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "textMode": "value_and_name",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
-      },
-      "pluginVersion": "11.6.4",
-      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
-      "title": "Extend",
-      "description": "Install and manage plugins",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "fixed", "fixedColor": "red" },
-          "mappings": [
-            { "type": "special", "options": { "match": "null", "result": { "text": "⚙️ Admin" } } },
-            { "type": "value", "options": { "0": { "text": "⚙️ Admin" } } }
-          ],
-          "links": [{ "title": "Server admin", "url": "/admin", "targetBlank": false }]
-        }
-      },
-      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 5 },
-      "id": 25,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "textMode": "value_and_name",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
-      },
-      "pluginVersion": "11.6.4",
-      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
-      "title": "Configure",
-      "description": "Users, teams, server settings",
-      "type": "stat"
-    },
-    {
-      "gridPos": { "h": 14, "w": 8, "x": 0, "y": 10 },
+      "gridPos": { "h": 13, "w": 8, "x": 0, "y": 13 },
       "id": 2,
       "options": {
         "showStarred": true,
@@ -212,12 +56,12 @@
         "keepTime": false,
         "folderId": null
       },
-      "title": "⭐ Starred",
+      "title": "⭐ Starred Dashboards",
       "description": "Your pinned dashboards. Star any dashboard with the ⭐ icon in the title bar.",
       "type": "dashlist"
     },
     {
-      "gridPos": { "h": 14, "w": 8, "x": 8, "y": 10 },
+      "gridPos": { "h": 13, "w": 8, "x": 8, "y": 13 },
       "id": 3,
       "options": {
         "showStarred": false,
@@ -237,7 +81,7 @@
     },
     {
       "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "gridPos": { "h": 14, "w": 8, "x": 16, "y": 10 },
+      "gridPos": { "h": 13, "w": 8, "x": 16, "y": 13 },
       "id": 4,
       "options": {
         "showOptions": "current",
