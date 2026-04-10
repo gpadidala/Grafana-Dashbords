@@ -20,10 +20,10 @@
   "links": [],
   "panels": [
     {
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 0 },
+      "gridPos": { "h": 5, "w": 24, "x": 0, "y": 0 },
       "id": 1,
       "options": {
-        "content": "<div style=\"display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:20px 0\">\n  <div style=\"font-size:56px;line-height:1\">🎯</div>\n  <div style=\"margin-top:16px;font-size:38px;font-weight:300;letter-spacing:3px;color:#F46800\">Grafana</div>\n  <div style=\"margin-top:10px;font-size:13px;color:#8E8EA0;letter-spacing:1px\">OBSERVE · ANALYZE · ACT</div>\n  <div style=\"margin-top:20px;text-align:center;color:#8E8EA0;font-size:14px;line-height:1.8\">\n    👋 Welcome to Grafana — Your observability command center<br/>\n    📊 108 dashboards ready across LGTM, Azure, OCI, and more<br/>\n    🔍 Press <b style=\"color:#73BF69\">Ctrl+K</b> to search dashboards, alerts, and data sources<br/>\n    ⚡ All signals, one pane of glass\n  </div>\n  <div style=\"margin-top:22px;padding:10px 32px;background:#111217;border:1px solid #2a2d35;border-radius:28px;color:#8E8EA0;font-size:14px;text-align:center\">\n    🔍 &nbsp; Press <b style=\"color:#ccc;font-family:monospace\">⌘K</b> or <b style=\"color:#ccc;font-family:monospace\">Ctrl+K</b> to search\n  </div>\n  <div style=\"margin-top:24px;font-size:13px\">\n    <a href=\"/dashboards\" style=\"color:#73BF69;text-decoration:none;margin:0 14px\">📊 Dashboards</a>\n    <a href=\"/explore\" style=\"color:#5794F2;text-decoration:none;margin:0 14px\">🔭 Explore</a>\n    <a href=\"/alerting/list\" style=\"color:#FF9830;text-decoration:none;margin:0 14px\">🔔 Alerts</a>\n    <a href=\"/connections/datasources\" style=\"color:#B877D9;text-decoration:none;margin:0 14px\">🗄️ Data Sources</a>\n    <a href=\"/plugins\" style=\"color:#33B5E5;text-decoration:none;margin:0 14px\">🧩 Plugins</a>\n    <a href=\"/admin\" style=\"color:#8E8EA0;text-decoration:none;margin:0 14px\">⚙️ Admin</a>\n  </div>\n</div>",
+        "content": "<div style=\"display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%\">\n  <div style=\"font-size:42px;line-height:1;margin-bottom:8px\">🎯</div>\n  <div style=\"font-size:32px;font-weight:300;letter-spacing:3px;color:#F46800\">Grafana</div>\n  <div style=\"margin-top:6px;font-size:12px;color:#8E8EA0;letter-spacing:2px\">OBSERVE · ANALYZE · ACT</div>\n  <div style=\"margin-top:10px;font-size:13px;color:#8E8EA0\">Press <b style=\"color:#73BF69;font-family:monospace\">Ctrl+K</b> or <b style=\"color:#73BF69;font-family:monospace\">⌘K</b> to search everything</div>\n</div>",
         "mode": "html"
       },
       "title": "",
@@ -31,19 +31,174 @@
       "type": "text"
     },
     {
-      "gridPos": { "h": 2, "w": 24, "x": 0, "y": 10 },
-      "id": 10,
+      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "green" },
+          "mappings": [
+            { "type": "special", "options": { "match": "null", "result": { "text": "📊 Dashboards" } } },
+            { "type": "value", "options": { "0": { "text": "📊 Dashboards" } } }
+          ],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] },
+          "links": [{ "title": "Browse dashboards", "url": "/dashboards", "targetBlank": false }]
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 5 },
+      "id": 20,
       "options": {
-        "code": { "language": "html", "showLineNumbers": false, "showMiniMap": false },
-        "content": "<div style=\"display:flex;justify-content:center;gap:12px;padding:4px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif\">\n<a href=\"/d/ultimate-platform-kpi\" style=\"padding:6px 14px;background:#111217;border:1px solid #333;border-radius:6px;color:#ccc;text-decoration:none;font-size:12px\">Platform KPI</a>\n<a href=\"/d/l0-executive-command-center\" style=\"padding:6px 14px;background:#111217;border:1px solid #333;border-radius:6px;color:#ccc;text-decoration:none;font-size:12px\">Command Center</a>\n<a href=\"/d/service-health-matrix\" style=\"padding:6px 14px;background:#111217;border:1px solid #333;border-radius:6px;color:#ccc;text-decoration:none;font-size:12px\">Health Matrix</a>\n<a href=\"/d/anomaly-detection-outliers\" style=\"padding:6px 14px;background:#111217;border:1px solid #333;border-radius:6px;color:#ccc;text-decoration:none;font-size:12px\">Anomaly Detection</a>\n<a href=\"/d/azure-platform-overview\" style=\"padding:6px 14px;background:#111217;border:1px solid #333;border-radius:6px;color:#ccc;text-decoration:none;font-size:12px\">Azure Overview</a>\n<a href=\"/d/oci-executive-kpi\" style=\"padding:6px 14px;background:#111217;border:1px solid #333;border-radius:6px;color:#ccc;text-decoration:none;font-size:12px\">OCI KPI</a>\n</div>",
-        "mode": "html"
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "title": "",
-      "transparent": true,
-      "type": "text"
+      "pluginVersion": "11.6.4",
+      "targets": [
+        { "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }
+      ],
+      "title": "Browse",
+      "description": "Browse all dashboards",
+      "type": "stat"
     },
     {
-      "gridPos": { "h": 12, "w": 8, "x": 0, "y": 12 },
+      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "blue" },
+          "mappings": [
+            { "type": "special", "options": { "match": "null", "result": { "text": "🔭 Explore" } } },
+            { "type": "value", "options": { "0": { "text": "🔭 Explore" } } }
+          ],
+          "links": [{ "title": "Open Explore", "url": "/explore", "targetBlank": false }]
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 5 },
+      "id": 21,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value_and_name",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
+      "title": "Query",
+      "description": "Open query explorer",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "orange" },
+          "mappings": [
+            { "type": "special", "options": { "match": "null", "result": { "text": "🔔 Alerts" } } },
+            { "type": "value", "options": { "0": { "text": "🔔 Alerts" } } }
+          ],
+          "links": [{ "title": "View alerts", "url": "/alerting/list", "targetBlank": false }]
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 5 },
+      "id": 22,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value_and_name",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
+      "title": "Monitor",
+      "description": "Alert rules & notifications",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "purple" },
+          "mappings": [
+            { "type": "special", "options": { "match": "null", "result": { "text": "🗄️ Data Sources" } } },
+            { "type": "value", "options": { "0": { "text": "🗄️ Data Sources" } } }
+          ],
+          "links": [{ "title": "Manage data sources", "url": "/connections/datasources", "targetBlank": false }]
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 5 },
+      "id": 23,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value_and_name",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
+      "title": "Connect",
+      "description": "Manage data source connections",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "yellow" },
+          "mappings": [
+            { "type": "special", "options": { "match": "null", "result": { "text": "🧩 Plugins" } } },
+            { "type": "value", "options": { "0": { "text": "🧩 Plugins" } } }
+          ],
+          "links": [{ "title": "Manage plugins", "url": "/plugins", "targetBlank": false }]
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 5 },
+      "id": 24,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value_and_name",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
+      "title": "Extend",
+      "description": "Install and manage plugins",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "red" },
+          "mappings": [
+            { "type": "special", "options": { "match": "null", "result": { "text": "⚙️ Admin" } } },
+            { "type": "value", "options": { "0": { "text": "⚙️ Admin" } } }
+          ],
+          "links": [{ "title": "Server admin", "url": "/admin", "targetBlank": false }]
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 5 },
+      "id": 25,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value_and_name",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [{ "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "queryType": "randomWalk", "refId": "A", "hide": true }],
+      "title": "Configure",
+      "description": "Users, teams, server settings",
+      "type": "stat"
+    },
+    {
+      "gridPos": { "h": 14, "w": 8, "x": 0, "y": 10 },
       "id": 2,
       "options": {
         "showStarred": true,
@@ -57,12 +212,12 @@
         "keepTime": false,
         "folderId": null
       },
-      "title": "Starred",
+      "title": "⭐ Starred",
       "description": "Your pinned dashboards. Star any dashboard with the ⭐ icon in the title bar.",
       "type": "dashlist"
     },
     {
-      "gridPos": { "h": 12, "w": 8, "x": 8, "y": 12 },
+      "gridPos": { "h": 14, "w": 8, "x": 8, "y": 10 },
       "id": 3,
       "options": {
         "showStarred": false,
@@ -76,13 +231,13 @@
         "keepTime": false,
         "folderId": null
       },
-      "title": "Recent",
+      "title": "🕐 Recently Viewed",
       "description": "Dashboards you recently visited.",
       "type": "dashlist"
     },
     {
       "datasource": { "type": "grafana", "uid": "-- Grafana --" },
-      "gridPos": { "h": 12, "w": 8, "x": 16, "y": 12 },
+      "gridPos": { "h": 14, "w": 8, "x": 16, "y": 10 },
       "id": 4,
       "options": {
         "showOptions": "current",
@@ -102,7 +257,7 @@
         "folder": null,
         "viewMode": "list"
       },
-      "title": "Alerts",
+      "title": "🔔 Firing Alerts",
       "description": "Currently firing and pending alerts across all folders.",
       "type": "alertlist"
     }
