@@ -1,0 +1,9 @@
+# Keep this directory tracked but ignore binary brand assets —
+# brand files should be provided per-environment, not committed.
+logo.svg
+logo.png
+logo.jpg
+logo.jpeg
+logo.webp
+!README.md
+!.gitignore

@@ -22,6 +22,7 @@ services:
       - ./provisioning/datasources:/etc/grafana/provisioning/datasources:ro
       - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
       - ./:/var/lib/grafana/dashboards:ro
+      - ./platform/assets:/usr/share/grafana/public/img/albertsons:ro
     healthcheck:
       test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/api/health"]
       interval: 10s
