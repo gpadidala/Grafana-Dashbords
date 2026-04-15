@@ -62,7 +62,7 @@
           "value": "https://upload.wikimedia.org/wikipedia/en/6/69/Albertsons_Companies_%28logo%29.svg"
         },
         "description": "URL to the logo image (svg/png/jpg). Defaults to the public Wikipedia-hosted Albertsons wordmark. Paste any other URL to override.",
-        "hide": 0,
+        "hide": 2,
         "label": "Logo URL",
         "name": "logo_url",
         "options": [
@@ -88,5 +88,5 @@
   "timezone": "browser",
   "title": "Albertsons \u2014 Home",
   "uid": "albertsons-home",
-  "version": 6
+  "version": 7
 }
