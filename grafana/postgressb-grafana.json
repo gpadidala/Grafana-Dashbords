@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "Advanced PostgreSQL Monitoring Dashboard for ESOBF — covers Application-level and DB-level metrics including connections, slow queries, lock waits, cache hit ratio, table/index health, vacuum, replication, wait events, and schema inventory. Datasource: grafana-postgresql-datasource (esobf_gf_ent_dev @ Azure PostgreSQL).",
+  "description": "Advanced PostgreSQL Monitoring Dashboard for SAMPLEF — covers Application-level and DB-level metrics including connections, slow queries, lock waits, cache hit ratio, table/index health, vacuum, replication, wait events, and schema inventory. Datasource: grafana-postgresql-datasource (samplef_gf_ent_dev @ Azure PostgreSQL).",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
@@ -1454,13 +1454,13 @@
       "collapsed": false,
       "gridPos": { "h": 1, "w": 24, "x": 0, "y": 165 },
       "id": 200,
-      "title": "📋 Grafana Enterprise Application Logs — esobf-dev  |  source: grafanacloud-acinonprodtru-logs",
+      "title": "📋 Grafana Enterprise Application Logs — samplef-dev  |  source: grafanacloud-acinonprodtru-logs",
       "type": "row"
     },
 
     {
       "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-      "description": "Error rate per minute for esobf-grafana-enterprise in esobf-dev namespace. Spikes indicate alert evaluation storms, datasource failures, or DB connection pressure. Real incident data confirms bursts at 21:45–22:10 UTC on 2026-03-31.",
+      "description": "Error rate per minute for samplef-grafana-enterprise in samplef-dev namespace. Spikes indicate alert evaluation storms, datasource failures, or DB connection pressure. Real incident data confirms bursts at 21:45–22:10 UTC on 2026-03-31.",
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -1492,12 +1492,12 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum by (level) (count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | level != \"\" [$__interval]))",
+          "expr": "sum by (level) (count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | level != \"\" [$__interval]))",
           "legendFormat": "{{level}}",
           "refId": "A"
         }
       ],
-      "title": "Log Volume by Level — esobf-dev",
+      "title": "Log Volume by Level — samplef-dev",
       "type": "timeseries"
     },
 
@@ -1531,7 +1531,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} |= \"error\" [$__range]))",
+          "expr": "sum(count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} |= \"error\" [$__range]))",
           "legendFormat": "Errors",
           "refId": "A"
         }
@@ -1570,7 +1570,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} |= \"warn\" [$__range]))",
+          "expr": "sum(count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} |= \"warn\" [$__range]))",
           "legendFormat": "Warnings",
           "refId": "A"
         }
@@ -1581,7 +1581,7 @@
 
     {
       "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-      "description": "Unique pods seen in esobf-dev. More than 1 = restarts / rollouts in progress.",
+      "description": "Unique pods seen in samplef-dev. More than 1 = restarts / rollouts in progress.",
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -1609,12 +1609,12 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "count(count by (pod) (count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} [$__range])))",
+          "expr": "count(count by (pod) (count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} [$__range])))",
           "legendFormat": "Pods",
           "refId": "A"
         }
       ],
-      "title": "Active Pods (esobf-dev)",
+      "title": "Active Pods (samplef-dev)",
       "type": "stat"
     },
 
@@ -1639,12 +1639,12 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum by (logger) (rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | level=\"error\" [$__interval]))",
+          "expr": "sum by (logger) (rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | level=\"error\" [$__interval]))",
           "legendFormat": "{{logger}}",
           "refId": "A"
         }
       ],
-      "title": "Error Rate by Logger — esobf-dev",
+      "title": "Error Rate by Logger — samplef-dev",
       "type": "timeseries"
     },
 
@@ -1669,36 +1669,36 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*snowflake.*\" [$__interval]))",
+          "expr": "sum(rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*snowflake.*\" [$__interval]))",
           "legendFormat": "Snowflake TCP reset",
           "refId": "A"
         },
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*data source not found.*\" [$__interval]))",
+          "expr": "sum(rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*data source not found.*\" [$__interval]))",
           "legendFormat": "Data source not found",
           "refId": "B"
         },
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*remote write.*401.*\" [$__interval]))",
+          "expr": "sum(rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*remote write.*401.*\" [$__interval]))",
           "legendFormat": "Remote write 401 (no org id)",
           "refId": "C"
         },
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*404.*\" [$__interval]))",
+          "expr": "sum(rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to evaluate rule\" | error=~\".*404.*\" [$__interval]))",
           "legendFormat": "Datasource 404",
           "refId": "D"
         }
       ],
-      "title": "Alert Eval Failure Breakdown — esobf-dev",
+      "title": "Alert Eval Failure Breakdown — samplef-dev",
       "type": "timeseries"
     },
 
     {
       "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-      "description": "tsdb.loki errors from esobf-dev pod (bjn2t) — loki-auth-test returning 404 for sum(rate({job=\"logsservice\"}[5m])) queries. Sustained 404 errors across rule_uids cfgyxluz6ilmoa, efgzl6qcx3f28f, ffgyyzf6yj668a indicate the logsservice stream is empty or the datasource is misconfigured.",
+      "description": "tsdb.loki errors from samplef-dev pod (bjn2t) — loki-auth-test returning 404 for sum(rate({job=\"logsservice\"}[5m])) queries. Sustained 404 errors across rule_uids cfgyxluz6ilmoa, efgzl6qcx3f28f, ffgyyzf6yj668a indicate the logsservice stream is empty or the datasource is misconfigured.",
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -1717,12 +1717,12 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum by (dsName, statusCode) (rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"tsdb.loki\" | level=\"error\" [$__interval]))",
+          "expr": "sum by (dsName, statusCode) (rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"tsdb.loki\" | level=\"error\" [$__interval]))",
           "legendFormat": "{{dsName}} HTTP {{statusCode}}",
           "refId": "A"
         }
       ],
-      "title": "Loki Datasource Errors by Source — esobf-dev",
+      "title": "Loki Datasource Errors by Source — samplef-dev",
       "type": "timeseries"
     },
 
@@ -1747,24 +1747,24 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum by (pod) (rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"authn.service\" | error=\"user token not found\" [$__interval]))",
+          "expr": "sum by (pod) (rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"authn.service\" | error=\"user token not found\" [$__interval]))",
           "legendFormat": "{{pod}} — authn failures",
           "refId": "A"
         },
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | handler=\"/api/live/ws\" | status=\"401\" [$__interval]))",
+          "expr": "sum(rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | handler=\"/api/live/ws\" | status=\"401\" [$__interval]))",
           "legendFormat": "WebSocket 401s (/api/live/ws)",
           "refId": "B"
         }
       ],
-      "title": "Auth Failures & WebSocket 401s — esobf-dev",
+      "title": "Auth Failures & WebSocket 401s — samplef-dev",
       "type": "timeseries"
     },
 
     {
       "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-      "description": "Recording rule failures in esobf-dev: 'Recording rule evaluation failed after all attempts'. Rule afesk9m37fym8f fails with remote write HTTP 401 (no org id — Prometheus remote write misconfiguration). Rule ffgyyzf6yj668a fails silently with empty query result.",
+      "description": "Recording rule failures in samplef-dev: 'Recording rule evaluation failed after all attempts'. Rule afesk9m37fym8f fails with remote write HTTP 401 (no org id — Prometheus remote write misconfiguration). Rule ffgyyzf6yj668a fails silently with empty query result.",
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -1783,24 +1783,24 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum by (rule_uid) (rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=~\"Recording rule evaluation failed.*\" [$__interval]))",
+          "expr": "sum by (rule_uid) (rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=~\"Recording rule evaluation failed.*\" [$__interval]))",
           "legendFormat": "Recording rule {{rule_uid}}",
           "refId": "A"
         },
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(rate({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to build rule evaluator\" [$__interval]))",
+          "expr": "sum(rate({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"ngalert.scheduler\" | msg=\"Failed to build rule evaluator\" [$__interval]))",
           "legendFormat": "Failed to build evaluator",
           "refId": "B"
         }
       ],
-      "title": "Recording Rule & Evaluator Build Failures — esobf-dev",
+      "title": "Recording Rule & Evaluator Build Failures — samplef-dev",
       "type": "timeseries"
     },
 
     {
       "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-      "description": "recorded_queries.metric.writer errors — 'failed to get metrics: no results from query'. Rule 'test' returns empty result set. This is a non-critical but persistent noise error in esobf-dev.",
+      "description": "recorded_queries.metric.writer errors — 'failed to get metrics: no results from query'. Rule 'test' returns empty result set. This is a non-critical but persistent noise error in samplef-dev.",
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -1828,7 +1828,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"recorded_queries.metric.writer\" [$__range]))",
+          "expr": "sum(count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"recorded_queries.metric.writer\" [$__range]))",
           "legendFormat": "recorded_queries errors",
           "refId": "A"
         }
@@ -1867,7 +1867,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"ngalert.notifier.alertmanager\" | level=\"error\" [$__range]))",
+          "expr": "sum(count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"ngalert.notifier.alertmanager\" | level=\"error\" [$__range]))",
           "legendFormat": "AM notify failures",
           "refId": "A"
         }
@@ -1906,7 +1906,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum(count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | logger=\"tsdb.loki\" | error=~\".*log queries are not supported as an instant query.*\" [$__range]))",
+          "expr": "sum(count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | logger=\"tsdb.loki\" | error=~\".*log queries are not supported as an instant query.*\" [$__range]))",
           "legendFormat": "Instant query type errors",
           "refId": "A"
         }
@@ -1917,7 +1917,7 @@
 
     {
       "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-      "description": "Live error log stream for esobf-grafana-enterprise in esobf-dev. Structured fields parsed via logfmt. Use the time range picker to zoom into the 21:45–22:10 UTC incident window.",
+      "description": "Live error log stream for samplef-grafana-enterprise in samplef-dev. Structured fields parsed via logfmt. Use the time range picker to zoom into the 21:45–22:10 UTC incident window.",
       "gridPos": { "h": 14, "w": 24, "x": 0, "y": 194 },
       "id": 213,
       "options": {
@@ -1934,12 +1934,12 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "{app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | level=\"error\"",
+          "expr": "{app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | level=\"error\"",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Live Error Log Stream — esobf-dev",
+      "title": "Live Error Log Stream — samplef-dev",
       "type": "logs"
     },
 
@@ -1973,13 +1973,13 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "fdqfoaj8xiozkf" },
-          "expr": "sum by (logger, msg) (count_over_time({app=\"esobf-grafana-enterprise\", namespace=\"esobf-dev\"} | logfmt | level=\"error\" [$__range]))",
+          "expr": "sum by (logger, msg) (count_over_time({app=\"samplef-grafana-enterprise\", namespace=\"samplef-dev\"} | logfmt | level=\"error\" [$__range]))",
           "instant": true,
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Top Error Patterns by Logger + Message — esobf-dev",
+      "title": "Top Error Patterns by Logger + Message — samplef-dev",
       "type": "table",
       "transformations": [
         {
@@ -1998,15 +1998,15 @@
   ],
   "refresh": "30s",
   "schemaVersion": 38,
-  "tags": ["postgresql", "esobf", "database", "advanced", "application-level", "db-level", "loki", "logs", "grafana-enterprise"],
+  "tags": ["postgresql", "samplef", "database", "advanced", "application-level", "db-level", "loki", "logs", "grafana-enterprise"],
   "templating": {
     "list": []
   },
   "time": { "from": "now-1h", "to": "now" },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Advanced PostgreSQL Monitoring — ESOBF Dev",
-  "uid": "esobf-pg-advanced-v1",
+  "title": "Advanced PostgreSQL Monitoring — SAMPLEF Dev",
+  "uid": "samplef-pg-advanced-v1",
   "version": 3,
   "weekStart": ""
 }

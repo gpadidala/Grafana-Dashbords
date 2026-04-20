@@ -12,7 +12,7 @@ services:
       - GF_LOG_LEVEL=info
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
       - GF_INSTALL_PLUGINS=marcusolsson-dynamictext-panel
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=marcusolsson-dynamictext-panel
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=marcusolsson-dynamictext-panel,gopal-ollychat-app
       - GF_FEATURE_TOGGLES_ENABLE=
       - GF_RENDERING_SERVER_URL=http://renderer:8081/render
       - GF_RENDERING_CALLBACK_URL=http://grafana:3000/
@@ -23,6 +23,9 @@ services:
       - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
       - ./:/var/lib/grafana/dashboards:ro
       - ./platform/assets:/usr/share/grafana/public/img/albertsons:ro
+      # O11yBot floating chatbot widget + plugin
+      - /Volumes/Gopalmac/Gopal-aiops/ollychat-app/dist:/var/lib/grafana/plugins/gopal-ollychat-app:ro
+      - /Volumes/Gopalmac/Gopal-aiops/ollychat-app/grafana-index.html:/usr/share/grafana/public/views/index.html:ro
     healthcheck:
       test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/api/health"]
       interval: 10s

@@ -1,5 +1,5 @@
 # 📋 Root Cause Analysis — Grafana Enterprise DB Connection Pool Outage
-**Environment:** `esobf-grafana-enterprise` / `esobf-dev` / Azure PostgreSQL
+**Environment:** `samplef-grafana-enterprise` / `samplef-dev` / Azure PostgreSQL
 **Incident Window:** 2026-03-31 ~21:36 – 22:10 UTC
 **Severity:** P1 — Pod terminated, alert evaluation fully stopped, users unable to connect
 **Authored:** ## 7. 🛠️ How to Apply These Changes (Kubernetes / Helm)026-04-01
@@ -289,9 +289,9 @@ These metrics were visible in the dashboard **hours before** the pod crashed. Ad
 
 ---
 
-## 6. � Current vs Recommended — Audit of `esobf-dev` values.yaml
+## 6. � Current vs Recommended — Audit of `samplef-dev` values.yaml
 
-> Source: `esobf-grafana-enterprise/helmcharts/env/dev/esobf-grafana-enterprise/values.yaml`
+> Source: `samplef-grafana-enterprise/helmcharts/env/dev/samplef-grafana-enterprise/values.yaml`
 
 | Setting | Current Value (before fix) | Recommended | Gap / Risk |
 |---|---|---|---|
@@ -337,13 +337,13 @@ env:
   GF_UNIFIED_ALERTING_MIN_INTERVAL: "10s"
 ```
 
-### Deployment Command (esobf-dev)
+### Deployment Command (samplef-dev)
 
 ```bash
 # Apply the updated ConfigMap/values
-helm upgrade esobf-grafana-enterprise ./helmcharts \
+helm upgrade samplef-grafana-enterprise ./helmcharts \
   -f helmcharts/env/dev-values.yaml \
-  --namespace esobf-dev \
+  --namespace samplef-dev \
   --set env.GF_DATABASE_MAX_OPEN_CONN=100 \
   --set env.GF_DATABASE_MAX_IDLE_CONN=25 \
   --set env.GF_DATABASE_CONN_MAX_LIFETIME=300 \
@@ -386,4 +386,4 @@ After applying and rolling out the new config, verify these in the Grafana dashb
 
 ---
 
-*Document generated from incident data captured 2026-03-31 21:45–22:10 UTC. Dashboard: `postgressb-grafana.json` (uid: `esobf-pg-advanced-v1`).*
+*Document generated from incident data captured 2026-03-31 21:45–22:10 UTC. Dashboard: `postgressb-grafana.json` (uid: `samplef-pg-advanced-v1`).*
