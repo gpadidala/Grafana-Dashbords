@@ -75,7 +75,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[30m])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[30m])) * 100",
+          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[30m])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[30m])) * 100",
           "legendFormat": "QoS Score",
           "refId": "A"
         }
@@ -181,7 +181,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m]))",
+          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m]))",
           "legendFormat": "Write Rate",
           "refId": "A"
         }
@@ -235,7 +235,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "((sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[30d])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[30d]))) - 0.95) / 0.05 * 100",
+          "expr": "((sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[30d])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[30d]))) - 0.95) / 0.05 * 100",
           "legendFormat": "Error Budget",
           "refId": "A"
         }
@@ -289,7 +289,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m])) by (le))",
           "legendFormat": "P95 Latency",
           "refId": "A"
         }
@@ -381,7 +381,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[1h])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[1h])) * 100",
+          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[1h])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[1h])) * 100",
           "legendFormat": "Write QoS %",
           "refId": "A"
         }
@@ -465,7 +465,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[1h])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[1h])) by (le))",
           "legendFormat": "P95 Latency",
           "refId": "A"
         }
@@ -531,7 +531,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[30m])) by (cluster) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[30m])) by (cluster) * 100",
+          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[30m])) by (cluster) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[30m])) by (cluster) * 100",
           "legendFormat": "{{cluster}}",
           "refId": "A"
         }
@@ -613,7 +613,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m])) by (cluster)",
+          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m])) by (cluster)",
           "legendFormat": "{{cluster}}",
           "refId": "A"
         }
@@ -703,7 +703,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "1 - (sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[1h])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[1h])))",
+          "expr": "1 - (sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[1h])) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[1h])))",
           "legendFormat": "Error Budget Burn Rate",
           "refId": "A"
         }
@@ -785,7 +785,7 @@
         "type": "prometheus",
         "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
         },
-        "expr": "histogram_quantile(0.50, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m])) by (le))",
+        "expr": "histogram_quantile(0.50, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m])) by (le))",
         "legendFormat": "P50",
         "refId": "A"
       },
@@ -794,7 +794,7 @@
         "type": "prometheus",
         "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
         },
-        "expr": "histogram_quantile(0.90, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m])) by (le))",
+        "expr": "histogram_quantile(0.90, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m])) by (le))",
         "legendFormat": "P90",
         "refId": "B"
       },
@@ -803,7 +803,7 @@
         "type": "prometheus",
         "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
         },
-        "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m])) by (le))",
+        "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m])) by (le))",
         "legendFormat": "P95",
         "refId": "C"
       },
@@ -812,7 +812,7 @@
         "type": "prometheus",
         "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
         },
-        "expr": "histogram_quantile(0.99, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m])) by (le))",
+        "expr": "histogram_quantile(0.99, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m])) by (le))",
         "legendFormat": "P99",
         "refId": "D"
       }
@@ -904,7 +904,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[1h])) by (cluster) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[1h])) by (cluster) * 100",
+          "expr": "sum(rate(cortex_request_duration_seconds_bucket{le=\"0.5\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[1h])) by (cluster) / sum(rate(cortex_request_duration_seconds_bucket{le=\"+Inf\", route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[1h])) by (cluster) * 100",
           "legendFormat": "{{cluster}}",
           "refId": "A"
         }
@@ -987,7 +987,7 @@
             "type": "prometheus",
             "uid": "b553a9ca-6d6e-4e54-9ea3-611789e6d6f9"
           },
-          "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"esobb-mimir\"}[5m])) by (le, cluster))",
+          "expr": "histogram_quantile(0.95, sum(rate(cortex_request_duration_seconds_bucket{route=~\"/api/v1/push|api/prom/push\", app=\"sample-mimir\"}[5m])) by (le, cluster))",
           "legendFormat": "{{cluster}}",
           "refId": "A"
         }
