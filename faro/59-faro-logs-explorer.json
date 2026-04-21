@@ -1,0 +1,92 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "Faro Logs & Events explorer — full-text Loki search across console logs, Faro measurement events, custom pushEvent() events, and user actions. LogQL-powered ad-hoc investigation.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [ { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }, { "title": "Errors RCA", "url": "/d/faro-errors-rca", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true } ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "📊 Log/Event Volume", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Log volume by kind (log, exception, measurement, event).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1, "stacking": { "mode": "normal", "group": "A" } }, "unit": "short" } },
+      "gridPos": { "h": 8, "w": 16, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "legend": { "calcs": ["sum"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "sum by (kind) (count_over_time({cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\"}[$__interval]))", "legendFormat": "{{kind}}", "refId": "A" } ],
+      "title": "Log Rate by Kind",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Console log level distribution.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "mappings": [] } },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 1 },
+      "id": 2,
+      "options": { "displayLabels": ["name", "percent"], "legend": { "displayMode": "table", "placement": "bottom", "showLegend": true, "values": ["value", "percent"] }, "pieType": "donut", "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "sum by (level) (count_over_time({cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=\"log\"}[$__range]))", "legendFormat": "{{level}}", "refId": "A" } ],
+      "title": "Console Log Levels",
+      "type": "piechart"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 9 }, "id": 101, "title": "🔍 Full-Text Search", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "LogQL search across all Faro logs. Use $log_filter for substring, $kind_filter to narrow by kind.",
+      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 10 },
+      "id": 3,
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "prettifyLogMessage": true, "showCommonLabels": false, "showLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=~\"$kind_filter\"} |~ \"(?i)$log_filter\" | json | line_format \"[{{.kind}}/{{.level}}] [{{.browser_name}}] {{.page_url}} — {{.message}}{{.value}}\"", "refId": "A" } ],
+      "title": "Faro Log Stream",
+      "type": "logs"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 26 }, "id": 102, "title": "📐 Custom Measurements", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Top custom measurement names (`faro.api.pushMeasurement()`).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 27 },
+      "id": 4,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "count" } ] },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "topk(25, sum by (measurement_name) (count_over_time({cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=\"measurement\"} | json[$__range])))", "format": "table", "instant": true, "refId": "A" } ],
+      "title": "Top Custom Measurements",
+      "transformations": [ { "id": "organize", "options": { "excludeByName": { "Time": true }, "renameByName": { "Value": "count" } } } ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Top event names from `faro.api.pushEvent()`.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 27 },
+      "id": 5,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "count" } ] },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "topk(25, sum by (event_name) (count_over_time({cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=\"event\"} | json[$__range])))", "format": "table", "instant": true, "refId": "A" } ],
+      "title": "Top Custom Events",
+      "transformations": [ { "id": "organize", "options": { "excludeByName": { "Time": true }, "renameByName": { "Value": "count" } } } ],
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "logs", "events", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" }, { "selected": false, "text": "staging", "value": "staging" }, { "selected": false, "text": "dev", "value": "dev" } ], "query": "prod, staging, dev", "skipUrlSync": false, "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": { "selected": true, "text": ".+", "value": ".+" }, "hide": 0, "label": "Kind Filter", "name": "kind_filter", "options": [ { "selected": true, "text": ".+", "value": ".+" }, { "selected": false, "text": "log", "value": "log" }, { "selected": false, "text": "exception", "value": "exception" }, { "selected": false, "text": "measurement", "value": "measurement" }, { "selected": false, "text": "event", "value": "event" } ], "query": ".+, log, exception, measurement, event", "skipUrlSync": false, "type": "custom" },
+      { "current": { "selected": false, "text": "", "value": "" }, "hide": 0, "label": "Log Filter (regex)", "name": "log_filter", "options": [ { "selected": true, "text": "", "value": "" } ], "query": "", "skipUrlSync": false, "type": "textbox" }
+    ]
+  },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Faro — Logs & Events Explorer",
+  "uid": "faro-logs-explorer",
+  "version": 1,
+  "weekStart": ""
+}

@@ -1,0 +1,175 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "Frontend Errors & Exceptions RCA — JS exceptions, unhandled rejections, console errors. Grouped by error type, file, browser, route. Loki-backed stack-trace deep dive.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Sessions & Journey", "url": "/d/faro-sessions-journey", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Trace Correlation", "url": "/d/faro-trace-correlation", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "🚨 Error KPIs", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Total exceptions in time range.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 100 }, { "color": "#F2495C", "value": 1000 } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(increase(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))", "legendFormat": "total", "refId": "A" } ],
+      "title": "Total Exceptions",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Users affected (unique sessions with ≥1 error).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 10 }, { "color": "#F2495C", "value": 100 } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "count(count by (session_id) (faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}))", "legendFormat": "users", "refId": "A" } ],
+      "title": "Affected Sessions",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Unhandled promise rejection rate (spike = async/fetch fault).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 0.1 }, { "color": "#F2495C", "value": 1 } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",type=\"unhandledrejection\"}[$__rate_interval]))", "legendFormat": "rejections/s", "refId": "A" } ],
+      "title": "Unhandled Rejections/s",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Error-free session rate — key user-reported quality metric.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 95 }, { "color": "#73BF69", "value": 99 } ] }, "unit": "percent", "min": 0, "max": 100 } },
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(1 - (count(count by (session_id) (faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})) / sum(faro_sessions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}))) * 100", "legendFormat": "error-free %", "refId": "A" } ],
+      "title": "Error-Free Session %",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "First-seen unique error types in time range — new regressions.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 5 } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 1 },
+      "id": 5,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "count(count by (error_type, error_message) (increase(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "legendFormat": "unique", "refId": "A" } ],
+      "title": "Unique Error Signatures",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Console error rate (warn+error).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 5 } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 1 },
+      "id": 6,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_logs_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",level=~\"error|warn\"}[$__rate_interval]))", "legendFormat": "console", "refId": "A" } ],
+      "title": "Console Error Rate",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 }, "id": 101, "title": "🔥 Top Offenders", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Top error signatures by occurrence.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 50 }, { "color": "#F2495C", "value": 500 } ] }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 6 },
+      "id": 7,
+      "options": { "cellHeight": "sm", "footer": { "countRows": false, "enablePagination": true, "fields": "", "reducer": ["sum"], "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "count" } ] },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(25, sum by (error_type, error_message) (increase(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "legendFormat": "count", "refId": "A" } ],
+      "title": "Top Error Signatures",
+      "transformations": [ { "id": "organize", "options": { "excludeByName": { "Time": true }, "renameByName": { "Value": "count" } } } ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Errors grouped by source file / JS module.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1, "stacking": { "mode": "normal", "group": "A" } }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 6 },
+      "id": 8,
+      "options": { "legend": { "calcs": ["sum"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(10, sum by (file) (rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "{{file}}", "refId": "A" } ],
+      "title": "Errors by Source File",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 16 }, "id": 102, "title": "🌐 Browser & Route Breakdown", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Browser & version most impacted.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "hideFrom": { "legend": false, "tooltip": false, "viz": false } }, "mappings": [] } },
+      "gridPos": { "h": 10, "w": 8, "x": 0, "y": 17 },
+      "id": 9,
+      "options": { "displayLabels": ["name", "percent"], "legend": { "displayMode": "table", "placement": "right", "showLegend": true, "values": ["value", "percent"] }, "pieType": "donut", "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false }, "tooltip": { "mode": "single" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (browser_name) (rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "{{browser_name}}", "refId": "A" } ],
+      "title": "Errors by Browser",
+      "type": "piechart"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Routes with highest error density.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 5 }, { "color": "#F2495C", "value": 50 } ] }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 8, "x": 8, "y": 17 },
+      "id": 10,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "errors" } ] },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(20, sum by (page_url) (increase(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "legendFormat": "errors", "refId": "A" } ],
+      "title": "Top Error Routes",
+      "transformations": [ { "id": "organize", "options": { "excludeByName": { "Time": true }, "renameByName": { "Value": "errors" } } } ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Error type distribution (TypeError, ReferenceError, etc).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "hideFrom": { "legend": false, "tooltip": false, "viz": false } }, "mappings": [] } },
+      "gridPos": { "h": 10, "w": 8, "x": 16, "y": 17 },
+      "id": 11,
+      "options": { "displayLabels": ["name", "percent"], "legend": { "displayMode": "table", "placement": "right", "showLegend": true, "values": ["value", "percent"] }, "pieType": "donut", "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false }, "tooltip": { "mode": "single" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (error_type) (rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "{{error_type}}", "refId": "A" } ],
+      "title": "Errors by Type",
+      "type": "piechart"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 27 }, "id": 103, "title": "📝 Stack-Trace Explorer (Loki)", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Full stack traces from Faro exception logs. Click log line for context.",
+      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 28 },
+      "id": 12,
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=\"exception\"} |= \"$error_filter\" | json | line_format \"⛔ [{{.browser_name}}/{{.os_name}}] {{.type}}: {{.value}}\\n{{.stacktrace}}\"", "refId": "A" }
+      ],
+      "title": "Exception Stack Traces",
+      "type": "logs"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "errors", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" }, { "selected": false, "text": "staging", "value": "staging" }, { "selected": false, "text": "dev", "value": "dev" } ], "query": "prod, staging, dev", "skipUrlSync": false, "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": { "selected": false, "text": "", "value": "" }, "hide": 0, "label": "Error Filter (substring)", "name": "error_filter", "options": [ { "selected": true, "text": "", "value": "" } ], "query": "", "skipUrlSync": false, "type": "textbox" }
+    ]
+  },
+  "time": { "from": "now-3h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Faro — Frontend Errors & Exceptions RCA",
+  "uid": "faro-errors-rca",
+  "version": 1,
+  "weekStart": ""
+}

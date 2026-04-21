@@ -154,3 +154,14 @@ providers:
       path: /var/lib/grafana/dashboards/azure
       foldersFromFilesStructure: false
     folder: "Azure — Cloud Infrastructure"
+
+  - name: "Faro"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/faro
+      foldersFromFilesStructure: false
+    folder: "Faro — Frontend Observability (RUM)"

@@ -1,0 +1,186 @@
+{
+  "annotations": {
+    "list": [
+      { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" },
+      { "datasource": { "type": "prometheus", "uid": "$datasource" }, "enable": true, "expr": "changes(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]) > 0", "hide": false, "iconColor": "#FF9830", "name": "Grafana Restart/Upgrade", "step": "1m", "titleFormat": "Grafana build change", "useValueForTime": false }
+    ]
+  },
+  "description": "Grafana Backend Impact Validation — prove Faro enablement has zero impact. Side-by-side compare HTTP latency, CPU/mem, DB pool, plugin load, alerting evaluation before vs. after Faro.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Postgres Impact", "url": "/d/faro-postgres-impact", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Collector Health", "url": "/d/faro-collector-health", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "✅ Zero-Impact Certification Gate", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "HTTP p95 latency ratio: current / baseline (before Faro). ≤1.05 = pass.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 3, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1.05 }, { "color": "#F2495C", "value": 1.15 } ] }, "unit": "none" } },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m]))) / histogram_quantile(0.95, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m] offset $baseline_offset)))", "legendFormat": "ratio", "refId": "A" } ],
+      "title": "HTTP p95 Ratio vs Baseline",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "CPU ratio: current / baseline. ≤1.05 pass.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 3, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1.05 }, { "color": "#F2495C", "value": 1.15 } ] }, "unit": "none" } },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg(rate(process_cpu_seconds_total{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m])) / avg(rate(process_cpu_seconds_total{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m] offset $baseline_offset))", "legendFormat": "cpu ratio", "refId": "A" } ],
+      "title": "CPU Ratio vs Baseline",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Memory ratio: current / baseline.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 3, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1.05 }, { "color": "#F2495C", "value": 1.15 } ] }, "unit": "none" } },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg(process_resident_memory_bytes{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}) / avg(process_resident_memory_bytes{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset)", "legendFormat": "mem ratio", "refId": "A" } ],
+      "title": "Memory Ratio vs Baseline",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Error-rate ratio: current / baseline. ≤1.0 = no new 5xx.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 3, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1.05 }, { "color": "#F2495C", "value": 1.2 } ] }, "unit": "none" } },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m])) / sum(rate(grafana_http_request_duration_seconds_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m]))) / (sum(rate(grafana_http_request_duration_seconds_count{status_code=~\"5..\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m] offset $baseline_offset)) / sum(rate(grafana_http_request_duration_seconds_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m] offset $baseline_offset)))", "legendFormat": "err ratio", "refId": "A" } ],
+      "title": "5xx Rate Ratio vs Baseline",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 }, "id": 101, "title": "📉 HTTP Latency — Before/After Faro", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Grafana HTTP p50/p95/p99 overlaid with baseline (dashed).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2, "pointSize": 5, "showPoints": "never", "spanNulls": true }, "unit": "s" }, "overrides": [ { "matcher": { "id": "byRegexp", "options": ".*baseline" }, "properties": [ { "id": "custom.lineStyle", "value": { "dash": [10, 10], "fill": "dash" } }, { "id": "custom.fillOpacity", "value": 0 } ] } ] },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 7 },
+      "id": 5,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.50, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "p50 current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "p95 current", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.99, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "p99 current", "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.50, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval] offset $baseline_offset)))", "legendFormat": "p50 baseline", "refId": "D" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval] offset $baseline_offset)))", "legendFormat": "p95 baseline", "refId": "E" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.99, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval] offset $baseline_offset)))", "legendFormat": "p99 baseline", "refId": "F" }
+      ],
+      "title": "Grafana HTTP Latency (current vs baseline)",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 17 }, "id": 102, "title": "🖥️ Resource Usage", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "CPU seconds rate — current (solid) vs baseline (dashed).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "percentunit" }, "overrides": [ { "matcher": { "id": "byRegexp", "options": ".*baseline" }, "properties": [ { "id": "custom.lineStyle", "value": { "dash": [10, 10] } } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 18 },
+      "id": 6,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "rate(process_cpu_seconds_total{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])", "legendFormat": "{{instance}} current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "rate(process_cpu_seconds_total{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval] offset $baseline_offset)", "legendFormat": "{{instance}} baseline", "refId": "B" }
+      ],
+      "title": "CPU — Current vs Baseline",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "RSS memory — current vs baseline.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "bytes" }, "overrides": [ { "matcher": { "id": "byRegexp", "options": ".*baseline" }, "properties": [ { "id": "custom.lineStyle", "value": { "dash": [10, 10] } } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 18 },
+      "id": 7,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "process_resident_memory_bytes{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}", "legendFormat": "{{instance}} current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "process_resident_memory_bytes{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset", "legendFormat": "{{instance}} baseline", "refId": "B" }
+      ],
+      "title": "Memory — Current vs Baseline",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 26 }, "id": 103, "title": "🗄️ Database Impact", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "DB connection pool saturation (current vs baseline).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "percent" }, "overrides": [ { "matcher": { "id": "byRegexp", "options": ".*baseline" }, "properties": [ { "id": "custom.lineStyle", "value": { "dash": [10, 10] } } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 27 },
+      "id": 8,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "grafana_database_conn_in_use{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} / grafana_database_conn_max_open{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} * 100", "legendFormat": "{{instance}} current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "grafana_database_conn_in_use{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset / grafana_database_conn_max_open{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset * 100", "legendFormat": "{{instance}} baseline", "refId": "B" }
+      ],
+      "title": "DB Pool Saturation",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Alert rule evaluation duration p95 — must stay unchanged.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "s" }, "overrides": [ { "matcher": { "id": "byRegexp", "options": ".*baseline" }, "properties": [ { "id": "custom.lineStyle", "value": { "dash": [10, 10] } } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 27 },
+      "id": 9,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le) (rate(grafana_alerting_rule_evaluation_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "p95 current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le) (rate(grafana_alerting_rule_evaluation_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval] offset $baseline_offset)))", "legendFormat": "p95 baseline", "refId": "B" }
+      ],
+      "title": "Alert Rule Eval p95",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 35 }, "id": 104, "title": "🔧 Datasource Query Health", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Grafana datasource query p95 per datasource — no regression after Faro.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "s" } },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 36 },
+      "id": 10,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le, datasource_type) (rate(grafana_datasource_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "{{datasource_type}}", "refId": "A" } ],
+      "title": "Datasource Query p95",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 44 }, "id": 105, "title": "📜 Grafana Backend Logs (regressions?)", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Grafana backend ERROR-level logs post Faro enablement — verify no new errors appear.",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 45 },
+      "id": 11,
+      "options": { "dedupStrategy": "numbers", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",job=\"grafana\"} |~ \"(?i)error|panic|fatal\" !~ \"faro\" | json | line_format \"[{{.level}}] {{.msg}} {{.error}}\"", "refId": "A" } ],
+      "title": "Grafana Backend Errors",
+      "type": "logs"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "grafana-impact", "certification", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" }, { "selected": false, "text": "staging", "value": "staging" }, { "selected": false, "text": "dev", "value": "dev" } ], "query": "prod, staging, dev", "skipUrlSync": false, "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": { "selected": true, "text": "1d", "value": "1d" }, "hide": 0, "label": "Baseline Offset (before Faro)", "name": "baseline_offset", "options": [ { "selected": false, "text": "1h", "value": "1h" }, { "selected": false, "text": "6h", "value": "6h" }, { "selected": false, "text": "12h", "value": "12h" }, { "selected": true, "text": "1d", "value": "1d" }, { "selected": false, "text": "2d", "value": "2d" }, { "selected": false, "text": "7d", "value": "7d" } ], "query": "1h, 6h, 12h, 1d, 2d, 7d", "skipUrlSync": false, "type": "custom" }
+    ]
+  },
+  "time": { "from": "now-3h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Faro — Grafana Backend Impact Validation (Zero-Impact Gate)",
+  "uid": "faro-grafana-impact",
+  "version": 1,
+  "weekStart": ""
+}

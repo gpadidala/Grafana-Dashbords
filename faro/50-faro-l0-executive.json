@@ -1,0 +1,171 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "L0 Executive Overview — Grafana Faro Frontend Observability. Single-pane health: user experience, Core Web Vitals SLOs, error rate, session quality, Grafana backend impact.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "Core Web Vitals", "url": "/d/faro-core-web-vitals", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Frontend Errors RCA", "url": "/d/faro-errors-rca", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Sessions & Journey", "url": "/d/faro-sessions-journey", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Grafana Impact", "url": "/d/faro-grafana-impact", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Collector Health", "url": "/d/faro-collector-health", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Postgres Impact", "url": "/d/faro-postgres-impact", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "liveNow": false,
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "🎯 User Experience SLO", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "% of page loads with LCP ≤ 2.5s (Core Web Vitals 'Good' threshold). SLO ≥ 90%.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 75 }, { "color": "#73BF69", "value": 90 } ] }, "unit": "percent", "min": 0, "max": 100 } },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[30m])) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[30m]))) * 100", "legendFormat": "LCP Good %", "refId": "A" } ],
+      "title": "LCP SLO (≤2.5s)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Frontend error rate per 1k page views. Target < 5.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 5 }, { "color": "#F2495C", "value": 20 } ] }, "unit": "short" } },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[5m])) / sum(rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[5m]))) * 1000", "legendFormat": "errors / 1k pageviews", "refId": "A" } ],
+      "title": "Error Rate / 1k Views",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Active sessions (last 15m) currently collecting RUM data.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(faro_sessions_active{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "legendFormat": "active sessions", "refId": "A" } ],
+      "title": "Active Sessions",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Apdex-style user satisfaction: pageloads with LCP ≤ 2.5s counted as satisfied, 2.5s–4s tolerated, >4s frustrated.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 0.7 }, { "color": "#73BF69", "value": 0.9 } ] }, "unit": "none", "min": 0, "max": 1 } },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[15m])) + sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"4.0\"}[15m]))/2) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m]))", "legendFormat": "apdex", "refId": "A" } ],
+      "title": "Frontend Apdex Score",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 }, "id": 101, "title": "📊 Core Web Vitals — p75 Trend", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "p75 of Core Web Vitals (LCP/FCP/TTFB/INP/CLS) — Google's official UX standard.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "axisPlacement": "auto", "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2, "pointSize": 5, "showPoints": "never", "spanNulls": true, "stacking": { "mode": "none", "group": "A" } }, "unit": "s" }, "overrides": [ { "matcher": { "id": "byName", "options": "CLS" }, "properties": [ { "id": "unit", "value": "none" } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 7 },
+      "id": 5,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi", "sort": "desc" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "LCP", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le) (rate(faro_web_vitals_fcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "FCP", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le) (rate(faro_web_vitals_ttfb_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "TTFB", "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le) (rate(faro_web_vitals_inp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))) / 1000", "legendFormat": "INP", "refId": "D" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le) (rate(faro_web_vitals_cls_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "CLS", "refId": "E" }
+      ],
+      "title": "Core Web Vitals p75",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Frontend exception rate vs. page view rate. Spikes indicate regressions.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 20, "lineWidth": 2, "pointSize": 5, "showPoints": "never", "spanNulls": true, "stacking": { "mode": "none", "group": "A" } }, "unit": "short" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 7 },
+      "id": 6,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "exceptions/s", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "pageviews/s", "refId": "B" }
+      ],
+      "title": "Exceptions vs Pageviews",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 15 }, "id": 102, "title": "🛡️ Grafana Backend Impact (Zero-Impact Gate)", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Grafana backend HTTP request p95 — must stay flat after Faro enablement. Red if > 1s sustained.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2, "pointSize": 5, "showPoints": "never", "spanNulls": true, "thresholdsStyle": { "mode": "line" } }, "unit": "s", "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "red", "value": 1 } ] } } },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "id": 7,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le, handler) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "p95 {{handler}}", "refId": "A" }
+      ],
+      "title": "Grafana HTTP p95 Latency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Grafana process CPU & memory — a Faro-enabled instance must not exceed ~5% regression.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2, "pointSize": 5, "showPoints": "never", "spanNulls": true }, "unit": "percentunit" }, "overrides": [ { "matcher": { "id": "byName", "options": "memory bytes" }, "properties": [ { "id": "unit", "value": "bytes" } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "id": 8,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "rate(process_cpu_seconds_total{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])", "legendFormat": "CPU {{instance}}", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "process_resident_memory_bytes{job=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} / scalar(avg(process_virtual_memory_max_bytes{job=\"grafana\"}))", "legendFormat": "mem ratio {{instance}}", "refId": "B" }
+      ],
+      "title": "Grafana CPU & Memory",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 24 }, "id": 103, "title": "🔍 Live Frontend Errors (Loki)", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Recent frontend exceptions captured by Faro, correlated via Loki labels.",
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 25 },
+      "id": 9,
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=\"exception\"} | json | line_format \"[{{.browser_name}} {{.browser_version}}] {{.value}}\"", "refId": "A" }
+      ],
+      "title": "Frontend Exceptions Stream",
+      "type": "logs"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "multi-cluster", "multi-stack", "L0", "executive"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Postgres", "multi": false, "name": "datasource_postgres", "options": [], "query": "postgres", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" }, { "selected": false, "text": "staging", "value": "staging" }, { "selected": false, "text": "dev", "value": "dev" } ], "query": "prod, staging, dev", "skipUrlSync": false, "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)", "refId": "PrometheusVariableQueryEditor-VariableQuery" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)", "refId": "PrometheusVariableQueryEditor-VariableQuery" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)", "refId": "PrometheusVariableQueryEditor-VariableQuery" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "refId": "PrometheusVariableQueryEditor-VariableQuery" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" }
+    ]
+  },
+  "time": { "from": "now-3h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Faro L0 — Executive Frontend Observability",
+  "uid": "faro-l0-executive",
+  "version": 1,
+  "weekStart": ""
+}

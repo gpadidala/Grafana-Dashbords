@@ -1,0 +1,171 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "Postgres backend impact validation. Grafana uses Postgres for users/dashboards/orgs. Proves Faro enablement does not regress DB load. Mix of Prometheus postgres_exporter metrics, grafana_database_* metrics, and direct SQL queries for table-level diagnostics.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Grafana Impact", "url": "/d/faro-grafana-impact", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "🗄️ Grafana DB Connection Pool (vs Baseline)", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Connections in use (current).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 70 }, { "color": "#F2495C", "value": 90 } ] }, "unit": "percent", "min": 0, "max": 100 } },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg(grafana_database_conn_in_use{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} / grafana_database_conn_max_open{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}) * 100", "refId": "A" } ],
+      "title": "Pool Saturation",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "DB wait events — non-zero = starvation.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 10 } ] }, "unit": "ops" } },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(grafana_database_conn_wait_count_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "refId": "A" } ],
+      "title": "Conn Wait Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Saturation ratio vs baseline before Faro.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 3, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1.05 }, { "color": "#F2495C", "value": 1.15 } ] }, "unit": "none" } },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(avg(grafana_database_conn_in_use{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}) / avg(grafana_database_conn_max_open{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})) / (avg(grafana_database_conn_in_use{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset) / avg(grafana_database_conn_max_open{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset))", "refId": "A" } ],
+      "title": "Saturation Ratio",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Postgres active backend count.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "textMode": "value_and_name", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(pg_stat_activity_count{datname=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "refId": "A" } ],
+      "title": "PG Active Backends",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 }, "id": 101, "title": "📈 Connection & Query Trends", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Grafana DB connection pool — current vs baseline.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "short" }, "overrides": [ { "matcher": { "id": "byRegexp", "options": ".*baseline" }, "properties": [ { "id": "custom.lineStyle", "value": { "dash": [10, 10] } } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 7 },
+      "id": 5,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg(grafana_database_conn_in_use{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "legendFormat": "in-use current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg(grafana_database_conn_idle{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "legendFormat": "idle current", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg(grafana_database_conn_in_use{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset)", "legendFormat": "in-use baseline", "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg(grafana_database_conn_idle{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"} offset $baseline_offset)", "legendFormat": "idle baseline", "refId": "D" }
+      ],
+      "title": "Grafana DB Pool (current vs baseline)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Postgres TPS (commits + rollbacks) on the grafana database.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "ops" }, "overrides": [ { "matcher": { "id": "byRegexp", "options": ".*baseline" }, "properties": [ { "id": "custom.lineStyle", "value": { "dash": [10, 10] } } ] } ] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 7 },
+      "id": 6,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(pg_stat_database_xact_commit{datname=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "commits current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(pg_stat_database_xact_rollback{datname=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "rollbacks current", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(pg_stat_database_xact_commit{datname=\"grafana\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval] offset $baseline_offset))", "legendFormat": "commits baseline", "refId": "C" }
+      ],
+      "title": "Grafana DB TPS",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 15 }, "id": 102, "title": "🗂️ Table-Level Diagnostics (Postgres direct)", "type": "row" },
+    {
+      "datasource": { "type": "postgres", "uid": "$datasource_postgres" },
+      "description": "Top tables by tuple activity (live/dead/inserted/updated/deleted).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 16 },
+      "id": 7,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "n_live_tup" } ] },
+      "targets": [ { "datasource": { "type": "postgres", "uid": "$datasource_postgres" }, "format": "table", "rawQuery": true, "rawSql": "SELECT schemaname || '.' || relname AS table_name, n_live_tup, n_dead_tup, n_tup_ins, n_tup_upd, n_tup_del, last_autovacuum, last_autoanalyze FROM pg_stat_user_tables ORDER BY n_live_tup DESC LIMIT 25", "refId": "A" } ],
+      "title": "Top Tables — Tuple Activity",
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "postgres", "uid": "$datasource_postgres" },
+      "description": "Index usage and hit rate — low hit rate suggests missing or unused indexes.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 0.95 }, { "color": "#73BF69", "value": 0.99 } ] }, "unit": "percentunit" } },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 16 },
+      "id": 8,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": false, "displayName": "hit_ratio" } ] },
+      "targets": [ { "datasource": { "type": "postgres", "uid": "$datasource_postgres" }, "format": "table", "rawQuery": true, "rawSql": "SELECT schemaname || '.' || relname AS table_name, idx_scan, seq_scan, CASE WHEN (idx_scan + seq_scan) > 0 THEN idx_scan::float / (idx_scan + seq_scan) ELSE 0 END AS hit_ratio FROM pg_stat_user_tables ORDER BY seq_scan DESC LIMIT 25", "refId": "A" } ],
+      "title": "Index Hit Ratio",
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 26 }, "id": 103, "title": "🐌 Slow Query Watch", "type": "row" },
+    {
+      "datasource": { "type": "postgres", "uid": "$datasource_postgres" },
+      "description": "Top slow queries from pg_stat_statements. Requires pg_stat_statements extension.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 500 }, { "color": "#F2495C", "value": 2000 } ] }, "unit": "ms" } },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 27 },
+      "id": 9,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "mean_exec_time_ms" } ] },
+      "targets": [ { "datasource": { "type": "postgres", "uid": "$datasource_postgres" }, "format": "table", "rawQuery": true, "rawSql": "SELECT substring(query, 1, 200) AS query, calls, mean_exec_time AS mean_exec_time_ms, total_exec_time AS total_exec_time_ms, rows FROM pg_stat_statements WHERE query NOT LIKE '%pg_stat%' ORDER BY mean_exec_time DESC LIMIT 30", "refId": "A" } ],
+      "title": "Top Slow Queries",
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 39 }, "id": 104, "title": "🔒 Locks & Blocking", "type": "row" },
+    {
+      "datasource": { "type": "postgres", "uid": "$datasource_postgres" },
+      "description": "Currently blocked / blocking sessions.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] } } },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 40 },
+      "id": 10,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true },
+      "targets": [ { "datasource": { "type": "postgres", "uid": "$datasource_postgres" }, "format": "table", "rawQuery": true, "rawSql": "SELECT blocked.pid AS blocked_pid, blocked.usename AS blocked_user, blocking.pid AS blocking_pid, blocking.usename AS blocking_user, blocked.query AS blocked_query, blocking.query AS blocking_query, now() - blocked.query_start AS waiting_for FROM pg_stat_activity blocked JOIN pg_stat_activity blocking ON blocking.pid = ANY(pg_blocking_pids(blocked.pid)) WHERE blocked.wait_event_type = 'Lock'", "refId": "A" } ],
+      "title": "Blocked / Blocking Sessions",
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 50 }, "id": 105, "title": "📜 Postgres Logs", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Postgres server logs — slow queries, deadlocks, checkpoints.",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 51 },
+      "id": 11,
+      "options": { "dedupStrategy": "numbers", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",job=~\"postgres|postgresql\"} |~ \"(?i)error|warning|slow|deadlock\"", "refId": "A" } ],
+      "title": "Postgres Warnings & Errors",
+      "type": "logs"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "postgres", "db", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Postgres (Grafana DB)", "multi": false, "name": "datasource_postgres", "options": [], "query": "postgres", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" }, { "selected": false, "text": "staging", "value": "staging" }, { "selected": false, "text": "dev", "value": "dev" } ], "query": "prod, staging, dev", "skipUrlSync": false, "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "regex": "", "skipUrlSync": false, "sort": 1, "type": "query" },
+      { "current": { "selected": true, "text": "1d", "value": "1d" }, "hide": 0, "label": "Baseline Offset", "name": "baseline_offset", "options": [ { "selected": false, "text": "1h", "value": "1h" }, { "selected": false, "text": "6h", "value": "6h" }, { "selected": false, "text": "12h", "value": "12h" }, { "selected": true, "text": "1d", "value": "1d" }, { "selected": false, "text": "2d", "value": "2d" }, { "selected": false, "text": "7d", "value": "7d" } ], "query": "1h, 6h, 12h, 1d, 2d, 7d", "skipUrlSync": false, "type": "custom" }
+    ]
+  },
+  "time": { "from": "now-3h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Faro — Postgres DB Impact (Grafana Backend)",
+  "uid": "faro-postgres-impact",
+  "version": 1,
+  "weekStart": ""
+}
