@@ -1,0 +1,148 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "Alerts & SLO burn rate — multi-window multi-burn-rate (MWMBR) for Faro SLOs (LCP availability, error rate, session quality). Active alerts table + notification channel health + alert rule evaluation performance.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Grafana Impact", "url": "/d/faro-grafana-impact", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "🎯 SLO — LCP ≤ 2.5s (Target 95%)", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "30d rolling SLO achievement. Target 95%.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 3, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 94 }, { "color": "#73BF69", "value": 95 } ] }, "unit": "percent", "min": 90, "max": 100 } },
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(increase(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[30d])) / sum(increase(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[30d]))) * 100", "refId": "A" } ],
+      "title": "30d SLO Achievement",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Error budget remaining (5% budget of bad events over 30d).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 1, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 20 }, { "color": "#73BF69", "value": 50 } ] }, "unit": "percent", "min": 0, "max": 100 } },
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(1 - ((sum(increase(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[30d])) - sum(increase(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[30d]))) / (0.05 * sum(increase(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[30d]))))) * 100", "refId": "A" } ],
+      "title": "Error Budget Remaining",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Short-window burn-rate (1h). >14.4 = fast burn page.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 6 }, { "color": "#F2495C", "value": 14.4 } ] }, "unit": "none" } },
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "((sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[1h])) - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[1h]))) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[1h]))) / 0.05", "refId": "A" } ],
+      "title": "1h Burn Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Long-window burn-rate (6h). >6 = ticket.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 3 }, { "color": "#F2495C", "value": 6 } ] }, "unit": "none" } },
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "((sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[6h])) - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[6h]))) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[6h]))) / 0.05", "refId": "A" } ],
+      "title": "6h Burn Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "MWMBR burn rates across windows — page if fast+slow both breach thresholds simultaneously.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2, "thresholdsStyle": { "mode": "line+area" } }, "unit": "none", "thresholds": { "mode": "absolute", "steps": [ { "color": "transparent", "value": null }, { "color": "#FF9830", "value": 6 }, { "color": "#F2495C", "value": 14.4 } ] } } },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 7 },
+      "id": 5,
+      "options": { "legend": { "calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "((sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[5m])) - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[5m]))) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[5m]))) / 0.05", "legendFormat": "5m", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "((sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[1h])) - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[1h]))) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[1h]))) / 0.05", "legendFormat": "1h", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "((sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[6h])) - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[6h]))) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[6h]))) / 0.05", "legendFormat": "6h", "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "((sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[1d])) - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[1d]))) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[1d]))) / 0.05", "legendFormat": "1d", "refId": "D" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "((sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[3d])) - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",le=\"2.5\"}[3d]))) / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[3d]))) / 0.05", "legendFormat": "3d", "refId": "E" }
+      ],
+      "title": "Burn-Rate — MWMBR Window Family",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 17 }, "id": 101, "title": "🚨 Active Alerts & Rule Health", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Currently-firing Grafana alert rules tagged with faro.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#F2495C", "value": 1 } ] } }, "overrides": [ { "matcher": { "id": "byName", "options": "alertstate" }, "properties": [ { "id": "custom.cellOptions", "value": { "type": "color-background" } }, { "id": "mappings", "value": [ { "type": "value", "options": { "firing": { "color": "#F2495C", "text": "🚨 FIRING" } } }, { "type": "value", "options": { "pending": { "color": "#FF9830", "text": "⏳ PENDING" } } }, { "type": "value", "options": { "normal": { "color": "#73BF69", "text": "✅ OK" } } } ] } ] } ] },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 18 },
+      "id": 6,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "alertstate" } ] },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "ALERTS{alertname=~\".*faro.*|.*FRONTEND.*|.*RUM.*|.*WEBVITALS.*\",cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}", "format": "table", "instant": true, "refId": "A" } ],
+      "title": "Faro-Related Alerts",
+      "transformations": [ { "id": "organize", "options": { "excludeByName": { "Time": true, "__name__": true, "Value": true } } } ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Alert rule evaluation p95 & failures — rule-engine health.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "s" } },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 18 },
+      "id": 7,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le) (rate(grafana_alerting_rule_evaluation_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "p95 eval", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(grafana_alerting_rule_evaluation_failures_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "failures /s", "refId": "B" }
+      ],
+      "title": "Rule Evaluation Health",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 28 }, "id": 102, "title": "📢 Notification Channel Delivery", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Notifications sent vs failed per channel.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1, "stacking": { "mode": "normal", "group": "A" } }, "unit": "short" } },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 29 },
+      "id": 8,
+      "options": { "legend": { "calcs": ["sum"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (type) (rate(grafana_alerting_notifications_sent_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "sent {{type}}", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (type) (rate(grafana_alerting_notifications_failed_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "failed {{type}}", "refId": "B" }
+      ],
+      "title": "Notification Delivery",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 37 }, "id": 103, "title": "📝 Recommended Alert Rules (copy these)", "type": "row" },
+    {
+      "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+      "description": "Recommended PromQL alert rules to protect the Faro SLOs. Click panel → Inspect → Panel JSON to copy.",
+      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 38 },
+      "id": 9,
+      "options": { "code": { "language": "yaml", "showLineNumbers": true, "showMiniMap": false }, "content": "# Faro Recommended Alert Rules (Prometheus / Grafana Managed)\n# Multi-Window Multi-Burn-Rate (MWMBR) for SLO: 95% of pageloads have LCP <= 2.5s\n\n- alert: FaroLCPSLOFastBurn\n  expr: |\n    (\n      (sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\"}[5m]))\n       - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",le=\"2.5\"}[5m])))\n      / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\"}[5m]))\n    ) / 0.05 > 14.4\n    AND\n    (\n      (sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\"}[1h]))\n       - sum(rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",le=\"2.5\"}[1h])))\n      / sum(rate(faro_web_vitals_lcp_count{cluster=~\"$cluster\"}[1h]))\n    ) / 0.05 > 14.4\n  for: 2m\n  labels: { severity: page, team: frontend }\n  annotations: { summary: \"Faro LCP SLO burning fast — 2% of 30d budget in 1h\" }\n\n- alert: FaroLCPSLOSlowBurn\n  expr: |\n    (...1h burn > 6 AND 6h burn > 6...)\n  for: 15m\n  labels: { severity: ticket, team: frontend }\n\n- alert: FaroErrorRateHigh\n  expr: |\n    (sum(rate(faro_exceptions_total{cluster=~\"$cluster\"}[5m]))\n     / sum(rate(faro_page_views_total{cluster=~\"$cluster\"}[5m]))) * 1000 > 20\n  for: 5m\n  labels: { severity: page, team: frontend }\n  annotations: { summary: \"Frontend error rate > 20 per 1k pageviews\" }\n\n- alert: FaroCollectorDown\n  expr: sum(rate(faro_receiver_requests_total{cluster=~\"$cluster\"}[5m])) == 0\n  for: 3m\n  labels: { severity: page, team: platform }\n  annotations: { summary: \"Faro collector receiving no beacons — ingestion broken\" }\n\n- alert: FaroBeaconExportFailures\n  expr: sum(rate(faro_exporter_send_failed_total{cluster=~\"$cluster\"}[5m])) > 1\n  for: 5m\n  labels: { severity: ticket, team: platform }\n\n- alert: FaroSDKTransportFailures\n  expr: sum(rate(faro_sdk_transport_failures_total{cluster=~\"$cluster\"}[5m])) > 5\n  for: 10m\n  labels: { severity: ticket, team: frontend }\n  annotations: { summary: \"Browser SDK unable to deliver beacons (CSP/CORS/network)\" }\n\n- alert: FaroGrafanaBackendRegression\n  expr: |\n    histogram_quantile(0.95, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\"}[15m])))\n    /\n    histogram_quantile(0.95, sum by (le) (rate(grafana_http_request_duration_seconds_bucket{cluster=~\"$cluster\"}[15m] offset 1d)))\n    > 1.15\n  for: 10m\n  labels: { severity: page, team: platform }\n  annotations: { summary: \"Grafana backend p95 >15% slower than 1d baseline — suspect Faro regression\" }", "mode": "markdown" },
+      "pluginVersion": "11.6.4",
+      "title": "Alert Rule Templates (PromQL)",
+      "type": "text"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "alerts", "slo", "burn-rate", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" } ], "query": "prod, staging, dev", "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "sort": 1, "type": "query" }
+    ]
+  },
+  "time": { "from": "now-24h", "to": "now" },
+  "timezone": "browser",
+  "title": "Faro — Alerts & SLO Burn-Rate (MWMBR)",
+  "uid": "faro-alerts-slo",
+  "version": 1,
+  "weekStart": ""
+}

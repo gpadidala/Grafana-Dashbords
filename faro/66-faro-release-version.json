@@ -1,0 +1,130 @@
+{
+  "annotations": {
+    "list": [
+      { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" },
+      { "datasource": { "type": "prometheus", "uid": "$datasource" }, "enable": true, "expr": "changes(faro_app_info{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]) > 0", "iconColor": "#8AB8FF", "name": "App Release", "step": "1m", "titleFormat": "Frontend release: {{app_version}}" },
+      { "datasource": { "type": "prometheus", "uid": "$datasource" }, "enable": true, "expr": "changes(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]) > 0", "iconColor": "#FF9830", "name": "Grafana Upgrade", "step": "1m", "titleFormat": "Grafana: {{version}}" }
+    ]
+  },
+  "description": "Release/version correlation — CWV, errors, sessions broken down by app.version / release_channel / build_id. Compare releases side-by-side to identify bad deploys.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Errors RCA", "url": "/d/faro-errors-rca", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "🚀 Release Overview", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Active app versions in production (last 15m).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "mappings": [] } },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "displayLabels": ["name", "percent"], "legend": { "displayMode": "table", "placement": "bottom", "showLegend": true, "values": ["value", "percent"] }, "pieType": "donut", "reduceOptions": { "calcs": ["sum"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (app_version) (rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m]))", "legendFormat": "{{app_version}}", "refId": "A" } ],
+      "title": "Active App Versions",
+      "type": "piechart"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Release-channel mix (stable, canary, rc).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "mappings": [] } },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 1 },
+      "id": 2,
+      "options": { "displayLabels": ["name", "percent"], "legend": { "displayMode": "table", "placement": "bottom", "showLegend": true, "values": ["value", "percent"] }, "pieType": "donut", "reduceOptions": { "calcs": ["sum"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (release_channel) (rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[15m]))", "legendFormat": "{{release_channel}}", "refId": "A" } ],
+      "title": "Release Channels",
+      "type": "piechart"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Build IDs observed.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] } } },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 1 },
+      "id": 3,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "sessions" } ] },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(15, sum by (app_version, build_id) (increase(faro_sessions_started_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "A" } ],
+      "title": "Build IDs",
+      "transformations": [ { "id": "organize", "options": { "excludeByName": { "Time": true }, "renameByName": { "Value": "sessions" } } } ],
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 9 }, "id": 101, "title": "📈 Per-Version Performance (Version A vs B)", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "LCP p75 per version — identifies a slow release.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "s" } },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 10 },
+      "id": 4,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le, app_version) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app_version=~\"$app_version\"}[$__rate_interval])))", "legendFormat": "{{app_version}}", "refId": "A" } ],
+      "title": "LCP p75 by Version",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Error rate per 1k pageviews per version — spots regressions.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 10 },
+      "id": 5,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum by (app_version) (rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app_version=~\"$app_version\"}[$__rate_interval])) / sum by (app_version) (rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app_version=~\"$app_version\"}[$__rate_interval]))) * 1000", "legendFormat": "{{app_version}}", "refId": "A" } ],
+      "title": "Errors / 1k PV by Version",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 20 }, "id": 102, "title": "📊 Side-by-Side Version Matrix", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Compare releases: CWV, error rate, session counts.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] } }, "overrides": [ { "matcher": { "id": "byName", "options": "LCP p75" }, "properties": [ { "id": "unit", "value": "s" }, { "id": "thresholds", "value": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 2.5 }, { "color": "#F2495C", "value": 4 } ] } } ] }, { "matcher": { "id": "byName", "options": "Error /1k PV" }, "properties": [ { "id": "unit", "value": "short" }, { "id": "thresholds", "value": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 5 }, { "color": "#F2495C", "value": 20 } ] } } ] } ] },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 21 },
+      "id": 6,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "Sessions" } ] },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(20, sum by (app_version) (increase(faro_sessions_started_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le, app_version) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le, app_version) (rate(faro_web_vitals_inp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum by (app_version) (rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])) / sum by (app_version) (rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))) * 1000", "format": "table", "instant": true, "refId": "D" }
+      ],
+      "title": "Release Comparison Matrix",
+      "transformations": [
+        { "id": "merge", "options": {} },
+        { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": { "app_version": 0 }, "renameByName": { "app_version": "Version", "Value #A": "Sessions", "Value #B": "LCP p75", "Value #C": "INP p75", "Value #D": "Error /1k PV" } } }
+      ],
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 33 }, "id": 103, "title": "🐞 Errors Introduced in Selected Version", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Stack traces only from the selected $app_version. Use alongside Release Comparison to find regressions.",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 34 },
+      "id": 7,
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showCommonLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=\"exception\"} | json | app_version=~\"$app_version\" | line_format \"[v{{.app_version}}] {{.type}}: {{.value}}\"", "refId": "A" } ],
+      "title": "Exceptions in $app_version",
+      "type": "logs"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "release", "version", "deployment", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" } ], "query": "prod, staging, dev", "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}, app_version)", "hide": 0, "includeAll": true, "label": "App Version", "multi": true, "name": "app_version", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}, app_version)" }, "refresh": 2, "sort": 1, "type": "query" }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "timezone": "browser",
+  "title": "Faro — Release / Version Correlation",
+  "uid": "faro-release-version",
+  "version": 1,
+  "weekStart": ""
+}

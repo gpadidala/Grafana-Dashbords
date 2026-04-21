@@ -1,0 +1,112 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "URL/Route performance deep dive — per-URL CWV, slow routes, page-load waterfall, XHR/fetch failure rate per route, funnel of critical paths.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Core Web Vitals", "url": "/d/faro-core-web-vitals", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "API/XHR Performance", "url": "/d/faro-resource-network", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "🔝 Slowest Routes (Top 25)", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Top 25 slowest routes by LCP p75 + error rate + traffic share.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 2.5 }, { "color": "#F2495C", "value": 4 } ] }, "unit": "s" }, "overrides": [ { "matcher": { "id": "byName", "options": "Error Rate %" }, "properties": [ { "id": "unit", "value": "percent" }, { "id": "thresholds", "value": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 5 } ] } } ] }, { "matcher": { "id": "byName", "options": "Pageviews/s" }, "properties": [ { "id": "unit", "value": "short" }, { "id": "custom.cellOptions", "value": { "type": "gauge", "mode": "lcd" } } ] } ] },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "cellHeight": "sm", "footer": { "countRows": false, "enablePagination": true, "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "LCP p75" } ] },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(25, histogram_quantile(0.75, sum by (le, page_url) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))))", "format": "table", "instant": true, "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le, page_url) (rate(faro_web_vitals_inp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le, page_url) (rate(faro_web_vitals_ttfb_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (page_url) (rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])) / sum by (page_url) (rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])) * 100", "format": "table", "instant": true, "refId": "D" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (page_url) (rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))", "format": "table", "instant": true, "refId": "E" }
+      ],
+      "title": "Route-Level Performance Matrix",
+      "transformations": [
+        { "id": "merge", "options": {} },
+        { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": { "page_url": 0, "Value #A": 1, "Value #B": 2, "Value #C": 3, "Value #D": 4, "Value #E": 5 }, "renameByName": { "page_url": "Route", "Value #A": "LCP p75", "Value #B": "INP p75", "Value #C": "TTFB p75", "Value #D": "Error Rate %", "Value #E": "Pageviews/s" } } }
+      ],
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 13 }, "id": 101, "title": "📉 Single-Route Deep Dive", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "LCP percentile trend for the selected route $route.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "s" } },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 14 },
+      "id": 2,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.50, sum by (le) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",page_url=~\"$route\"}[$__rate_interval])))", "legendFormat": "p50", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",page_url=~\"$route\"}[$__rate_interval])))", "legendFormat": "p75", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",page_url=~\"$route\"}[$__rate_interval])))", "legendFormat": "p95", "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.99, sum by (le) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",page_url=~\"$route\"}[$__rate_interval])))", "legendFormat": "p99", "refId": "D" }
+      ],
+      "title": "LCP Percentiles — $route",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Error rate and pageviews on the selected route.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "short" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 14 },
+      "id": 3,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",page_url=~\"$route\"}[$__rate_interval]))", "legendFormat": "pageviews/s", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",page_url=~\"$route\"}[$__rate_interval]))", "legendFormat": "errors/s", "refId": "B" }
+      ],
+      "title": "Traffic & Errors — $route",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 22 }, "id": 102, "title": "🎯 Critical Path Funnel", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Conversion funnel — pageviews through critical path (configure $funnel_urls).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "displayMode": "gradient" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 50 }, { "color": "#73BF69", "value": 75 } ] }, "unit": "short" } },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 23 },
+      "id": 4,
+      "options": { "displayMode": "gradient", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showUnfilled": true },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (page_url) (increase(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",page_url=~\"$funnel_urls\"}[$__range]))", "legendFormat": "{{page_url}}", "refId": "A" } ],
+      "title": "Funnel Step Volumes",
+      "type": "bargauge"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 31 }, "id": 103, "title": "📜 Route Errors (Loki)", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Live exceptions for the selected route.",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 32 },
+      "id": 5,
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showCommonLabels": false, "showLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",app=\"faro\",kind=\"exception\"} | json | page_url=~\"$route\" | line_format \"[{{.browser_name}}] {{.type}}: {{.value}}\"", "refId": "A" } ],
+      "title": "Exceptions on $route",
+      "type": "logs"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "url", "route", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" }, { "selected": false, "text": "staging", "value": "staging" }, { "selected": false, "text": "dev", "value": "dev" } ], "query": "prod, staging, dev", "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}, page_url)", "hide": 0, "includeAll": false, "label": "Route", "multi": false, "name": "route", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}, page_url)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": { "selected": true, "text": "/login|/dashboards|/explore|/alerting", "value": "/login|/dashboards|/explore|/alerting" }, "hide": 0, "label": "Funnel URLs (regex)", "name": "funnel_urls", "options": [ { "selected": true, "text": "/login|/dashboards|/explore|/alerting", "value": "/login|/dashboards|/explore|/alerting" } ], "query": "/login|/dashboards|/explore|/alerting", "type": "textbox" }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "timezone": "browser",
+  "title": "Faro — URL/Route Performance Deep Dive",
+  "uid": "faro-url-route-perf",
+  "version": 1,
+  "weekStart": ""
+}

@@ -1,0 +1,168 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "User & auth activity — Grafana logins/logouts/failures correlated with Faro session data. Per-user CWV, error rate, role activity, suspicious-IP flagging. Joins grafana_stat_* + Postgres user table + Faro session metrics.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Sessions & Journey", "url": "/d/faro-sessions-journey", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "👤 User Activity KPIs", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Total Grafana users.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(grafana_stat_totals_user{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "refId": "A" } ],
+      "title": "Total Users",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Currently active Grafana users.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(grafana_stat_active_users{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "refId": "A" } ],
+      "title": "Active Users (30d)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Login rate / 5m.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(grafana_api_login_post_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[5m])) * 60 * 5", "refId": "A" } ],
+      "title": "Logins / 5m",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Failed login rate — spike may indicate brute-force.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 5 }, { "color": "#F2495C", "value": 30 } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(increase(grafana_api_login_post_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",status_code!~\"2..\"}[5m]))", "refId": "A" } ],
+      "title": "Failed Logins / 5m",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Total orgs / teams.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 1 },
+      "id": 5,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(grafana_stat_totals_orgs{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "refId": "A" } ],
+      "title": "Orgs",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Service accounts + API keys in use.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] }, "unit": "short" } },
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 1 },
+      "id": 6,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(grafana_stat_totals_service_account{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"})", "refId": "A" } ],
+      "title": "Service Accounts",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 }, "id": 101, "title": "🔐 Login & Auth Trends", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Login attempts split by auth method.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1, "stacking": { "mode": "normal", "group": "A" } }, "unit": "short" } },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "id": 7,
+      "options": { "legend": { "calcs": ["sum"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (method) (rate(grafana_api_login_post_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "{{method}}", "refId": "A" } ],
+      "title": "Logins by Method",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Failed logins over time — watch for attack patterns.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1 }, "unit": "short" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "id": 8,
+      "options": { "legend": { "calcs": ["sum", "max"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (status_code) (rate(grafana_api_login_post_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",status_code!~\"2..\"}[$__rate_interval]))", "legendFormat": "{{status_code}}", "refId": "A" } ],
+      "title": "Failed Login Attempts",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 }, "id": 102, "title": "👥 Per-User Experience (Faro Session × User)", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Top users by session count + avg LCP + error rate.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] } }, "overrides": [ { "matcher": { "id": "byName", "options": "LCP p75" }, "properties": [ { "id": "unit", "value": "s" }, { "id": "thresholds", "value": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 2.5 }, { "color": "#F2495C", "value": 4 } ] } } ] }, { "matcher": { "id": "byName", "options": "Errors" }, "properties": [ { "id": "unit", "value": "short" }, { "id": "thresholds", "value": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 5 }, { "color": "#F2495C", "value": 20 } ] } } ] } ] },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 15 },
+      "id": 9,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "Sessions" } ] },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(30, sum by (user_email) (increase(faro_sessions_started_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.75, sum by (le, user_email) (rate(faro_web_vitals_lcp_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range])))", "format": "table", "instant": true, "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (user_email) (increase(faro_exceptions_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))", "format": "table", "instant": true, "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (user_email) (increase(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))", "format": "table", "instant": true, "refId": "D" }
+      ],
+      "title": "Top Users — Experience Matrix",
+      "transformations": [
+        { "id": "merge", "options": {} },
+        { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": { "user_email": 0 }, "renameByName": { "user_email": "User", "Value #A": "Sessions", "Value #B": "LCP p75", "Value #C": "Errors", "Value #D": "Pageviews" } } }
+      ],
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 27 }, "id": 103, "title": "📂 User Directory (Postgres)", "type": "row" },
+    {
+      "datasource": { "type": "postgres", "uid": "$datasource_postgres" },
+      "description": "Grafana user roster with last-seen, role, and org membership. Live from grafana's Postgres `user` table.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] } } },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 28 },
+      "id": 10,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "last_seen_at" } ] },
+      "targets": [ { "datasource": { "type": "postgres", "uid": "$datasource_postgres" }, "format": "table", "rawQuery": true, "rawSql": "SELECT u.login AS username, u.email, u.is_admin, u.is_disabled, u.created, u.updated, u.last_seen_at, COALESCE((SELECT string_agg(ou.role, ', ') FROM org_user ou WHERE ou.user_id = u.id), '-') AS roles FROM \"user\" u ORDER BY u.last_seen_at DESC NULLS LAST LIMIT 100", "refId": "A" } ],
+      "title": "Grafana User Directory",
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 40 }, "id": 104, "title": "📜 Auth Audit Logs (Loki)", "type": "row" },
+    {
+      "datasource": { "type": "loki", "uid": "$datasource_loki" },
+      "description": "Grafana auth events — login success/fail, logout, token issue.",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 41 },
+      "id": 11,
+      "options": { "dedupStrategy": "numbers", "enableLogDetails": true, "showCommonLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [ { "datasource": { "type": "loki", "uid": "$datasource_loki" }, "expr": "{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",job=\"grafana\"} |~ \"(?i)login|logout|auth|token|unauthorized\" | json | line_format \"[{{.level}}] {{.msg}} user={{.user}} addr={{.remote_addr}}\"", "refId": "A" } ],
+      "title": "Auth Event Stream",
+      "type": "logs"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "users", "auth", "security", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Loki", "multi": false, "name": "datasource_loki", "options": [], "query": "loki", "refresh": 1, "type": "datasource" },
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Postgres (Grafana DB)", "multi": false, "name": "datasource_postgres", "options": [], "query": "postgres", "refresh": 1, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" } ], "query": "prod, staging, dev", "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(grafana_build_info{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "sort": 1, "type": "query" }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "timezone": "browser",
+  "title": "Faro — User & Auth Activity",
+  "uid": "faro-user-auth",
+  "version": 1,
+  "weekStart": ""
+}

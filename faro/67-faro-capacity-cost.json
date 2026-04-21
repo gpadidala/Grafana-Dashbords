@@ -1,0 +1,162 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "Capacity & cost forecasting for Faro — metric cardinality, log bytes/day, trace volume, 7/30/90-day projections, tenant quotas, $-per-day estimate per backend. Tune $price vars for your org.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Datasource Impact", "url": "/d/faro-datasource-impact", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "💰 Today's Cost Estimate", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Projected $/day — Mimir (series × price).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 50 }, { "color": "#F2495C", "value": 200 } ] }, "unit": "currencyUSD" } },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(count by (__name__)({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"})) * $price_per_series", "refId": "A" } ],
+      "title": "Mimir $/day",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Projected $/day — Loki (bytes × price).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 50 }, { "color": "#F2495C", "value": 200 } ] }, "unit": "currencyUSD" } },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[1h])) * 86400 / 1024 / 1024 / 1024) * $price_per_gb_logs", "refId": "A" } ],
+      "title": "Loki $/day",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Projected $/day — Tempo (spans × price).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 50 }, { "color": "#F2495C", "value": 200 } ] }, "unit": "currencyUSD" } },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(tempo_distributor_spans_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[1h])) * 86400 / 1000000) * $price_per_million_spans", "refId": "A" } ],
+      "title": "Tempo $/day",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Combined Faro $/day across Mimir+Loki+Tempo.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 100 }, { "color": "#F2495C", "value": 500 } ] }, "unit": "currencyUSD" } },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(count by (__name__)({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"})) * $price_per_series) + ((sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[1h])) * 86400 / 1024 / 1024 / 1024) * $price_per_gb_logs) + ((sum(rate(tempo_distributor_spans_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[1h])) * 86400 / 1000000) * $price_per_million_spans)", "refId": "A" } ],
+      "title": "Total Faro $/day",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 }, "id": 101, "title": "📈 Cardinality Growth", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Active series for each Faro metric (top cardinality drivers).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 20, "lineWidth": 2 }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 7 },
+      "id": 5,
+      "options": { "legend": { "calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(15, count by (__name__) ({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"}))", "legendFormat": "{{__name__}}", "refId": "A" } ],
+      "title": "Top Cardinality — Faro Metrics",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "30d projection of active series using linear regression on last 6h.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 7 },
+      "id": 6,
+      "options": { "legend": { "calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(count by (__name__) ({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"}))", "legendFormat": "current", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "predict_linear(sum(count by (__name__) ({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"}))[6h:5m], 7*86400)", "legendFormat": "+7d projection", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "predict_linear(sum(count by (__name__) ({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"}))[6h:5m], 30*86400)", "legendFormat": "+30d projection", "refId": "C" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "predict_linear(sum(count by (__name__) ({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"}))[6h:5m], 90*86400)", "legendFormat": "+90d projection", "refId": "D" }
+      ],
+      "title": "Series Growth Projection",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 17 }, "id": 102, "title": "🔍 Label Cardinality — Hot Labels", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Labels contributing most cardinality — prime candidates for dropping/bucketing.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1000 }, { "color": "#F2495C", "value": 10000 } ] }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 18 },
+      "id": 7,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "series" } ] },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(25, count by (page_url) ({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"}))", "format": "table", "instant": true, "refId": "A" } ],
+      "title": "Cardinality by page_url",
+      "transformations": [ { "id": "organize", "options": { "excludeByName": { "Time": true }, "renameByName": { "Value": "series" } } } ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "session_id label cardinality — normally unbounded; if exposed as a series label, expect explosion.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 100000 }, { "color": "#F2495C", "value": 1000000 } ] }, "unit": "short" } },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 18 },
+      "id": 8,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] }, "textMode": "value_and_name" },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "count(count by (session_id) ({__name__=~\"faro_.*\",cluster=~\"$cluster\",stack=~\"$stack\"}))", "refId": "A" } ],
+      "title": "⚠ session_id cardinality (should be 0 as series label)",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 28 }, "id": 103, "title": "📦 Retention & Storage", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Projected Loki bytes/day over retention window.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "bytes" } },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 29 },
+      "id": 9,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[$__rate_interval])) * 86400", "legendFormat": "bytes/day", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(loki_distributor_bytes_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[$__rate_interval])) * 86400 * $retention_days", "legendFormat": "total stored ($retention_days d)", "refId": "B" }
+      ],
+      "title": "Loki Storage Projection",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Projected Tempo bytes/day.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "bytes" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 29 },
+      "id": 10,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(tempo_distributor_bytes_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[$__rate_interval])) * 86400", "legendFormat": "bytes/day", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(tempo_distributor_bytes_received_total{cluster=~\"$cluster\",stack=~\"$stack\",tenant=~\".*faro.*\"}[$__rate_interval])) * 86400 * $retention_days", "legendFormat": "total stored ($retention_days d)", "refId": "B" }
+      ],
+      "title": "Tempo Storage Projection",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "capacity", "cost", "finops", "cardinality", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" } ], "query": "prod, staging, dev", "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": { "selected": true, "text": "0.0001", "value": "0.0001" }, "hide": 0, "label": "$ per series /day", "name": "price_per_series", "options": [ { "selected": true, "text": "0.0001", "value": "0.0001" } ], "query": "0.0001", "type": "textbox" },
+      { "current": { "selected": true, "text": "0.5", "value": "0.5" }, "hide": 0, "label": "$ per GB logs", "name": "price_per_gb_logs", "options": [ { "selected": true, "text": "0.5", "value": "0.5" } ], "query": "0.5", "type": "textbox" },
+      { "current": { "selected": true, "text": "0.4", "value": "0.4" }, "hide": 0, "label": "$ per 1M spans", "name": "price_per_million_spans", "options": [ { "selected": true, "text": "0.4", "value": "0.4" } ], "query": "0.4", "type": "textbox" },
+      { "current": { "selected": true, "text": "30", "value": "30" }, "hide": 0, "label": "Retention (days)", "name": "retention_days", "options": [ { "selected": true, "text": "30", "value": "30" } ], "query": "30", "type": "textbox" }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "timezone": "browser",
+  "title": "Faro — Capacity & Cost Forecasting",
+  "uid": "faro-capacity-cost",
+  "version": 1,
+  "weekStart": ""
+}

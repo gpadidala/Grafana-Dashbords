@@ -1,0 +1,140 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "description": "Resource timing & network waterfall — browser Resource Timing API data captured by Faro. JS/CSS/image/XHR asset performance, cache hit rate, payload size, blocking resources, API call failure rate.",
+  "editable": true,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ L0 Executive", "url": "/d/faro-l0-executive", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "Core Web Vitals", "url": "/d/faro-core-web-vitals", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true },
+    { "title": "URL Performance", "url": "/d/faro-url-route-perf", "type": "link", "icon": "dashboard", "includeVars": true, "keepTime": true }
+  ],
+  "panels": [
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 }, "id": 100, "title": "📦 Resource Loading KPIs", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Avg resources loaded per page.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 100 }, { "color": "#F2495C", "value": 200 } ] }, "unit": "short" } },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_resource_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])) / sum(rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "refId": "A" } ],
+      "title": "Resources / Page",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Avg payload size per page.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 2000000 }, { "color": "#F2495C", "value": 5000000 } ] }, "unit": "bytes" } },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 1 },
+      "id": 2,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum(rate(faro_resource_transfer_size_sum{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])) / sum(rate(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "refId": "A" } ],
+      "title": "Bytes / Page",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Cache hit rate — transfer_size ≈ 0 means 304 / memory cache.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 1, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#F2495C", "value": null }, { "color": "#FF9830", "value": 30 }, { "color": "#73BF69", "value": 60 } ] }, "unit": "percent", "min": 0, "max": 100 } },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "id": 3,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(faro_resource_cached_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])) / sum(rate(faro_resource_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))) * 100", "refId": "A" } ],
+      "title": "Cache Hit Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Failed resource loads (4xx/5xx/network).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 2, "mappings": [], "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 0.5 }, { "color": "#F2495C", "value": 2 } ] }, "unit": "percent" } },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum(rate(faro_resource_failed_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])) / sum(rate(faro_resource_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))) * 100", "refId": "A" } ],
+      "title": "Resource Failure %",
+      "type": "stat"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 }, "id": 101, "title": "🎨 Resource Timing by Initiator Type", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "p95 duration by initiator type (script, css, img, xmlhttprequest, fetch, link).",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }, "unit": "s" } },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 7 },
+      "id": 5,
+      "options": { "legend": { "calcs": ["lastNotNull", "mean", "max"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "histogram_quantile(0.95, sum by (le, initiator_type) (rate(faro_resource_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval])))", "legendFormat": "p95 {{initiator_type}}", "refId": "A" } ],
+      "title": "p95 Duration by Type",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Bytes transferred per initiator type.",
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic" }, "custom": { "drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1, "stacking": { "mode": "normal", "group": "A" } }, "unit": "Bps" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 7 },
+      "id": 6,
+      "options": { "legend": { "calcs": ["sum"], "displayMode": "table", "placement": "right" }, "tooltip": { "mode": "multi" } },
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (initiator_type) (rate(faro_resource_transfer_size_sum{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__rate_interval]))", "legendFormat": "{{initiator_type}}", "refId": "A" } ],
+      "title": "Bytes by Initiator Type",
+      "type": "timeseries"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 15 }, "id": 102, "title": "🔝 Top Slow/Heavy Assets", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Slowest individual assets (by p95 duration).",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 3 } ] }, "unit": "s" }, "overrides": [ { "matcher": { "id": "byName", "options": "bytes" }, "properties": [ { "id": "unit", "value": "bytes" }, { "id": "thresholds", "value": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 500000 }, { "color": "#F2495C", "value": 2000000 } ] } } ] } ] },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 16 },
+      "id": 7,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "p95 duration" } ] },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(30, histogram_quantile(0.95, sum by (le, resource_name, initiator_type) (rate(faro_resource_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))))", "format": "table", "instant": true, "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "avg by (resource_name) (rate(faro_resource_transfer_size_sum{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]) / rate(faro_resource_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))", "format": "table", "instant": true, "refId": "B" }
+      ],
+      "title": "Slowest & Heaviest Assets",
+      "transformations": [
+        { "id": "merge", "options": {} },
+        { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": { "resource_name": 0, "initiator_type": 1 }, "renameByName": { "resource_name": "URL", "initiator_type": "type", "Value #A": "p95 duration", "Value #B": "bytes" } } }
+      ],
+      "type": "table"
+    },
+    { "collapsed": false, "gridPos": { "h": 1, "w": 24, "x": 0, "y": 28 }, "id": 103, "title": "🔌 API / XHR / Fetch Performance", "type": "row" },
+    {
+      "datasource": { "type": "prometheus", "uid": "$datasource" },
+      "description": "Top API endpoints by p95 latency + failure rate.",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "filterable": true }, "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 0.5 }, { "color": "#F2495C", "value": 2 } ] }, "unit": "s" }, "overrides": [ { "matcher": { "id": "byName", "options": "5xx %" }, "properties": [ { "id": "unit", "value": "percent" }, { "id": "thresholds", "value": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 0.5 }, { "color": "#F2495C", "value": 5 } ] } } ] } ] },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 29 },
+      "id": 8,
+      "options": { "cellHeight": "sm", "footer": { "show": false }, "showHeader": true, "sortBy": [ { "desc": true, "displayName": "p95" } ] },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "topk(25, histogram_quantile(0.95, sum by (le, http_url) (rate(faro_http_request_duration_seconds_bucket{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))))", "format": "table", "instant": true, "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "sum by (http_url) (rate(faro_http_requests_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))", "format": "table", "instant": true, "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "$datasource" }, "expr": "(sum by (http_url) (rate(faro_http_requests_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\",status_code=~\"5..\"}[$__range])) / sum by (http_url) (rate(faro_http_requests_total{cluster=~\"$cluster\",stack=~\"$stack\",namespace=~\"$namespace\"}[$__range]))) * 100", "format": "table", "instant": true, "refId": "C" }
+      ],
+      "title": "API Endpoint Matrix",
+      "transformations": [
+        { "id": "merge", "options": {} },
+        { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": { "http_url": 0 }, "renameByName": { "http_url": "Endpoint", "Value #A": "p95", "Value #B": "req/s", "Value #C": "5xx %" } } }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["faro", "frontend-observability", "rum", "resource-timing", "network", "multi-cluster", "multi-stack"],
+  "templating": {
+    "list": [
+      { "current": {}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "datasource", "options": [], "query": "prometheus", "refresh": 1, "type": "datasource" },
+      { "current": { "selected": false, "text": "prod", "value": "prod" }, "hide": 0, "includeAll": false, "label": "Environment", "multi": false, "name": "environment", "options": [ { "selected": true, "text": "prod", "value": "prod" } ], "query": "prod, staging, dev", "type": "custom" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{}, region)", "hide": 0, "includeAll": true, "label": "Region", "multi": true, "name": "region", "options": [], "query": { "qryType": 1, "query": "label_values(up{}, region)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{region=~\"$region\"}, cluster)", "hide": 0, "includeAll": true, "label": "Cluster", "multi": true, "name": "cluster", "options": [], "query": { "qryType": 1, "query": "label_values(up{region=~\"$region\"}, cluster)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(up{cluster=~\"$cluster\"}, stack)", "hide": 0, "includeAll": true, "label": "Stack", "multi": true, "name": "stack", "options": [], "query": { "qryType": 1, "query": "label_values(up{cluster=~\"$cluster\"}, stack)" }, "refresh": 2, "sort": 1, "type": "query" },
+      { "current": {}, "datasource": { "type": "prometheus", "uid": "$datasource" }, "definition": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)", "hide": 0, "includeAll": true, "label": "Namespace", "multi": true, "name": "namespace", "options": [], "query": { "qryType": 1, "query": "label_values(faro_page_views_total{cluster=~\"$cluster\",stack=~\"$stack\"}, namespace)" }, "refresh": 2, "sort": 1, "type": "query" }
+    ]
+  },
+  "time": { "from": "now-3h", "to": "now" },
+  "timezone": "browser",
+  "title": "Faro — Resource Timing & Network Waterfall",
+  "uid": "faro-resource-network",
+  "version": 1,
+  "weekStart": ""
+}
