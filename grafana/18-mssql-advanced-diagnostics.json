@@ -1,0 +1,1148 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Microsoft SQL Server advanced diagnostics: wait categories, latches, plan cache, blocking chains, deadlocks, Query Store top queries, index health, tempdb contention, Always On AG, backups, SQL Agent jobs, VLF count, resource governor, and failed logins.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 2,
+  "id": null,
+  "links": [
+    { "title": "⬆ Platform KPI", "url": "/d/ultimate-platform-kpi", "type": "link", "icon": "dashboard", "targetBlank": false, "tooltip": "Single Pane of Glass", "asDropdown": false, "includeVars": true, "keepTime": true },
+    { "title": "MSSQL Performance Deep Dive", "url": "/d/mssql-perf-deep-dive", "type": "link", "icon": "dashboard", "targetBlank": false, "asDropdown": false, "includeVars": true, "keepTime": true },
+    { "title": "Grafana DB Deep Dive", "url": "/d/grafana-db-perf-deep-dive", "type": "link", "icon": "dashboard", "targetBlank": false, "asDropdown": false, "includeVars": true, "keepTime": true }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "title": "Headline KPIs",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "mssql", "uid": "$datasource" },
+      "description": "Deadlocks captured by the system_health Extended Events session in the last 24 hours.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 10 } ] },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
+      "id": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "rawSql": "SELECT COUNT(*) AS deadlocks_24h\nFROM (\n  SELECT CAST(target_data AS XML) AS x\n  FROM sys.dm_xe_session_targets st\n  JOIN sys.dm_xe_sessions s ON s.address = st.event_session_address\n  WHERE s.name = 'system_health' AND st.target_name = 'ring_buffer'\n) t\nCROSS APPLY x.nodes('//RingBufferTarget/event[@name=\"xml_deadlock_report\"]') AS d(e)\nWHERE d.e.value('(@timestamp)[1]','datetime2') > DATEADD(HOUR,-24,GETUTCDATE());",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Deadlocks (24h)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "mssql", "uid": "$datasource" },
+      "description": "Single-use plans wasting plan cache. High value = parameterization opportunity.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 500 }, { "color": "#F2495C", "value": 2000 } ] },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
+      "id": 2,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "rawSql": "SELECT CAST(SUM(CAST(size_in_bytes AS BIGINT)) / 1024.0 / 1024.0 AS DECIMAL(18,2)) AS single_use_mb\nFROM sys.dm_exec_cached_plans\nWHERE usecounts = 1 AND objtype = 'Adhoc';",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Single-Use Plan Cache",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "mssql", "uid": "$datasource" },
+      "description": "Total locks currently held server-wide.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 10000 }, { "color": "#F2495C", "value": 100000 } ] },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "rawSql": "SELECT COUNT_BIG(*) AS locks_held FROM sys.dm_tran_locks;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Locks Held",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "mssql", "uid": "$datasource" },
+      "description": "Number of online databases.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null } ] },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 1 },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "rawSql": "SELECT COUNT(*) AS online_databases FROM sys.databases WHERE state = 0;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Online Databases",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "mssql", "uid": "$datasource" },
+      "description": "Failed SQL Server Agent jobs in the last 24h.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 5 } ] },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 1 },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "rawSql": "SELECT ISNULL(SUM(CASE WHEN h.run_status = 0 THEN 1 ELSE 0 END), 0) AS failed_jobs_24h\nFROM msdb.dbo.sysjobhistory h\nJOIN msdb.dbo.sysjobs j ON h.job_id = j.job_id\nWHERE h.step_id = 0\n  AND CAST(STR(h.run_date,8,0) + ' ' + STUFF(STUFF(REPLACE(STR(h.run_time,6,0),' ','0'),3,0,':'),6,0,':') AS DATETIME) > DATEADD(HOUR,-24,GETDATE());",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Failed Agent Jobs (24h)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "mssql", "uid": "$datasource" },
+      "description": "Databases with no FULL backup in the last 7 days.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "#73BF69", "value": null }, { "color": "#FF9830", "value": 1 }, { "color": "#F2495C", "value": 5 } ] },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 1 },
+      "id": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "11.6.4",
+      "targets": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "rawSql": "SELECT COUNT(*) AS overdue_full_backups\nFROM sys.databases d\nLEFT JOIN (\n  SELECT database_name, MAX(backup_finish_date) AS last_full\n  FROM msdb.dbo.backupset\n  WHERE type = 'D'\n  GROUP BY database_name\n) b ON b.database_name = d.name\nWHERE d.state = 0\n  AND d.database_id > 4\n  AND (b.last_full IS NULL OR b.last_full < DATEADD(DAY,-7,GETDATE()));",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Overdue Full Backups",
+      "type": "stat"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "id": 101,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Wait stats grouped into Paul Randal's wait categories.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "wait_time_sec" }, "properties": [ { "id": "unit", "value": "s" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "pct_of_total" }, "properties": [ { "id": "unit", "value": "percent" }, { "id": "custom.cellOptions", "value": { "type": "color-text" } } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 6 },
+          "id": 7,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "wait_time_sec" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "WITH waits AS (\n  SELECT\n    CASE\n      WHEN wait_type LIKE 'LCK_M_%' THEN 'Lock'\n      WHEN wait_type LIKE 'LATCH_%' OR wait_type LIKE 'PAGELATCH_%' OR wait_type LIKE 'PAGEIOLATCH_%' THEN 'Latch'\n      WHEN wait_type LIKE 'IO_%' OR wait_type LIKE 'WRITE_%' OR wait_type LIKE 'ASYNC_IO_%' OR wait_type LIKE 'DISKIO_%' THEN 'IO'\n      WHEN wait_type LIKE 'CXPACKET' OR wait_type LIKE 'CXCONSUMER' OR wait_type LIKE 'EXCHANGE' OR wait_type LIKE 'HT%' OR wait_type LIKE 'BMP%' THEN 'Parallelism'\n      WHEN wait_type LIKE 'CMEMTHREAD' OR wait_type LIKE 'RESOURCE_SEMAPHORE%' OR wait_type LIKE 'PWAIT_RESOURCE_SEMAPHORE%' OR wait_type LIKE 'MEMORY%' THEN 'Memory'\n      WHEN wait_type LIKE 'WRITELOG' OR wait_type LIKE 'LOGBUFFER' OR wait_type LIKE 'LOGMGR%' THEN 'Tran Log IO'\n      WHEN wait_type LIKE 'NETWORK_IO' OR wait_type LIKE 'ASYNC_NETWORK_IO' OR wait_type LIKE 'PROXY_NETWORK_IO' THEN 'Network IO'\n      WHEN wait_type LIKE 'SOS_SCHEDULER_YIELD' OR wait_type LIKE 'THREADPOOL' THEN 'CPU / Worker'\n      WHEN wait_type LIKE 'HADR_%' OR wait_type LIKE 'PWAIT_HADR%' OR wait_type LIKE 'REPLICA_%' THEN 'AlwaysOn'\n      WHEN wait_type LIKE 'BACKUP%' THEN 'Backup'\n      WHEN wait_type LIKE 'PREEMPTIVE_%' THEN 'External / Preemptive'\n      WHEN wait_type LIKE 'CLR_%' THEN 'CLR'\n      WHEN wait_type LIKE 'BROKER_%' THEN 'Service Broker'\n      WHEN wait_type LIKE 'OLEDB' THEN 'Linked Server / OLEDB'\n      ELSE 'Other'\n    END AS category,\n    wait_time_ms,\n    waiting_tasks_count\n  FROM sys.dm_os_wait_stats\n  WHERE wait_type NOT IN ('CLR_AUTO_EVENT','CLR_MANUAL_EVENT','CLR_SEMAPHORE','LAZYWRITER_SLEEP','SLEEP_TASK',\n    'SLEEP_SYSTEMTASK','SQLTRACE_BUFFER_FLUSH','WAITFOR','LOGMGR_QUEUE','CHECKPOINT_QUEUE','REQUEST_FOR_DEADLOCK_SEARCH',\n    'XE_TIMER_EVENT','BROKER_TO_FLUSH','BROKER_TASK_STOP','CLR_MANUAL_EVENT','DISPATCHER_QUEUE_SEMAPHORE','FT_IFTS_SCHEDULER_IDLE_WAIT',\n    'XE_DISPATCHER_WAIT','XE_DISPATCHER_JOIN','SQLTRACE_INCREMENTAL_FLUSH_SLEEP','ONDEMAND_TASK_QUEUE',\n    'BROKER_EVENTHANDLER','SLEEP_BPOOL_FLUSH','SLEEP_DBSTARTUP','DIRTY_PAGE_POLL','HADR_FILESTREAM_IOMGR_IOCOMPLETION',\n    'DBMIRROR_DBM_EVENT','DBMIRRORING_CMD','DBMIRROR_DBM_MUTEX','DBMIRROR_EVENTS_QUEUE','DBMIRROR_SEND','DBMIRROR_WORKER_QUEUE',\n    'KSOURCE_WAKEUP','SP_SERVER_DIAGNOSTICS_SLEEP','PARALLEL_REDO_DRAIN_WORKER','PARALLEL_REDO_LOG_CAPTURE','PARALLEL_REDO_TRAN_LIST',\n    'QDS_PERSIST_TASK_MAIN_LOOP_SLEEP','QDS_ASYNC_QUEUE','QDS_CLEANUP_STALE_QUERIES_TASK_MAIN_LOOP_SLEEP','QDS_SHUTDOWN_QUEUE',\n    'PWAIT_DIRECTLOGCONSUMER_GETNEXT','SERVER_IDLE_CHECK')\n  AND waiting_tasks_count > 0\n)\nSELECT\n  category,\n  CAST(SUM(wait_time_ms) / 1000.0 AS DECIMAL(18,2)) AS wait_time_sec,\n  SUM(waiting_tasks_count) AS waiting_tasks,\n  CAST(100.0 * SUM(wait_time_ms) / NULLIF(SUM(SUM(wait_time_ms)) OVER (), 0) AS DECIMAL(5,2)) AS pct_of_total\nFROM waits\nGROUP BY category\nORDER BY SUM(wait_time_ms) DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Waits by Category (cumulative)",
+          "type": "table"
+        }
+      ],
+      "title": "Wait Categories",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 16 },
+      "id": 102,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Latch waits (PAGELATCH = in-memory contention; PAGEIOLATCH = disk wait).",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "wait_time_sec" }, "properties": [ { "id": "unit", "value": "s" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "avg_wait_ms" }, "properties": [ { "id": "unit", "value": "ms" } ] }
+            ]
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 17 },
+          "id": 8,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "wait_time_sec" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT TOP 25\n  latch_class,\n  CAST(wait_time_ms / 1000.0 AS DECIMAL(18,2)) AS wait_time_sec,\n  waiting_requests_count,\n  CAST(wait_time_ms * 1.0 / NULLIF(waiting_requests_count,0) AS DECIMAL(18,2)) AS avg_wait_ms,\n  max_wait_time_ms\nFROM sys.dm_os_latch_stats\nWHERE waiting_requests_count > 0\n  AND latch_class NOT IN ('BUFFER')\nORDER BY wait_time_ms DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Top Latch Classes",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Spinlock contention. High collisions on a single spinlock = scaling bottleneck.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "spins" }, "properties": [ { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "collisions" }, "properties": [ { "id": "custom.cellOptions", "value": { "type": "color-text" } } ] }
+            ]
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 17 },
+          "id": 9,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "spins" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT TOP 25\n  name,\n  collisions,\n  spins,\n  spins_per_collision,\n  sleep_time,\n  backoffs\nFROM sys.dm_os_spinlock_stats\nWHERE spins > 0\nORDER BY spins DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Spinlock Contention",
+          "type": "table"
+        }
+      ],
+      "title": "Latches & Spinlocks",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 25 },
+      "id": 103,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Plan cache breakdown by object type. Adhoc + single-use = parameterization opportunity.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "size_mb" }, "properties": [ { "id": "unit", "value": "decmbytes" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] }
+            ]
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 26 },
+          "id": 10,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "size_mb" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT\n  objtype AS object_type,\n  COUNT_BIG(*) AS plan_count,\n  CAST(SUM(CAST(size_in_bytes AS BIGINT)) / 1024.0 / 1024.0 AS DECIMAL(18,2)) AS size_mb,\n  SUM(CASE WHEN usecounts = 1 THEN 1 ELSE 0 END) AS single_use_plans,\n  SUM(usecounts) AS total_use_count\nFROM sys.dm_exec_cached_plans\nGROUP BY objtype\nORDER BY size_mb DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Plan Cache by Object Type",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Top compiled plans by total CPU.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": true },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "total_cpu_sec" }, "properties": [ { "id": "unit", "value": "s" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "size_mb" }, "properties": [ { "id": "unit", "value": "decmbytes" } ] }
+            ]
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 26 },
+          "id": 11,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "total_cpu_sec" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT TOP 25\n  cp.objtype,\n  cp.usecounts,\n  CAST(cp.size_in_bytes / 1024.0 / 1024.0 AS DECIMAL(18,2)) AS size_mb,\n  CAST(SUM(qs.total_worker_time) / 1000000.0 AS DECIMAL(18,2)) AS total_cpu_sec\nFROM sys.dm_exec_cached_plans cp\nJOIN sys.dm_exec_query_stats qs ON cp.plan_handle = qs.plan_handle\nGROUP BY cp.plan_handle, cp.objtype, cp.usecounts, cp.size_in_bytes\nORDER BY total_cpu_sec DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Top Plans by CPU",
+          "type": "table"
+        }
+      ],
+      "title": "Plan Cache",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 34 },
+      "id": 104,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Active blocking chain. blocking_session_id = head blocker.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": true },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "wait_time_ms" }, "properties": [ { "id": "unit", "value": "ms" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "sql_text" }, "properties": [ { "id": "custom.width", "value": 500 } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 35 },
+          "id": 12,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "wait_time_ms" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT\n  r.session_id,\n  r.blocking_session_id,\n  r.wait_type,\n  r.wait_time AS wait_time_ms,\n  r.wait_resource,\n  DB_NAME(r.database_id) AS database_name,\n  r.command,\n  r.status,\n  s.login_name,\n  s.host_name,\n  s.program_name,\n  SUBSTRING(t.text,\n    (r.statement_start_offset/2)+1,\n    ((CASE r.statement_end_offset\n        WHEN -1 THEN DATALENGTH(t.text)\n        ELSE r.statement_end_offset END - r.statement_start_offset)/2)+1) AS sql_text\nFROM sys.dm_exec_requests r\nJOIN sys.dm_exec_sessions s ON s.session_id = r.session_id\nOUTER APPLY sys.dm_exec_sql_text(r.sql_handle) t\nWHERE r.blocking_session_id <> 0\n   OR r.session_id IN (SELECT blocking_session_id FROM sys.dm_exec_requests WHERE blocking_session_id <> 0)\nORDER BY r.wait_time DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Active Blocking Chain",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Lock counts by resource type and database.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "lock_count" }, "properties": [ { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] }
+            ]
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 45 },
+          "id": 13,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "lock_count" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT TOP 50\n  resource_type,\n  request_mode,\n  request_status,\n  DB_NAME(resource_database_id) AS database_name,\n  COUNT_BIG(*) AS lock_count\nFROM sys.dm_tran_locks\nGROUP BY resource_type, request_mode, request_status, resource_database_id\nORDER BY lock_count DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Locks by Type",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Recent deadlock events (last 24h) extracted from system_health.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": true },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "xml_report" }, "properties": [ { "id": "custom.width", "value": 700 } ] }
+            ]
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 45 },
+          "id": 14,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "event_time" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "WITH src AS (\n  SELECT CAST(target_data AS XML) AS x\n  FROM sys.dm_xe_session_targets st\n  JOIN sys.dm_xe_sessions s ON s.address = st.event_session_address\n  WHERE s.name = 'system_health' AND st.target_name = 'ring_buffer'\n)\nSELECT TOP 25\n  d.e.value('(@timestamp)[1]','datetime2') AS event_time,\n  CAST(d.e.query('.') AS NVARCHAR(MAX)) AS xml_report\nFROM src\nCROSS APPLY x.nodes('//RingBufferTarget/event[@name=\"xml_deadlock_report\"]') AS d(e)\nWHERE d.e.value('(@timestamp)[1]','datetime2') > DATEADD(HOUR,-24,GETUTCDATE())\nORDER BY event_time DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Recent Deadlocks (24h)",
+          "type": "table"
+        }
+      ],
+      "title": "Blocking, Locks & Deadlocks",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 53 },
+      "id": 105,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Top queries by CPU from Query Store (run against a database with QS enabled — use the database picker below).",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": true },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "avg_cpu_ms" }, "properties": [ { "id": "unit", "value": "ms" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "avg_duration_ms" }, "properties": [ { "id": "unit", "value": "ms" } ] },
+              { "matcher": { "id": "byName", "options": "query_text" }, "properties": [ { "id": "custom.width", "value": 500 } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 54 },
+          "id": 15,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "avg_cpu_ms" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "USE [$database];\nIF EXISTS (SELECT 1 FROM sys.database_query_store_options WHERE actual_state <> 0)\nBEGIN\n  SELECT TOP $top_n\n    q.query_id,\n    qt.query_sql_text AS query_text,\n    SUM(rs.count_executions) AS executions,\n    CAST(SUM(rs.avg_cpu_time * rs.count_executions) / NULLIF(SUM(rs.count_executions),0) / 1000.0 AS DECIMAL(18,2)) AS avg_cpu_ms,\n    CAST(SUM(rs.avg_duration * rs.count_executions) / NULLIF(SUM(rs.count_executions),0) / 1000.0 AS DECIMAL(18,2)) AS avg_duration_ms,\n    CAST(SUM(rs.avg_logical_io_reads * rs.count_executions) / NULLIF(SUM(rs.count_executions),0) AS DECIMAL(18,2)) AS avg_logical_reads,\n    CAST(SUM(rs.avg_query_max_used_memory * rs.count_executions) / NULLIF(SUM(rs.count_executions),0) AS DECIMAL(18,2)) AS avg_memory_pages\n  FROM sys.query_store_query q\n  JOIN sys.query_store_query_text qt ON qt.query_text_id = q.query_text_id\n  JOIN sys.query_store_plan p ON p.query_id = q.query_id\n  JOIN sys.query_store_runtime_stats rs ON rs.plan_id = p.plan_id\n  JOIN sys.query_store_runtime_stats_interval rsi ON rsi.runtime_stats_interval_id = rs.runtime_stats_interval_id\n  WHERE rsi.start_time >= $__timeFrom() AND rsi.end_time <= $__timeTo()\n  GROUP BY q.query_id, qt.query_sql_text\n  ORDER BY avg_cpu_ms DESC;\nEND\nELSE\n  SELECT 'Query Store is disabled for this database. Enable with: ALTER DATABASE [$database] SET QUERY_STORE = ON;' AS message;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Query Store — Top by CPU",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Top queries by duration from Query Store.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": true },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "avg_duration_ms" }, "properties": [ { "id": "unit", "value": "ms" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "avg_cpu_ms" }, "properties": [ { "id": "unit", "value": "ms" } ] },
+              { "matcher": { "id": "byName", "options": "query_text" }, "properties": [ { "id": "custom.width", "value": 500 } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 64 },
+          "id": 16,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "avg_duration_ms" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "USE [$database];\nIF EXISTS (SELECT 1 FROM sys.database_query_store_options WHERE actual_state <> 0)\nBEGIN\n  SELECT TOP $top_n\n    q.query_id,\n    qt.query_sql_text AS query_text,\n    SUM(rs.count_executions) AS executions,\n    CAST(SUM(rs.avg_duration * rs.count_executions) / NULLIF(SUM(rs.count_executions),0) / 1000.0 AS DECIMAL(18,2)) AS avg_duration_ms,\n    CAST(SUM(rs.avg_cpu_time * rs.count_executions) / NULLIF(SUM(rs.count_executions),0) / 1000.0 AS DECIMAL(18,2)) AS avg_cpu_ms,\n    CAST(SUM(rs.avg_logical_io_reads * rs.count_executions) / NULLIF(SUM(rs.count_executions),0) AS DECIMAL(18,2)) AS avg_logical_reads\n  FROM sys.query_store_query q\n  JOIN sys.query_store_query_text qt ON qt.query_text_id = q.query_text_id\n  JOIN sys.query_store_plan p ON p.query_id = q.query_id\n  JOIN sys.query_store_runtime_stats rs ON rs.plan_id = p.plan_id\n  JOIN sys.query_store_runtime_stats_interval rsi ON rsi.runtime_stats_interval_id = rs.runtime_stats_interval_id\n  WHERE rsi.start_time >= $__timeFrom() AND rsi.end_time <= $__timeTo()\n  GROUP BY q.query_id, qt.query_sql_text\n  ORDER BY avg_duration_ms DESC;\nEND\nELSE\n  SELECT 'Query Store is disabled for this database.' AS message;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Query Store — Top by Duration",
+          "type": "table"
+        }
+      ],
+      "title": "Query Store",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 75 },
+      "id": 106,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Top fragmented indexes (>10% fragmentation, >1000 pages) for the selected database.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "frag_pct" }, "properties": [ { "id": "unit", "value": "percent" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "size_mb" }, "properties": [ { "id": "unit", "value": "decmbytes" } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 12, "x": 0, "y": 76 },
+          "id": 17,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "frag_pct" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "USE [$database];\nSELECT TOP $top_n\n  OBJECT_SCHEMA_NAME(ips.object_id) AS schema_name,\n  OBJECT_NAME(ips.object_id) AS table_name,\n  i.name AS index_name,\n  ips.index_type_desc,\n  CAST(ips.avg_fragmentation_in_percent AS DECIMAL(5,2)) AS frag_pct,\n  ips.page_count,\n  CAST(ips.page_count * 8.0 / 1024.0 AS DECIMAL(18,2)) AS size_mb\nFROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'LIMITED') ips\nJOIN sys.indexes i ON ips.object_id = i.object_id AND ips.index_id = i.index_id\nWHERE ips.avg_fragmentation_in_percent > 10\n  AND ips.page_count > 1000\nORDER BY ips.avg_fragmentation_in_percent DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Index Fragmentation",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Indexes with no seeks/scans/lookups since last restart but with writes — candidates for removal.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "user_updates" }, "properties": [ { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 12, "x": 12, "y": 76 },
+          "id": 18,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "user_updates" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "USE [$database];\nSELECT TOP $top_n\n  OBJECT_SCHEMA_NAME(i.object_id) AS schema_name,\n  OBJECT_NAME(i.object_id) AS table_name,\n  i.name AS index_name,\n  i.type_desc,\n  ISNULL(s.user_seeks, 0) AS user_seeks,\n  ISNULL(s.user_scans, 0) AS user_scans,\n  ISNULL(s.user_lookups, 0) AS user_lookups,\n  ISNULL(s.user_updates, 0) AS user_updates\nFROM sys.indexes i\nLEFT JOIN sys.dm_db_index_usage_stats s\n  ON s.object_id = i.object_id AND s.index_id = i.index_id AND s.database_id = DB_ID()\nWHERE i.type_desc IN ('NONCLUSTERED','CLUSTERED')\n  AND OBJECTPROPERTY(i.object_id, 'IsUserTable') = 1\n  AND i.is_primary_key = 0\n  AND i.is_unique_constraint = 0\n  AND ISNULL(s.user_seeks, 0) + ISNULL(s.user_scans, 0) + ISNULL(s.user_lookups, 0) = 0\n  AND ISNULL(s.user_updates, 0) > 0\nORDER BY user_updates DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Unused Indexes (write-only)",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Tables with statistics older than 7 days. Stale stats lead to bad query plans.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 86 },
+          "id": 19,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": false, "displayName": "last_updated" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "USE [$database];\nSELECT TOP $top_n\n  OBJECT_SCHEMA_NAME(s.object_id) AS schema_name,\n  OBJECT_NAME(s.object_id) AS table_name,\n  s.name AS stat_name,\n  sp.last_updated,\n  sp.rows,\n  sp.rows_sampled,\n  sp.modification_counter,\n  CAST(100.0 * sp.modification_counter / NULLIF(sp.rows, 0) AS DECIMAL(5,2)) AS modified_pct\nFROM sys.stats s\nCROSS APPLY sys.dm_db_stats_properties(s.object_id, s.stats_id) sp\nWHERE OBJECTPROPERTY(s.object_id, 'IsUserTable') = 1\n  AND (sp.last_updated IS NULL OR sp.last_updated < DATEADD(DAY,-7,GETUTCDATE()))\nORDER BY sp.last_updated ASC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Stale Statistics (>7 days)",
+          "type": "table"
+        }
+      ],
+      "title": "Index Health",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 97 },
+      "id": 107,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Tempdb space allocation by source. Version store growth = long-running RCSI/SI snapshot transactions.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": {
+                "axisBorderShow": false, "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto",
+                "barAlignment": 0, "drawStyle": "bars", "fillOpacity": 80, "gradientMode": "scheme",
+                "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                "insertNulls": false, "lineInterpolation": "smooth", "lineWidth": 1, "pointSize": 5,
+                "scaleDistribution": { "type": "linear" }, "showPoints": "never", "spanNulls": false,
+                "stacking": { "group": "A", "mode": "normal" }, "thresholdsStyle": { "mode": "off" }
+              },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] },
+              "unit": "decmbytes"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 98 },
+          "id": 20,
+          "options": {
+            "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom" },
+            "tooltip": { "mode": "multi", "sort": "desc" }
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT\n  GETUTCDATE() AS time,\n  SUM(CASE WHEN allocation_unit_type_desc = 'IN_ROW_DATA' THEN extent_size_in_pages ELSE 0 END) * 8.0 / 1024 AS [User Objects MB],\n  SUM(CASE WHEN allocation_unit_type_desc = 'LOB_DATA' THEN extent_size_in_pages ELSE 0 END) * 8.0 / 1024 AS [LOB MB]\nFROM tempdb.sys.dm_db_file_space_usage;\n",
+              "format": "time_series",
+              "refId": "A"
+            },
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT\n  GETUTCDATE() AS time,\n  SUM(version_store_reserved_page_count) * 8.0 / 1024 AS [Version Store MB],\n  SUM(internal_object_reserved_page_count) * 8.0 / 1024 AS [Internal Objects MB],\n  SUM(user_object_reserved_page_count) * 8.0 / 1024 AS [User Objects (alloc) MB]\nFROM tempdb.sys.dm_db_file_space_usage;",
+              "format": "time_series",
+              "refId": "B"
+            }
+          ],
+          "title": "Tempdb Space Usage",
+          "type": "timeseries"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Tempdb-using sessions (highest allocator first).",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "alloc_mb" }, "properties": [ { "id": "unit", "value": "decmbytes" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] }
+            ]
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 98 },
+          "id": 21,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "alloc_mb" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT TOP 25\n  ssu.session_id,\n  CAST(SUM(ssu.user_objects_alloc_page_count + ssu.internal_objects_alloc_page_count) * 8.0 / 1024 AS DECIMAL(18,2)) AS alloc_mb,\n  s.login_name,\n  s.host_name,\n  s.program_name,\n  s.status\nFROM sys.dm_db_session_space_usage ssu\nJOIN sys.dm_exec_sessions s ON s.session_id = ssu.session_id\nWHERE ssu.database_id = 2\nGROUP BY ssu.session_id, s.login_name, s.host_name, s.program_name, s.status\nHAVING SUM(ssu.user_objects_alloc_page_count + ssu.internal_objects_alloc_page_count) > 0\nORDER BY alloc_mb DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Top Tempdb Sessions",
+          "type": "table"
+        }
+      ],
+      "title": "Tempdb",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 106 },
+      "id": 108,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Always On Availability Group replicas with sync state and queues. Empty if AG is not configured.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "log_send_queue_kb" }, "properties": [ { "id": "unit", "value": "deckbytes" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "redo_queue_kb" }, "properties": [ { "id": "unit", "value": "deckbytes" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "synchronization_state_desc" }, "properties": [ { "id": "custom.cellOptions", "value": { "type": "color-text" } } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 107 },
+          "id": 22,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "redo_queue_kb" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "IF SERVERPROPERTY('IsHadrEnabled') = 1\nBEGIN\n  SELECT\n    ag.name AS ag_name,\n    ar.replica_server_name,\n    DB_NAME(drs.database_id) AS database_name,\n    drs.synchronization_state_desc,\n    drs.synchronization_health_desc,\n    drs.is_primary_replica,\n    drs.log_send_queue_size AS log_send_queue_kb,\n    drs.log_send_rate AS log_send_rate_kbps,\n    drs.redo_queue_size AS redo_queue_kb,\n    drs.redo_rate AS redo_rate_kbps,\n    drs.last_hardened_time,\n    drs.last_redone_time\n  FROM sys.dm_hadr_database_replica_states drs\n  JOIN sys.availability_replicas ar ON ar.replica_id = drs.replica_id\n  JOIN sys.availability_groups ag ON ag.group_id = ar.group_id\n  ORDER BY ag_name, replica_server_name, database_name;\nEND\nELSE\n  SELECT 'Always On HADR is not enabled on this instance.' AS message;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Availability Group Replica State",
+          "type": "table"
+        }
+      ],
+      "title": "Always On Availability Groups",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 117 },
+      "id": 109,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Last full / differential / log backup per database. Highlight: missing or stale backups.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "hours_since_last_full" }, "properties": [ { "id": "unit", "value": "h" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "hours_since_last_log" }, "properties": [ { "id": "unit", "value": "h" }, { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 118 },
+          "id": 23,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "hours_since_last_full" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT\n  d.name AS database_name,\n  d.recovery_model_desc,\n  d.state_desc,\n  bf.last_full,\n  bd.last_diff,\n  bl.last_log,\n  CAST(DATEDIFF(MINUTE, bf.last_full, GETDATE()) / 60.0 AS DECIMAL(18,2)) AS hours_since_last_full,\n  CAST(DATEDIFF(MINUTE, bd.last_diff, GETDATE()) / 60.0 AS DECIMAL(18,2)) AS hours_since_last_diff,\n  CAST(DATEDIFF(MINUTE, bl.last_log, GETDATE()) / 60.0 AS DECIMAL(18,2)) AS hours_since_last_log\nFROM sys.databases d\nLEFT JOIN (SELECT database_name, MAX(backup_finish_date) AS last_full FROM msdb.dbo.backupset WHERE type = 'D' GROUP BY database_name) bf ON bf.database_name = d.name\nLEFT JOIN (SELECT database_name, MAX(backup_finish_date) AS last_diff FROM msdb.dbo.backupset WHERE type = 'I' GROUP BY database_name) bd ON bd.database_name = d.name\nLEFT JOIN (SELECT database_name, MAX(backup_finish_date) AS last_log FROM msdb.dbo.backupset WHERE type = 'L' GROUP BY database_name) bl ON bl.database_name = d.name\nWHERE d.database_id > 4 AND d.state = 0\nORDER BY hours_since_last_full DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Backup Status",
+          "type": "table"
+        }
+      ],
+      "title": "Backups",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 128 },
+      "id": 110,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Most recent run of every enabled SQL Server Agent job.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "filterable": true, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "run_status_desc" }, "properties": [ { "id": "custom.cellOptions", "value": { "type": "color-text" } } ] },
+              { "matcher": { "id": "byName", "options": "duration_sec" }, "properties": [ { "id": "unit", "value": "s" } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 129 },
+          "id": 24,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "run_datetime" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "WITH latest AS (\n  SELECT job_id, MAX(run_datetime_int) AS rd\n  FROM (\n    SELECT job_id, instance_id,\n      CONVERT(BIGINT, CONVERT(VARCHAR(8), run_date) + RIGHT('000000' + CONVERT(VARCHAR(6), run_time), 6)) AS run_datetime_int\n    FROM msdb.dbo.sysjobhistory\n    WHERE step_id = 0\n  ) x\n  GROUP BY job_id\n)\nSELECT\n  j.name AS job_name,\n  j.enabled AS enabled,\n  CONVERT(DATETIME, STUFF(STUFF(STUFF(CONVERT(VARCHAR(14), latest.rd), 9, 0, ' '), 12, 0, ':'), 15, 0, ':'),120) AS run_datetime,\n  CASE h.run_status\n    WHEN 0 THEN 'Failed'\n    WHEN 1 THEN 'Succeeded'\n    WHEN 2 THEN 'Retry'\n    WHEN 3 THEN 'Cancelled'\n    WHEN 4 THEN 'In Progress'\n  END AS run_status_desc,\n  (h.run_duration / 10000) * 3600 + ((h.run_duration / 100) % 100) * 60 + (h.run_duration % 100) AS duration_sec,\n  h.message\nFROM msdb.dbo.sysjobs j\nLEFT JOIN latest ON latest.job_id = j.job_id\nLEFT JOIN msdb.dbo.sysjobhistory h ON h.job_id = j.job_id\n  AND CONVERT(BIGINT, CONVERT(VARCHAR(8), h.run_date) + RIGHT('000000' + CONVERT(VARCHAR(6), h.run_time), 6)) = latest.rd\n  AND h.step_id = 0\nORDER BY run_datetime DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "SQL Agent — Last Run per Job",
+          "type": "table"
+        }
+      ],
+      "title": "SQL Agent Jobs",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 139 },
+      "id": 111,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Virtual Log File count per database. >1000 indicates fragmented transaction log.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "vlf_count" }, "properties": [ { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 12, "x": 0, "y": 140 },
+          "id": 25,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "vlf_count" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT\n  DB_NAME(database_id) AS database_name,\n  COUNT(*) AS vlf_count,\n  SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS active_vlfs,\n  CAST(SUM(vlf_size_mb) AS DECIMAL(18,2)) AS log_size_mb\nFROM sys.dm_db_log_info(NULL)\nGROUP BY database_id\nORDER BY vlf_count DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "VLF Count by Database",
+          "type": "table"
+        },
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Resource Governor workload group request and CPU stats. Empty if Resource Governor disabled.",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "active_request_count" }, "properties": [ { "id": "custom.cellOptions", "value": { "mode": "gradient", "type": "gauge" } } ] },
+              { "matcher": { "id": "byName", "options": "queued_request_count" }, "properties": [ { "id": "custom.cellOptions", "value": { "type": "color-text" } } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 12, "x": 12, "y": 140 },
+          "id": 26,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "active_request_count" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "SELECT\n  rp.name AS resource_pool,\n  wg.name AS workload_group,\n  wg.active_request_count,\n  wg.queued_request_count,\n  wg.total_request_count,\n  wg.total_cpu_usage_ms,\n  wg.total_lock_wait_count,\n  wg.total_lock_wait_time_ms\nFROM sys.dm_resource_governor_workload_groups wg\nJOIN sys.dm_resource_governor_resource_pools rp ON rp.pool_id = wg.pool_id\nORDER BY wg.active_request_count DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Resource Governor Workload Groups",
+          "type": "table"
+        }
+      ],
+      "title": "Log & Resource Governor",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 150 },
+      "id": 112,
+      "panels": [
+        {
+          "datasource": { "type": "mssql", "uid": "$datasource" },
+          "description": "Failed login attempts captured in the default trace (last 24h).",
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] }
+            },
+            "overrides": [
+              { "matcher": { "id": "byName", "options": "TextData" }, "properties": [ { "id": "custom.width", "value": 600 } ] }
+            ]
+          },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 151 },
+          "id": 27,
+          "options": {
+            "cellHeight": "sm",
+            "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+            "showHeader": true,
+            "sortBy": [{ "desc": true, "displayName": "StartTime" }]
+          },
+          "pluginVersion": "11.6.4",
+          "targets": [
+            {
+              "datasource": { "type": "mssql", "uid": "$datasource" },
+              "rawSql": "DECLARE @path NVARCHAR(260);\nSELECT @path = REVERSE(SUBSTRING(REVERSE(path), CHARINDEX('\\', REVERSE(path)), 260)) + N'log.trc'\nFROM sys.traces WHERE is_default = 1;\nIF @path IS NULL\n  SELECT 'Default trace is disabled.' AS message;\nELSE\n  SELECT TOP 200\n    StartTime,\n    LoginName,\n    HostName,\n    ApplicationName,\n    NTUserName,\n    ClientProcessID,\n    ServerName,\n    DatabaseName,\n    TextData\n  FROM ::fn_trace_gettable(@path, DEFAULT)\n  WHERE EventClass = 20\n    AND StartTime > DATEADD(HOUR,-24,GETDATE())\n  ORDER BY StartTime DESC;",
+              "format": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Failed Logins (24h)",
+          "type": "table"
+        }
+      ],
+      "title": "Security",
+      "type": "row"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "tags": ["mssql", "database", "advanced", "diagnostics", "next-gen"],
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": false, "text": "default", "value": "default" },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "mssql",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": { "selected": false, "text": "master", "value": "master" },
+        "datasource": { "type": "mssql", "uid": "$datasource" },
+        "definition": "SELECT name FROM sys.databases WHERE state = 0 AND database_id > 4 ORDER BY name",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Database",
+        "multi": false,
+        "name": "database",
+        "options": [],
+        "query": "SELECT name FROM sys.databases WHERE state = 0 AND database_id > 4 ORDER BY name",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": { "selected": false, "text": "25", "value": "25" },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Top N",
+        "multi": false,
+        "name": "top_n",
+        "options": [
+          { "selected": false, "text": "10", "value": "10" },
+          { "selected": true, "text": "25", "value": "25" },
+          { "selected": false, "text": "50", "value": "50" },
+          { "selected": false, "text": "100", "value": "100" }
+        ],
+        "query": "10,25,50,100",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "MSSQL — Advanced Diagnostics",
+  "uid": "mssql-advanced-diagnostics",
+  "version": 1,
+  "weekStart": ""
+}
